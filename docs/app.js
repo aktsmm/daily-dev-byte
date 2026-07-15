@@ -5,6 +5,20 @@
     "https://api.github.com/repos/aktsmm/daily-dev-byte/issues/1/comments?per_page=100&sort=created&direction=desc";
   const MARKER = "<!-- DAILY_DEV_BYTE_V1 -->";
   const END_MARKER = "<!-- /DAILY_DEV_BYTE_V1 -->";
+  const FORMAT_LINE = "FORMAT: DAILY_DEV_BYTE_V1";
+  const END_LINE = "END: DAILY_DEV_BYTE_V1";
+  const WORKFLOW_CALL_MARKER =
+    "<!-- gh-aw-workflow-call-id: aktsmm/daily-dev-byte/daily-dev-byte -->";
+  const ALLOWED_SOURCE_HOSTS = new Set([
+    "docs.github.com",
+    "github.blog",
+    "git-scm.com",
+    "www.kernel.org",
+    "www.rfc-editor.org",
+    "www.computerhistory.org",
+    "nvd.nist.gov",
+    "learn.microsoft.com"
+  ]);
   const CATEGORIES = new Set([
     "GitHub/Gitトリビア",
     "今日にまつわるIT史",
@@ -34,8 +48,7 @@
     empty: {
       label: "公開待ち",
       title: "最初のByteを準備しています",
-      message:
-        "フィードにはまだ生成済みの投稿がありません。現在は認証設定前のため、この空状態が正常です。",
+      message: "公開形式を満たす投稿はまだありません。ワークフローの次回実行後に再度ご確認ください。",
       icon: "○",
       retry: true,
       feed: true,
@@ -102,6 +115,25 @@
     }
   }
 
+  function isAllowedSourceUrl(value) {
+    if (typeof value !== "string" || /redacted/i.test(value)) {
+      return false;
+    }
+
+    try {
+      const url = new URL(value);
+      return (
+        url.protocol === "https:" &&
+        !url.username &&
+        !url.password &&
+        ALLOWED_SOURCE_HOSTS.has(url.hostname) &&
+        url.pathname !== "/"
+      );
+    } catch {
+      return false;
+    }
+  }
+
   function isGitHubCommentUrl(value) {
     try {
       const url = new URL(value);
@@ -112,32 +144,13 @@
   }
 
   function getSafeHostname(value) {
-    if (!isHttpsUrl(value)) {
-      throw new Error("URL must use HTTPS.");
+    if (!isAllowedSourceUrl(value)) {
+      throw new Error("URL must be a direct HTTPS page on the source allowlist.");
     }
     return new URL(value).hostname;
   }
 
-  function parseByte(body) {
-    if (typeof body !== "string") {
-      throw new Error("Comment body is not text.");
-    }
-
-    const start = body.indexOf(MARKER);
-    const end = body.indexOf(END_MARKER, start + MARKER.length);
-    if (start === -1 || end === -1) {
-      throw new Error("Daily Dev Byte markers are incomplete.");
-    }
-
-    const block = body.slice(start + MARKER.length, end).trim();
-    const match = block.match(
-      /^DATE: (\d{4}-\d{2}-\d{2})\nCATEGORY: ([^\n]+)\nFACT: ([^\n]+)\nJOKE: ([^\n]+)\nSOURCE: (https:\/\/[^\s]+)$/
-    );
-    if (!match) {
-      throw new Error("Daily Dev Byte fields do not match the required format.");
-    }
-
-    const [, date, category, fact, joke, sourceUrl] = match;
+  function validateByteFields(date, category, fact, joke, sourceUrl) {
     const parsedDate = new Date(`${date}T00:00:00Z`);
     if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) {
       throw new Error("Publication date is invalid.");
@@ -151,42 +164,98 @@
     if (!joke.trim() || joke.includes("\n")) {
       throw new Error("Dad joke must be one non-empty line.");
     }
-    if (!isHttpsUrl(sourceUrl)) {
-      throw new Error("Source URL must use HTTPS.");
+    if (!isAllowedSourceUrl(sourceUrl)) {
+      throw new Error("Source URL must be a direct HTTPS page on the source allowlist.");
     }
 
     return { date, category, fact, joke, sourceUrl };
   }
 
-  function selectNewestMarkedComment(comments) {
+  function parseByte(body) {
+    if (typeof body !== "string") {
+      throw new Error("Comment body is not text.");
+    }
+
+    const visibleStart = body.indexOf(FORMAT_LINE);
+    if (visibleStart !== -1) {
+      const visibleEnd = body.indexOf(END_LINE, visibleStart + FORMAT_LINE.length);
+      if (visibleEnd === -1) {
+        throw new Error("Daily Dev Byte visible sentinels are incomplete.");
+      }
+
+      const block = body.slice(visibleStart, visibleEnd + END_LINE.length).trim();
+      const match = block.match(
+        /^FORMAT: DAILY_DEV_BYTE_V1\nDATE: (\d{4}-\d{2}-\d{2})\nCATEGORY: ([^\n]+)\nFACT: ([^\n]+)\nJOKE: ([^\n]+)\nSOURCE: (https:\/\/[^\s]+)\nEND: DAILY_DEV_BYTE_V1$/
+      );
+      if (!match) {
+        throw new Error("Daily Dev Byte fields do not match the visible contract.");
+      }
+
+      return validateByteFields(...match.slice(1));
+    }
+
+    const legacyStart = body.indexOf(MARKER);
+    const legacyEnd = body.indexOf(END_MARKER, legacyStart + MARKER.length);
+    if (legacyStart === -1 || legacyEnd === -1) {
+      throw new Error("Daily Dev Byte sentinels are missing.");
+    }
+
+    const block = body.slice(legacyStart + MARKER.length, legacyEnd).trim();
+    const match = block.match(
+      /^DATE: (\d{4}-\d{2}-\d{2})\nCATEGORY: ([^\n]+)\nFACT: ([^\n]+)\nJOKE: ([^\n]+)\nSOURCE: (https:\/\/[^\s]+)$/
+    );
+    if (!match) {
+      throw new Error("Daily Dev Byte fields do not match the required format.");
+    }
+
+    return validateByteFields(...match.slice(1));
+  }
+
+  function isGeneratedComment(body) {
+    if (typeof body !== "string") {
+      return false;
+    }
+
+    const hasAgentMarker =
+      body.includes("<!-- gh-aw-agentic-workflow:") &&
+      /(?:^|[,\s])workflow_id: daily-dev-byte(?:,|\s|-->)/.test(body);
+    return hasAgentMarker || body.includes(WORKFLOW_CALL_MARKER) || body.includes(MARKER);
+  }
+
+  function selectGeneratedComments(comments) {
     if (!Array.isArray(comments)) {
       throw new TypeError("GitHub API response is not an array.");
     }
 
-    return (
-      comments
-        .filter(
-          (comment) => comment && typeof comment.body === "string" && comment.body.includes(MARKER)
-        )
-        .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))[0] || null
-    );
+    return comments
+      .filter((comment) => comment && isGeneratedComment(comment.body))
+      .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+  }
+
+  function selectNewestMarkedComment(comments) {
+    return selectGeneratedComments(comments)[0] || null;
   }
 
   function readFeed(comments) {
-    const comment = selectNewestMarkedComment(comments);
-    if (!comment) {
+    const generatedComments = selectGeneratedComments(comments);
+    if (generatedComments.length === 0) {
       return { state: "empty" };
     }
 
-    try {
-      const byte = parseByte(comment.body);
-      if (!isGitHubCommentUrl(comment.html_url)) {
-        throw new Error("GitHub comment URL is invalid.");
+    let lastError;
+    for (const comment of generatedComments) {
+      try {
+        const byte = parseByte(comment.body);
+        if (!isGitHubCommentUrl(comment.html_url)) {
+          throw new Error("GitHub comment URL is invalid.");
+        }
+        return { state: "ready", byte: { ...byte, commentUrl: comment.html_url } };
+      } catch (error) {
+        lastError = error;
       }
-      return { state: "ready", byte: { ...byte, commentUrl: comment.html_url } };
-    } catch (error) {
-      return { state: "malformed", error };
     }
+
+    return { state: "malformed", error: lastError };
   }
 
   function classifyHttpError(response) {
@@ -357,10 +426,15 @@
   const api = {
     MARKER,
     END_MARKER,
+    FORMAT_LINE,
+    END_LINE,
+    WORKFLOW_CALL_MARKER,
     classifyHttpError,
     getDemoState,
     getSafeHostname,
     getStateView,
+    isAllowedSourceUrl,
+    isGeneratedComment,
     parseByte,
     readFeed,
     selectNewestMarkedComment

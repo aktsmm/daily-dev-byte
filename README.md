@@ -14,10 +14,24 @@
 
 1. `.github/workflows/daily-dev-byte.md` が毎日 08:00（Asia/Tokyo）または手動実行で起動します。
 2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。
-3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
-4. `docs/app.js` が公開 GitHub REST API からコメントを新しい順に取得し、最新の `DAILY_DEV_BYTE_V1` マーカーを安全に解析して表示します。
+3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な7行の機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
+4. `docs/app.js` が公開 GitHub REST API からコメントを新しい順に取得します。gh-awの自動workflow markerで生成コメントを識別し、`FORMAT: DAILY_DEV_BYTE_V1` から `END: DAILY_DEV_BYTE_V1` までを検証して、最新の有効な投稿を表示します。新しい投稿が壊れていても、過去の有効な投稿へ復旧します。
 
 ブラウザー側は依存関係やビルド工程がなく、取得した文字列を `textContent` で描画します。コメント内のHTMLをそのままDOMへ挿入しません。
+
+### 公開コメント形式
+
+```text
+FORMAT: DAILY_DEV_BYTE_V1
+DATE: YYYY-MM-DD
+CATEGORY: 許可されたカテゴリ
+FACT: 100-200文字の日本語IT小ネタ
+JOKE: 1行の日本語おやじギャグ
+SOURCE: 許可された公式ドメインの直接HTTPS URL
+END: DAILY_DEV_BYTE_V1
+```
+
+この後ろにgh-awが監査用workflow markerを自動付与します。旧HTML comment marker形式も読み取り互換性のため解析できます。
 
 ## セットアップ
 
@@ -70,7 +84,7 @@ gh run list --repo aktsmm/daily-dev-byte --workflow daily-dev-byte.lock.yml --li
 
 ```powershell
 node --check docs/app.js
-node --test tests/app.test.js
+node --test tests/*.test.js
 python -m http.server 8000 --directory docs
 ```
 
