@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GitHub Agentic Workflowsが毎日生成する、検証済みのIT小ネタとおやじギャグ。">
+    <title>Daily Dev Byte</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へ移動</a>
+    <header class="site-header">
+      <a class="brand" href="https://github.com/aktsmm/daily-dev-byte" aria-label="Daily Dev Byte GitHubリポジトリ">
+        <span class="brand-mark" aria-hidden="true">&gt;_</span>
+        <span>Daily Dev Byte</span>
+      </a>
+      <a class="repo-link" href="https://github.com/aktsmm/daily-dev-byte">GitHubで見る</a>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">ONE VERIFIED BYTE A DAY</p>
+        <h1 id="page-title">今日の開発ネタを、<br><span>ひとくちサイズで。</span></h1>
+        <p class="lead">GitHub Agentic Workflows と Copilot が公式情報を確認し、毎日ひとつのIT小ネタを生成します。</p>
+      </section>
+
+      <section class="byte-shell" aria-label="最新のDaily Dev Byte">
+        <div id="status" class="status" role="status" aria-live="polite">
+          <span class="loader" aria-hidden="true"></span>
+          <span id="status-message">最新のByteを読み込んでいます...</span>
+        </div>
+
+        <article id="byte-card" class="byte-card" hidden>
+          <div class="card-meta">
+            <time id="byte-date" datetime=""></time>
+            <span id="byte-category" class="category"></span>
+          </div>
+          <p id="byte-fact" class="fact"></p>
+          <div class="joke-block">
+            <p class="joke-label">今日のおやじギャグ</p>
+            <p id="byte-joke" class="joke"></p>
+          </div>
+          <div class="card-links">
+            <a id="source-link" href="">出典を確認</a>
+            <a id="comment-link" href="">GitHubコメント</a>
+          </div>
+        </article>
+      </section>
+
+      <aside class="how-it-works" aria-labelledby="how-title">
+        <p class="step-number">AUTOMATED, NOT UNCHECKED</p>
+        <h2 id="how-title">どうやって作っているの？</h2>
+        <p>スケジュール実行されたAgentic Workflowが過去の題材との重複を確認し、信頼できる情報源で事実を検証してから、固定Issueへ安全に投稿します。</p>
+      </aside>
+    </main>
+
+    <footer>
+      <p>Built in public with <a href="https://github.com/github/gh-aw">GitHub Agentic Workflows</a>.</p>
+    </footer>
+  </body>
+</html>
