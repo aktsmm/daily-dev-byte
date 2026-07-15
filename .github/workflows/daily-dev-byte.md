@@ -6,7 +6,9 @@ on:
   workflow_dispatch:
 permissions:
   issues: read
-engine: copilot
+engine:
+  id: copilot
+  copilot-sdk: true
 checkout: false
 network:
   allowed:
