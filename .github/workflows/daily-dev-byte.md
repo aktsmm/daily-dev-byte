@@ -51,7 +51,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - `コマンド/ショートカットTip`
    - `有名なバグ/障害/失敗談`
    When using `今日にまつわるIT史`, the event must share today's month and day in Asia/Tokyo. When using `最近のGitHubアップデート`, confirm that the source identifies a concrete recent release or changelog entry.
-5. Verify the central factual claim with the configured built-in web-fetch capability. Do not use bash, curl, wget, Python, model memory, web search, a third-party search API, or an unlisted domain as a substitute for successful retrieval.
+5. Verify the central factual claim from the main agent by invoking the built-in tool whose exact name is `web_fetch` with the direct source URL. `web_fetch` is a dedicated tool, not a shell command. Do not delegate retrieval to a task/research subagent, and do not use bash, curl, wget, Python, model memory, web search, a third-party search API, or an unlisted domain as a substitute for a successful `web_fetch` result.
 6. The `SOURCE` value must begin with exactly one of these prefixes and must include a direct page path after the host:
    - `https://docs.github.com/`
    - `https://github.blog/`
@@ -61,7 +61,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - `https://www.computerhistory.org/`
    - `https://nvd.nist.gov/`
    - `https://learn.microsoft.com/`
-7. If the first idea cannot be retrieved and verified, discard it and choose another topic. The mandatory timeless fallback is Git revision parsing, using the known direct page `https://git-scm.com/docs/git-rev-parse`; retrieve that exact page before writing the fallback fact. If web-fetch cannot retrieve even the fallback page, call `noop` with the reason and do not call `add-comment`.
+7. If the first idea cannot be retrieved and verified, discard it and choose another topic. The mandatory timeless fallback is Git revision parsing, using the known direct page `https://git-scm.com/docs/git-rev-parse`; call `web_fetch` on that exact URL before writing the fallback fact. Do not conclude that `web_fetch` is unavailable merely because shell networking or a subagent is blocked. If a direct main-agent `web_fetch` call cannot retrieve even the fallback page, call `noop` with the reason and do not call `add-comment`.
 8. Write the fact in natural Japanese using 100-200 Unicode characters, including punctuation. It must be accurate, useful, self-contained, and must not include Markdown links.
 9. Write a separate one-line Japanese dad joke. It must be workplace-safe, non-discriminatory, non-sexual, and must not target or insult any person or group.
 10. Perform the final self-check below. If any check fails, repair the body before calling a safe output. Never publish a body containing `redacted`, parentheses around the source, a homepage URL, or a source you did not successfully fetch.
