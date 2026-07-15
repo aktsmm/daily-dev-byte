@@ -2,61 +2,147 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
+    <script>
+      (() => {
+        const param = new URLSearchParams(window.location.search).get("scoutTheme");
+        const theme =
+          param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="GitHub Agentic Workflowsが毎日生成する、検証済みのIT小ネタとおやじギャグ。">
+    <meta name="description" content="GitHub Agentic Workflowsが毎日生成する、出典付きのIT小ネタとおやじギャグ。">
     <title>Daily Dev Byte</title>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">本文へ移動</a>
+
     <header class="site-header">
-      <a class="brand" href="https://github.com/aktsmm/daily-dev-byte" aria-label="Daily Dev Byte GitHubリポジトリ">
-        <span class="brand-mark" aria-hidden="true">&gt;_</span>
-        <span>Daily Dev Byte</span>
-      </a>
-      <a class="repo-link" href="https://github.com/aktsmm/daily-dev-byte">GitHubで見る</a>
+      <div class="header-inner">
+        <a class="brand" href="https://github.com/aktsmm/daily-dev-byte" aria-label="Daily Dev Byte GitHubリポジトリ">
+          <span class="brand-mark" aria-hidden="true">&gt;_</span>
+          <span>Daily Dev Byte</span>
+        </a>
+        <nav class="header-nav" aria-label="主要リンク">
+          <a href="#how-it-works">仕組み</a>
+          <a href="https://github.com/aktsmm/daily-dev-byte">リポジトリ</a>
+        </nav>
+      </div>
     </header>
 
     <main id="main">
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">ONE VERIFIED BYTE A DAY</p>
-        <h1 id="page-title">今日の開発ネタを、<br><span>ひとくちサイズで。</span></h1>
-        <p class="lead">GitHub Agentic Workflows と Copilot が公式情報を確認し、毎日ひとつのIT小ネタを生成します。</p>
+        <h1 id="page-title">開発の話題を、<span>毎日ひとくち。</span></h1>
+        <p class="lead">GitHub Agentic Workflows と Copilot が、公式・一次情報を確認して届ける小さなITフィードです。</p>
       </section>
 
-      <section class="byte-shell" aria-label="最新のDaily Dev Byte">
-        <div id="status" class="status" role="status" aria-live="polite">
-          <span class="loader" aria-hidden="true"></span>
-          <span id="status-message">最新のByteを読み込んでいます...</span>
+      <section class="latest-section" aria-labelledby="latest-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LATEST FROM ISSUE #1</p>
+            <h2 id="latest-title">今日のDev Byte</h2>
+          </div>
+          <a class="quiet-link" href="https://github.com/aktsmm/daily-dev-byte/issues/1">公開フィードを見る</a>
         </div>
 
-        <article id="byte-card" class="byte-card" hidden>
-          <div class="card-meta">
-            <time id="byte-date" datetime=""></time>
-            <span id="byte-category" class="category"></span>
+        <div
+          id="state-panel"
+          class="state-panel"
+          data-state="loading"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-busy="true"
+          tabindex="-1"
+        >
+          <span id="state-icon" class="state-icon is-spinning" aria-hidden="true">↻</span>
+          <div class="state-copy">
+            <p id="state-label" class="state-label">GitHub API</p>
+            <h3 id="state-title">最新データを取得中</h3>
+            <p id="state-message">公開フィードから最新の投稿を読み込んでいます。</p>
+            <div class="state-actions">
+              <button id="retry-button" class="button" type="button" hidden>もう一度試す</button>
+              <a id="state-feed-link" class="text-button" href="https://github.com/aktsmm/daily-dev-byte/issues/1" hidden>Issue #1を確認</a>
+            </div>
           </div>
+        </div>
+
+        <article id="byte-card" class="byte-card" tabindex="-1" hidden>
+          <header class="card-header">
+            <div>
+              <p class="card-kicker">TODAY'S VERIFIED FACT</p>
+              <h3>今日のIT小ネタ</h3>
+            </div>
+            <div class="card-meta" aria-label="公開情報">
+              <span id="byte-category" class="category"></span>
+              <time id="byte-date" datetime=""></time>
+            </div>
+          </header>
+
           <p id="byte-fact" class="fact"></p>
-          <div class="joke-block">
-            <p class="joke-label">今日のおやじギャグ</p>
-            <p id="byte-joke" class="joke"></p>
+
+          <div class="source-panel">
+            <div>
+              <p class="source-label">一次・公式情報で確認</p>
+              <p id="source-host" class="source-host"></p>
+            </div>
+            <a id="source-link" class="text-button" href="">出典を開く<span class="visually-hidden">（新しいタブ）</span></a>
           </div>
-          <div class="card-links">
-            <a id="source-link" href="">出典を確認</a>
-            <a id="comment-link" href="">GitHubコメント</a>
-          </div>
+
+          <aside class="joke-block" aria-labelledby="joke-title">
+            <p class="joke-symbol" aria-hidden="true">☺</p>
+            <div>
+              <h3 id="joke-title">今日のおやじギャグ</h3>
+              <p id="byte-joke" class="joke"></p>
+            </div>
+          </aside>
+
+          <footer class="card-footer">
+            <p>この内容はAgentic Workflowが生成し、安全な出力経由で投稿しました。</p>
+            <a id="comment-link" class="quiet-link" href="">元のGitHubコメント<span class="visually-hidden">（新しいタブ）</span></a>
+          </footer>
         </article>
       </section>
 
-      <aside class="how-it-works" aria-labelledby="how-title">
-        <p class="step-number">AUTOMATED, NOT UNCHECKED</p>
-        <h2 id="how-title">どうやって作っているの？</h2>
-        <p>スケジュール実行されたAgentic Workflowが過去の題材との重複を確認し、信頼できる情報源で事実を検証してから、固定Issueへ安全に投稿します。</p>
-      </aside>
+      <section id="how-it-works" class="how-section" aria-labelledby="how-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">HOW IT WORKS</p>
+            <h2 id="how-title">仕組み</h2>
+          </div>
+        </div>
+        <ol class="steps">
+          <li>
+            <span aria-hidden="true">01</span>
+            <h3>重複を確認</h3>
+            <p>Issue #1の最近の投稿を読み、同じ題材を避けます。</p>
+          </li>
+          <li>
+            <span aria-hidden="true">02</span>
+            <h3>出典を検証</h3>
+            <p>許可された公式・一次情報だけを取得し、主張を確認します。</p>
+          </li>
+          <li>
+            <span aria-hidden="true">03</span>
+            <h3>安全に公開</h3>
+            <p>読み取り専用のAI処理から分離したsafe outputが投稿します。</p>
+          </li>
+        </ol>
+
+        <nav class="resource-links" aria-label="実装と実行結果">
+          <a href="https://github.com/aktsmm/daily-dev-byte/blob/main/.github/workflows/daily-dev-byte.md">ワークフロー原稿</a>
+          <a href="https://github.com/aktsmm/daily-dev-byte/actions/workflows/daily-dev-byte.lock.yml">Actions実行履歴</a>
+          <a href="https://github.com/aktsmm/daily-dev-byte/blob/main/.github/workflows/daily-dev-byte.lock.yml">コンパイル済みYAML</a>
+          <a href="https://github.com/aktsmm/daily-dev-byte/issues/1">フィードIssue</a>
+        </nav>
+      </section>
     </main>
 
-    <footer>
-      <p>Built in public with <a href="https://github.com/github/gh-aw">GitHub Agentic Workflows</a>.</p>
+    <footer class="site-footer">
+      <p>Dependency-free GitHub Pages demo · <a href="https://github.com/github/gh-aw">GitHub Agentic Workflows</a></p>
     </footer>
   </body>
 </html>
