@@ -13,7 +13,7 @@
 ## アーキテクチャ
 
 1. `.github/workflows/daily-dev-byte.md` が毎日 08:00（Asia/Tokyo）または手動実行で起動します。
-2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。
+2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
 3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な7行の機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
 4. `docs/app.js` が公開 GitHub REST API からコメントを新しい順に取得します。gh-awの自動workflow markerで生成コメントを識別し、`FORMAT: DAILY_DEV_BYTE_V1` から `END: DAILY_DEV_BYTE_V1` までを検証して、最新の有効な投稿を表示します。新しい投稿が壊れていても、過去の有効な投稿へ復旧します。
 

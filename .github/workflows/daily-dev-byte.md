@@ -26,7 +26,7 @@ tools:
     mode: gh-proxy
     toolsets: [issues]
   web-fetch:
-  bash: []
+  bash: ["curl"]
 safe-outputs:
   add-comment:
     target: "1"
@@ -54,7 +54,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - `コマンド/ショートカットTip`
    - `有名なバグ/障害/失敗談`
    When using `今日にまつわるIT史`, the event must share today's month and day in Asia/Tokyo. When using `最近のGitHubアップデート`, confirm that the source identifies a concrete recent release or changelog entry.
-5. Verify the central factual claim from the main agent by invoking the built-in tool whose exact name is `web_fetch` with the direct source URL. `web_fetch` is a dedicated tool, not a shell command. Do not delegate retrieval to a task/research subagent, and do not use bash, curl, wget, Python, model memory, web search, a third-party search API, or an unlisted domain as a substitute for a successful `web_fetch` result.
+5. Verify the central factual claim from the main agent with the direct source URL. Prefer the built-in tool whose exact name is `web_fetch` when it is available. If `web_fetch` is not listed in the active toolset, use the allowed `curl` shell command directly from the main agent instead: `curl --fail --silent --show-error --location --max-time 30 --proto '=https' "DIRECT_URL"`. Do not delegate retrieval to a task/research subagent, and do not use wget, Python, model memory, web search, a third-party search API, or an unlisted domain as a substitute for a successful direct fetch.
 6. The `SOURCE` value must begin with exactly one of these prefixes and must include a direct page path after the host:
    - `https://docs.github.com/`
    - `https://github.blog/`
@@ -64,7 +64,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - `https://www.computerhistory.org/`
    - `https://nvd.nist.gov/`
    - `https://learn.microsoft.com/`
-7. If the first idea cannot be retrieved and verified, discard it and choose another topic. The mandatory timeless fallback is Git revision parsing, using the known direct page `https://git-scm.com/docs/git-rev-parse`; call `web_fetch` on that exact URL before writing the fallback fact. Do not conclude that `web_fetch` is unavailable merely because shell networking or a subagent is blocked. If a direct main-agent `web_fetch` call cannot retrieve even the fallback page, call `noop` with the reason and do not call `add-comment`.
+7. If the first idea cannot be retrieved and verified, discard it and choose another topic. The mandatory timeless fallback is Git revision parsing, using the known direct page `https://git-scm.com/docs/git-rev-parse`. Fetch that exact URL with `web_fetch`, or with the exact allowed `curl` command from step 5 when `web_fetch` is absent, before writing the fallback fact. If neither direct main-agent method can retrieve the fallback page, call `noop` with the reason and do not call `add-comment`.
 8. Write the fact in natural Japanese using 100-200 Unicode characters, including punctuation. It must be accurate, useful, self-contained, and must not include Markdown links.
 9. Write a separate one-line Japanese dad joke. It must be workplace-safe, non-discriminatory, non-sexual, and must not target or insult any person or group.
 10. Perform the final self-check below. If any check fails, repair the body before calling a safe output. Never publish a body containing `redacted`, parentheses around the source, a homepage URL, or a source you did not successfully fetch.
@@ -95,7 +95,7 @@ Before `add-comment`, verify all of the following:
 - `CATEGORY` exactly matches one allowed category.
 - `FACT` is 100-200 Unicode characters.
 - `JOKE` is present on one separate line.
-- `SOURCE` is the exact HTTPS page successfully fetched, starts with one allowed prefix above, has a path after the host, and contains neither `redacted` nor parentheses.
+- `SOURCE` is byte-for-byte the exact URL passed to the successful `web_fetch` or `curl` call, starts with one allowed HTTPS prefix above, has a path after the host, and contains neither `redacted` nor parentheses.
 - The subject is not duplicated in recent valid workflow comments.
 
 If any item is false and cannot be repaired, use `noop` instead of publishing.
