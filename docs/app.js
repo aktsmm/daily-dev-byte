@@ -219,7 +219,12 @@
     const hasAgentMarker =
       body.includes("<!-- gh-aw-agentic-workflow:") &&
       /(?:^|[,\s])workflow_id: daily-dev-byte(?:,|\s|-->)/.test(body);
-    return hasAgentMarker || body.includes(WORKFLOW_CALL_MARKER) || body.includes(MARKER);
+    return (
+      hasAgentMarker ||
+      body.includes(WORKFLOW_CALL_MARKER) ||
+      body.includes(FORMAT_LINE) ||
+      body.includes(MARKER)
+    );
   }
 
   function selectGeneratedComments(comments) {

@@ -81,10 +81,11 @@ test("retains backward compatibility with legacy HTML sentinels", () => {
   assert.equal(parseByte(legacyBody()).fact, fact);
 });
 
-test("recognizes automatic gh-aw markers and ignores unrelated visible text", () => {
+test("recognizes automatic gh-aw markers and the visible contract", () => {
   assert.equal(isGeneratedComment(body()), true);
-  assert.equal(isGeneratedComment(`${FORMAT_LINE}\nnot a workflow comment`), false);
+  assert.equal(isGeneratedComment(`${FORMAT_LINE}\nnot a complete workflow comment`), true);
   assert.equal(isGeneratedComment(`noise\n${WORKFLOW_CALL_MARKER}`), true);
+  assert.equal(isGeneratedComment("ordinary issue discussion"), false);
 });
 
 test("selects the newest generated comment regardless of input order", () => {
@@ -103,7 +104,8 @@ test("falls back to an older valid comment when the newest generated comment is 
 });
 
 test("distinguishes no generated comments from generated but malformed comments", () => {
-  assert.deepEqual(readFeed([{ body: `${FORMAT_LINE}\nunrelated` }]), { state: "empty" });
+  assert.deepEqual(readFeed([{ body: "ordinary issue discussion" }]), { state: "empty" });
+  assert.equal(readFeed([{ body: `${FORMAT_LINE}\nincomplete` }]).state, "malformed");
   assert.equal(readFeed([comment(firstRunBody, "2026-07-16T00:00:00Z", 2)]).state, "malformed");
 });
 
