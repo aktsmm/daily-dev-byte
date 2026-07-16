@@ -1,6 +1,6 @@
 # Daily Dev Byte
 
-毎日ひとつ、検証済みのIT小ネタとおやじギャグを届ける GitHub Agentic Workflows のデモです。
+毎日ひとつ、検証済みのIT小ネタと、同じ／近い音を別の意味で掛ける日本語の音声的なダジャレを届ける GitHub Agentic Workflows のデモです。
 
 **Public Preview:** GitHub Agentic Workflows は Public Preview の機能です。仕様や利用条件が変更される可能性があります。
 
@@ -26,7 +26,7 @@ FORMAT: DAILY_DEV_BYTE_V1
 DATE: YYYY-MM-DD
 CATEGORY: 許可されたカテゴリ
 FACT: 100-200文字の日本語IT小ネタ
-JOKE: 1行の日本語おやじギャグ
+JOKE: 1行の日本語おやじギャグ（同音・類音を別義で掛けるダジャレ）
 SOURCE: 許可された公式ドメインの直接HTTPS URL
 END: DAILY_DEV_BYTE_V1
 ```
