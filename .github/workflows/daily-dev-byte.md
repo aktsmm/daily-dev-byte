@@ -9,6 +9,7 @@ permissions:
 engine:
   id: copilot
   copilot-sdk: true
+  model: gpt-5.4
 checkout: false
 network:
   allowed:
@@ -43,7 +44,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
 
 ## Required process
 
-1. Use the GitHub issue tools to read the issue title, labels, and recent comments on issue #1.
+1. Use the GitHub issue tools to read the issue title, labels, and recent comments on issue #1. Do not probe tools or dates with shell commands; use the run context for the current date and invoke the declared tools directly.
 2. Confirm that issue #1 has the `daily-byte-feed` label. If it does not, stop without requesting any safe output.
 3. Extract the subjects of recent comments containing both `FORMAT: DAILY_DEV_BYTE_V1` and the automatic `workflow_id: daily-dev-byte` marker. Do not repeat or lightly rephrase a subject already present.
 4. Select exactly one category:
