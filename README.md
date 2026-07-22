@@ -15,9 +15,10 @@
 1. `.github/workflows/daily-dev-byte.md` が毎日 08:00（Asia/Tokyo）または手動実行で起動します。
 2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
 3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な7行の機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
-4. `docs/app.js` が公開 GitHub REST API からコメントを新しい順に取得します。gh-awの自動workflow markerまたは可視の`FORMAT: DAILY_DEV_BYTE_V1`で生成コメントを識別し、`END: DAILY_DEV_BYTE_V1`までを検証して、最新の有効な投稿を表示します。新しい投稿が壊れていても、過去の有効な投稿へ復旧します。
+4. Issue #1 が追記型の永続的な正本（source of truth）です。`docs/app.js` は公開 GitHub REST API から最大100件のコメントを取得し、`github-actions[bot]`による投稿だけを対象に、gh-awの自動workflow markerまたは可視の`FORMAT: DAILY_DEV_BYTE_V1`で生成コメントを識別します。
+5. 各コメントを`END: DAILY_DEV_BYTE_V1`まで個別に検証し、有効な投稿をコメント公開時刻の新しい順に並べます。最新の1件を「最新のDev Byte」、残りを「これまでのByte」としてPagesに表示します。新しい投稿が壊れていても、過去の有効な履歴は失われません。
 
-ブラウザー側は依存関係やビルド工程がなく、取得した文字列を `textContent` で描画します。コメント内のHTMLをそのままDOMへ挿入しません。
+ブラウザー側は依存関係やビルド工程がなく、取得した文字列を `textContent` で描画します。コメント内のHTMLをそのままDOMへ挿入しません。アーカイブは最初の6件だけを表示し、「もっと見る／閉じる」で段階的に閲覧できます。
 
 ### 公開コメント形式
 
@@ -71,7 +72,7 @@ gh workflow run daily-dev-byte.lock.yml --repo aktsmm/daily-dev-byte --ref main
 gh run list --repo aktsmm/daily-dev-byte --workflow daily-dev-byte.lock.yml --limit 1
 ```
 
-実行完了後、Issue #1 に新しいコメントが追加され、Pages のカードへ反映されることを確認します。GitHub Actions のスケジュール実行は高負荷時に遅延することがあり、指定時刻ちょうどの開始は保証されません。
+実行完了後、Issue #1 に新しいコメントが追加され、Pages の最新カードと永続アーカイブへ反映されることを確認します。GitHub Actions のスケジュール実行は高負荷時に遅延することがあり、指定時刻ちょうどの開始は保証されません。
 
 ## 運用上の注意
 

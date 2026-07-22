@@ -9,6 +9,7 @@
   const END_LINE = "END: DAILY_DEV_BYTE_V1";
   const WORKFLOW_CALL_MARKER =
     "<!-- gh-aw-workflow-call-id: aktsmm/daily-dev-byte/daily-dev-byte -->";
+  const ARCHIVE_PAGE_SIZE = 6;
   const ALLOWED_SOURCE_HOSTS = new Set([
     "docs.github.com",
     "github.blog",
@@ -38,8 +39,8 @@
   const STATE_VIEWS = Object.freeze({
     loading: {
       label: "GitHub API",
-      title: "最新データを取得中",
-      message: "公開フィードから最新の投稿を読み込んでいます。",
+      title: "公開履歴を取得中",
+      message: "Issue #1から最新の投稿と、これまでのByteを読み込んでいます。",
       icon: "↻",
       retry: false,
       feed: false,
@@ -48,17 +49,17 @@
     empty: {
       label: "公開待ち",
       title: "最初のByteを準備しています",
-      message: "公開形式を満たす投稿はまだありません。ワークフローの次回実行後に再度ご確認ください。",
+      message: "公開形式を満たす投稿はまだありません。次回のワークフロー実行後にご確認ください。",
       icon: "○",
       retry: true,
       feed: true,
       alert: false
     },
     malformed: {
-      label: "形式エラー",
-      title: "最新の投稿を表示できません",
+      label: "表示できる投稿なし",
+      title: "有効なByteが見つかりません",
       message:
-        "投稿は見つかりましたが、Daily Dev Byteの公開形式と一致しません。フィードで元データを確認できます。",
+        "生成コメントはありますが、現在の公開形式で安全に表示できる投稿がありません。Issue #1で元データを確認できます。",
       icon: "!",
       retry: true,
       feed: true,
@@ -85,7 +86,7 @@
     },
     "api-error": {
       label: "GitHub API",
-      title: "公開フィードを取得できません",
+      title: "公開履歴を取得できません",
       message: "GitHub APIから正常な応答がありませんでした。時間をおいて再試行してください。",
       icon: "×",
       retry: true,
@@ -98,21 +99,18 @@
     category: "GitHub/Gitトリビア",
     fact:
       "Gitのコミットはファイル差分そのものではなく、プロジェクト全体のスナップショットを指すオブジェクトです。各コミットは親コミットとツリー、作者などを参照し、その内容から計算されたハッシュで識別されます。この構造が履歴の追跡と改ざん検知を支えています。",
-    joke: "コミットの前では、悩みもきっと「差分」になります。",
+    joke: "コミットを忘れるなんて、こみっともない！",
     sourceUrl: "https://git-scm.com/book/ja/v2/Gitの内側-Gitオブジェクト",
-    commentUrl: "https://github.com/aktsmm/daily-dev-byte/issues/1"
+    commentUrl:
+      "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-2000000000",
+    createdAt: "2026-07-16T00:00:00Z"
   });
+
+  let currentArchiveEntries = [];
+  let archiveExpanded = false;
 
   function characterCount(value) {
     return Array.from(value).length;
-  }
-
-  function isHttpsUrl(value) {
-    try {
-      return new URL(value).protocol === "https:";
-    } catch {
-      return false;
-    }
   }
 
   function isAllowedSourceUrl(value) {
@@ -135,9 +133,21 @@
   }
 
   function isGitHubCommentUrl(value) {
+    if (typeof value !== "string") {
+      return false;
+    }
+
     try {
       const url = new URL(value);
-      return url.protocol === "https:" && url.hostname === "github.com";
+      return (
+        url.protocol === "https:" &&
+        !url.username &&
+        !url.password &&
+        url.hostname === "github.com" &&
+        url.pathname === "/aktsmm/daily-dev-byte/issues/1" &&
+        !url.search &&
+        /^#issuecomment-\d+$/.test(url.hash)
+      );
     } catch {
       return false;
     }
@@ -227,18 +237,59 @@
     );
   }
 
+  function isTrustedPublisher(comment) {
+    return Boolean(
+      comment &&
+        comment.user &&
+        comment.user.login === "github-actions[bot]" &&
+        comment.user.type === "Bot"
+    );
+  }
+
   function selectGeneratedComments(comments) {
     if (!Array.isArray(comments)) {
       throw new TypeError("GitHub API response is not an array.");
     }
 
     return comments
-      .filter((comment) => comment && isGeneratedComment(comment.body))
-      .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+      .filter((comment) => isTrustedPublisher(comment) && isGeneratedComment(comment.body))
+      .sort((a, b) => {
+        const newer = Date.parse(b.created_at);
+        const older = Date.parse(a.created_at);
+        return (Number.isFinite(newer) ? newer : 0) - (Number.isFinite(older) ? older : 0);
+      });
   }
 
   function selectNewestMarkedComment(comments) {
     return selectGeneratedComments(comments)[0] || null;
+  }
+
+  function splitHeroAndArchive(entries) {
+    if (!Array.isArray(entries)) {
+      throw new TypeError("Entries must be an array.");
+    }
+    return {
+      hero: entries[0] || null,
+      archiveEntries: entries.slice(1)
+    };
+  }
+
+  function getVisibleArchiveEntries(entries, expanded, limit = ARCHIVE_PAGE_SIZE) {
+    if (!Array.isArray(entries) || !Number.isInteger(limit) || limit < 1) {
+      throw new TypeError("Archive entries and limit are invalid.");
+    }
+    return expanded ? entries.slice() : entries.slice(0, limit);
+  }
+
+  function getArchiveDisclosureState(total, expanded, limit = ARCHIVE_PAGE_SIZE) {
+    if (!Number.isInteger(total) || total < 0 || !Number.isInteger(limit) || limit < 1) {
+      throw new TypeError("Archive disclosure values are invalid.");
+    }
+    return {
+      hidden: total <= limit,
+      expanded: total > limit && Boolean(expanded),
+      label: total > limit && expanded ? "閉じる" : `もっと見る（残り${Math.max(total - limit, 0)}件）`
+    };
   }
 
   function readFeed(comments) {
@@ -247,20 +298,56 @@
       return { state: "empty" };
     }
 
+    const entries = [];
+    let invalidCount = 0;
     let lastError;
+
     for (const comment of generatedComments) {
       try {
         const byte = parseByte(comment.body);
         if (!isGitHubCommentUrl(comment.html_url)) {
           throw new Error("GitHub comment URL is invalid.");
         }
-        return { state: "ready", byte: { ...byte, commentUrl: comment.html_url } };
+        if (!Number.isFinite(Date.parse(comment.created_at))) {
+          throw new Error("GitHub comment timestamp is invalid.");
+        }
+        entries.push({
+          ...byte,
+          commentUrl: comment.html_url,
+          createdAt: comment.created_at
+        });
       } catch (error) {
+        invalidCount += 1;
         lastError = error;
       }
     }
 
-    return { state: "malformed", error: lastError };
+    entries.sort(
+      (a, b) =>
+        Date.parse(b.createdAt) - Date.parse(a.createdAt) ||
+        Date.parse(`${b.date}T00:00:00Z`) - Date.parse(`${a.date}T00:00:00Z`)
+    );
+
+    if (entries.length === 0) {
+      return {
+        state: "malformed",
+        entries: [],
+        invalidCount,
+        generatedCount: generatedComments.length,
+        error: lastError
+      };
+    }
+
+    const { hero, archiveEntries } = splitHeroAndArchive(entries);
+    return {
+      state: "ready",
+      entries,
+      byte: hero,
+      hero,
+      archiveEntries,
+      invalidCount,
+      generatedCount: generatedComments.length
+    };
   }
 
   function classifyHttpError(response) {
@@ -291,6 +378,27 @@
     return DEMO_STATES.has(value) ? value : null;
   }
 
+  function configureExternalLink(link, url, kind) {
+    const isSafe = kind === "source" ? isAllowedSourceUrl(url) : isGitHubCommentUrl(url);
+    if (!isSafe) {
+      throw new Error("External link is not allowed.");
+    }
+    link.href = url;
+    link.rel = "noopener noreferrer";
+    link.target = "_blank";
+  }
+
+  function createElement(tagName, className, text) {
+    const element = document.createElement(tagName);
+    if (className) {
+      element.className = className;
+    }
+    if (typeof text === "string") {
+      element.textContent = text;
+    }
+    return element;
+  }
+
   function renderState(state, options = {}) {
     const view = getStateView(state);
     const panel = document.getElementById("state-panel");
@@ -301,6 +409,7 @@
     panel.hidden = false;
     panel.dataset.state = state;
     panel.setAttribute("role", view.alert ? "alert" : "status");
+    panel.setAttribute("aria-live", view.alert ? "assertive" : "polite");
     panel.setAttribute("aria-busy", state === "loading" ? "true" : "false");
     icon.textContent = view.icon;
     icon.classList.toggle("is-spinning", state === "loading");
@@ -310,13 +419,14 @@
     retry.hidden = !view.retry;
     feedLink.hidden = !view.feed;
     document.getElementById("byte-card").hidden = true;
+    document.getElementById("archive-section").hidden = true;
 
     if (options.focus) {
       panel.focus();
     }
   }
 
-  function renderByte(byte, options = {}) {
+  function renderHero(byte, options = {}) {
     const panel = document.getElementById("state-panel");
     const card = document.getElementById("byte-card");
     const date = document.getElementById("byte-date");
@@ -329,12 +439,8 @@
     document.getElementById("byte-fact").textContent = byte.fact;
     document.getElementById("byte-joke").textContent = byte.joke;
     document.getElementById("source-host").textContent = getSafeHostname(byte.sourceUrl);
-    sourceLink.href = byte.sourceUrl;
-    sourceLink.rel = "noopener noreferrer";
-    sourceLink.target = "_blank";
-    commentLink.href = byte.commentUrl;
-    commentLink.rel = "noopener noreferrer";
-    commentLink.target = "_blank";
+    configureExternalLink(sourceLink, byte.sourceUrl, "source");
+    configureExternalLink(commentLink, byte.commentUrl, "comment");
 
     panel.hidden = true;
     card.hidden = false;
@@ -343,7 +449,81 @@
     }
   }
 
-  async function loadLatestByte(fetchImpl, options = {}) {
+  function createArchiveCard(byte) {
+    const article = createElement("article", "archive-card");
+    const header = createElement("header", "archive-card-header");
+    const titleWrap = createElement("div", "archive-title");
+    const date = createElement("time", "archive-date", byte.date);
+    date.dateTime = byte.date;
+    const category = createElement("p", "archive-category", byte.category);
+    titleWrap.append(date, category);
+
+    const commentLink = createElement("a", "archive-comment-link", "GitHubコメント ↗");
+    configureExternalLink(commentLink, byte.commentUrl, "comment");
+    header.append(titleWrap, commentLink);
+
+    const fact = createElement("p", "archive-fact", byte.fact);
+    const jokeWrap = createElement("div", "archive-joke");
+    jokeWrap.append(
+      createElement("p", "archive-label", "DAD JOKE"),
+      createElement("p", "archive-joke-copy", byte.joke)
+    );
+
+    const sourceLink = createElement("a", "archive-source", `出典: ${getSafeHostname(byte.sourceUrl)} ↗`);
+    configureExternalLink(sourceLink, byte.sourceUrl, "source");
+    article.append(header, fact, jokeWrap, sourceLink);
+    return article;
+  }
+
+  function renderArchiveList() {
+    const list = document.getElementById("archive-list");
+    const empty = document.getElementById("archive-empty");
+    const summary = document.getElementById("archive-summary");
+    const disclosure = document.getElementById("archive-toggle");
+    const visibleEntries = getVisibleArchiveEntries(currentArchiveEntries, archiveExpanded);
+    const disclosureState = getArchiveDisclosureState(
+      currentArchiveEntries.length,
+      archiveExpanded
+    );
+
+    list.replaceChildren(...visibleEntries.map(createArchiveCard));
+    empty.hidden = currentArchiveEntries.length !== 0;
+    list.hidden = currentArchiveEntries.length === 0;
+    disclosure.hidden = disclosureState.hidden;
+    disclosure.setAttribute("aria-expanded", String(disclosureState.expanded));
+    disclosure.textContent = disclosureState.label;
+
+    if (currentArchiveEntries.length === 0) {
+      summary.textContent = "過去の有効なByteはまだありません。";
+    } else if (disclosureState.expanded) {
+      summary.textContent = `これまでのByte 全${currentArchiveEntries.length}件を表示しています。`;
+    } else {
+      summary.textContent = `これまでのByte ${visibleEntries.length}件を表示しています。`;
+    }
+  }
+
+  function setArchiveExpanded(expanded) {
+    archiveExpanded = Boolean(expanded);
+    renderArchiveList();
+  }
+
+  function renderFeed(result, options = {}) {
+    renderHero(result.hero, options);
+    currentArchiveEntries = result.archiveEntries.slice();
+    archiveExpanded = false;
+
+    const archiveSection = document.getElementById("archive-section");
+    const qualityNote = document.getElementById("data-quality-note");
+    qualityNote.hidden = result.invalidCount === 0;
+    qualityNote.textContent =
+      result.invalidCount > 0
+        ? `表示形式を満たさない生成コメント ${result.invalidCount}件は一覧から除外しています。`
+        : "";
+    archiveSection.hidden = false;
+    renderArchiveList();
+  }
+
+  async function loadFeed(fetchImpl, options = {}) {
     renderState("loading");
 
     let response;
@@ -396,13 +576,29 @@
     } else if (result.state === "malformed") {
       renderState("malformed", { focus: options.focus });
     } else {
-      renderByte(result.byte, { focus: options.focus });
+      renderFeed(result, { focus: options.focus });
     }
+  }
+
+  function createDemoFeed() {
+    const entries = Array.from({ length: 9 }, (_, index) => {
+      const day = String(16 - index).padStart(2, "0");
+      return {
+        ...DEMO_BYTE,
+        date: `2026-07-${day}`,
+        commentUrl: `https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-${
+          2000000000 - index
+        }`,
+        createdAt: `2026-07-${day}T00:00:00Z`
+      };
+    });
+    const { hero, archiveEntries } = splitHeroAndArchive(entries);
+    return { state: "ready", entries, hero, archiveEntries, invalidCount: 1 };
   }
 
   function renderDemoState(state, options = {}) {
     if (state === "success") {
-      renderByte(DEMO_BYTE, options);
+      renderFeed(createDemoFeed(), options);
     } else {
       renderState(state, options);
     }
@@ -412,37 +608,48 @@
     const demoState = getDemoState(root.location.search);
     const fetchImpl = root.fetch.bind(root);
     const retry = document.getElementById("retry-button");
+    const archiveToggle = document.getElementById("archive-toggle");
 
     retry.addEventListener("click", () => {
       if (demoState) {
         renderDemoState(demoState, { focus: true });
       } else {
-        loadLatestByte(fetchImpl, { focus: true });
+        loadFeed(fetchImpl, { focus: true });
       }
+    });
+    archiveToggle.addEventListener("click", () => {
+      setArchiveExpanded(!archiveExpanded);
     });
 
     if (demoState) {
       renderDemoState(demoState);
     } else {
-      loadLatestByte(fetchImpl);
+      loadFeed(fetchImpl);
     }
   }
 
   const api = {
+    API_URL,
+    ARCHIVE_PAGE_SIZE,
     MARKER,
     END_MARKER,
     FORMAT_LINE,
     END_LINE,
     WORKFLOW_CALL_MARKER,
     classifyHttpError,
+    getArchiveDisclosureState,
     getDemoState,
     getSafeHostname,
     getStateView,
+    getVisibleArchiveEntries,
     isAllowedSourceUrl,
     isGeneratedComment,
+    isGitHubCommentUrl,
+    isTrustedPublisher,
     parseByte,
     readFeed,
-    selectNewestMarkedComment
+    selectNewestMarkedComment,
+    splitHeroAndArchive
   };
   root.DailyDevByte = api;
   if (typeof module !== "undefined" && module.exports) {

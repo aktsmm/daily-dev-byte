@@ -9,14 +9,19 @@ const {
   END_LINE,
   WORKFLOW_CALL_MARKER,
   classifyHttpError,
+  getArchiveDisclosureState,
   getDemoState,
   getSafeHostname,
   getStateView,
+  getVisibleArchiveEntries,
   isAllowedSourceUrl,
   isGeneratedComment,
+  isGitHubCommentUrl,
+  isTrustedPublisher,
   parseByte,
   readFeed,
-  selectNewestMarkedComment
+  selectNewestMarkedComment,
+  splitHeroAndArchive
 } = require("../docs/app.js");
 
 const fact = "あ".repeat(120);
@@ -63,7 +68,11 @@ function comment(commentBody, createdAt, id) {
   return {
     body: commentBody,
     created_at: createdAt,
-    html_url: `https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-${id}`
+    html_url: `https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-${id}`,
+    user: {
+      login: "github-actions[bot]",
+      type: "Bot"
+    }
   };
 }
 
@@ -101,11 +110,73 @@ test("falls back to an older valid comment when the newest generated comment is 
   ]);
   assert.equal(result.state, "ready");
   assert.match(result.byte.commentUrl, /issuecomment-1$/);
+  assert.equal(result.invalidCount, 1);
+});
+
+test("extracts every valid entry, sorts by comment publication time, and filters invalid history", () => {
+  const result = readFeed([
+    comment(body({ date: "2026-07-14" }), "2026-07-17T00:00:00Z", 3),
+    comment(firstRunBody, "2026-07-18T00:00:00Z", 4),
+    comment(body({ date: "2026-07-16" }), "2026-07-16T00:00:00Z", 2),
+    comment(body({ date: "2026-07-15" }), "2026-07-15T00:00:00Z", 1),
+    { body: "ordinary issue discussion" }
+  ]);
+
+  assert.equal(result.state, "ready");
+  assert.deepEqual(
+    result.entries.map((entry) => entry.date),
+    ["2026-07-14", "2026-07-16", "2026-07-15"]
+  );
+  assert.equal(result.invalidCount, 1);
+  assert.equal(result.generatedCount, 4);
+});
+
+test("ignores forged contract comments from untrusted publishers", () => {
+  const forged = {
+    ...comment(body({ date: "2099-01-01" }), "2026-07-19T00:00:00Z", 99),
+    user: { login: "untrusted-user", type: "User" }
+  };
+  const valid = comment(body(), "2026-07-16T00:00:00Z", 1);
+  const result = readFeed([forged, valid]);
+
+  assert.equal(isTrustedPublisher(forged), false);
+  assert.equal(isTrustedPublisher(valid), true);
+  assert.equal(result.entries.length, 1);
+  assert.match(result.hero.commentUrl, /issuecomment-1$/);
+  assert.equal(result.invalidCount, 0);
+});
+
+test("separates the hero from archive entries without duplication", () => {
+  const entries = [{ date: "2026-07-16" }, { date: "2026-07-15" }, { date: "2026-07-14" }];
+  const result = splitHeroAndArchive(entries);
+
+  assert.equal(result.hero, entries[0]);
+  assert.deepEqual(result.archiveEntries, entries.slice(1));
+  assert.equal(result.archiveEntries.includes(result.hero), false);
+});
+
+test("limits archive disclosure to six entries until expanded", () => {
+  const entries = Array.from({ length: 8 }, (_, index) => ({ index }));
+
+  assert.deepEqual(getVisibleArchiveEntries(entries, false).map(({ index }) => index), [
+    0, 1, 2, 3, 4, 5
+  ]);
+  assert.equal(getVisibleArchiveEntries(entries, true).length, 8);
+  assert.deepEqual(getArchiveDisclosureState(8, false), {
+    hidden: false,
+    expanded: false,
+    label: "もっと見る（残り2件）"
+  });
+  assert.equal(getArchiveDisclosureState(8, true).label, "閉じる");
+  assert.equal(getArchiveDisclosureState(6, false).hidden, true);
 });
 
 test("distinguishes no generated comments from generated but malformed comments", () => {
   assert.deepEqual(readFeed([{ body: "ordinary issue discussion" }]), { state: "empty" });
-  assert.equal(readFeed([{ body: `${FORMAT_LINE}\nincomplete` }]).state, "malformed");
+  assert.equal(
+    readFeed([comment(`${FORMAT_LINE}\nincomplete`, "2026-07-16T00:00:00Z", 1)]).state,
+    "malformed"
+  );
   assert.equal(readFeed([comment(firstRunBody, "2026-07-16T00:00:00Z", 2)]).state, "malformed");
 });
 
@@ -132,6 +203,29 @@ test("enforces the curated HTTPS source allowlist", () => {
   assert.equal(isAllowedSourceUrl("https://evil.example/docs"), false);
   assert.equal(getSafeHostname("https://docs.github.com/en/rest"), "docs.github.com");
   assert.throws(() => getSafeHostname("https://example.com/docs"));
+});
+
+test("accepts only canonical Issue #1 comment permalinks", () => {
+  assert.equal(
+    isGitHubCommentUrl(
+      "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-123456789"
+    ),
+    true
+  );
+  assert.equal(isGitHubCommentUrl("https://github.com/evil/repo/issues/1#issuecomment-1"), false);
+  assert.equal(
+    isGitHubCommentUrl(
+      "https://github.com/aktsmm/daily-dev-byte/issues/1?redirect=evil#issuecomment-1"
+    ),
+    false
+  );
+  assert.equal(
+    isGitHubCommentUrl(
+      "https://user@github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-1"
+    ),
+    false
+  );
+  assert.equal(isGitHubCommentUrl("javascript:alert(1)"), false);
 });
 
 test("classifies rate limits only when GitHub reports exhausted quota", () => {

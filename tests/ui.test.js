@@ -33,7 +33,8 @@ const requiredThemeVariables = [
   "--cp-panel",
   "--cp-panel-strong",
   "--cp-sheen",
-  "--cp-highlight"
+  "--cp-highlight",
+  "--cp-card-shadow"
 ];
 
 test("loads the mandatory theme detector before application JavaScript", () => {
@@ -55,13 +56,33 @@ test("defines every Clawpilot variable for both themes", () => {
     /font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif/
   );
   assert.doesNotMatch(css, /linear-gradient|radial-gradient|font-family: Inter/);
+  const definedVariables = [...css.matchAll(/^\s*(--cp-[\w-]+):/gm)].map((match) => match[1]);
+  assert.deepEqual(
+    [...new Set(definedVariables)].sort(),
+    requiredThemeVariables.slice().sort(),
+    "the mandatory Clawpilot variable set must remain exact"
+  );
 });
 
-test("includes semantic landmarks, retry, state, proof, and workflow links", () => {
+test("uses Clawpilot variables for every component color", () => {
+  const componentCss = css
+    .split("\n")
+    .filter((line) => !line.trimStart().startsWith("--cp-"))
+    .join("\n");
+  assert.doesNotMatch(componentCss, /#[0-9a-f]{3,8}\b|rgba?\(|hsla?\(/i);
+});
+
+test("includes semantic landmarks, archive disclosure, state, proof, and workflow links", () => {
   assert.match(html, /<main id="main">/);
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /role="status"/);
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /id="retry-button"/);
+  assert.match(html, /id="archive-section"/);
+  assert.match(html, /id="archive-list"/);
+  assert.match(html, /id="archive-toggle"/);
+  assert.match(html, /aria-controls="archive-list"/);
+  assert.match(html, />これまでのByte</);
   assert.match(html, /id="source-host"/);
   assert.match(html, /daily-dev-byte\.md/);
   assert.match(html, /daily-dev-byte\.lock\.yml/);
@@ -74,4 +95,7 @@ test("never renders untrusted content through innerHTML", () => {
   assert.match(js, /textContent = byte\.fact/);
   assert.match(js, /textContent = byte\.joke/);
   assert.match(js, /getSafeHostname\(byte\.sourceUrl\)/);
+  assert.match(js, /replaceChildren\(\.\.\.visibleEntries\.map\(createArchiveCard\)\)/);
+  assert.match(js, /configureExternalLink\(commentLink, byte\.commentUrl, "comment"\)/);
+  assert.match(js, /aria-live", view\.alert \? "assertive" : "polite"/);
 });
