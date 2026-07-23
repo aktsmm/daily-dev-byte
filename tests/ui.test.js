@@ -90,6 +90,30 @@ test("includes semantic landmarks, archive disclosure, state, proof, and workflo
   assert.match(css, /\[hidden\]\s*\{\s*display: none !important;/);
 });
 
+test("provides persistent accessible links to every related demo", () => {
+  const demoNav = html.match(/<nav class="demo-nav" aria-label="関連デモ">([\s\S]*?)<\/nav>/);
+  assert.ok(demoNav);
+
+  const links = [
+    "https://aktsmm.github.io/azure-ops-pulse-demo/#/overview",
+    "https://aktsmm.github.io/m365-message-center-dashboard/",
+    "https://aktsmm.github.io/m365-copilot-update-digest/",
+    "https://aktsmm.github.io/daily-dev-byte/",
+    "https://aktsmm.github.io/vscode-copilot-digest/index.html"
+  ];
+  for (const href of links) {
+    assert.match(demoNav[1], new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  }
+
+  assert.match(
+    demoNav[1],
+    /href="https:\/\/aktsmm\.github\.io\/daily-dev-byte\/" aria-current="page"/
+  );
+  assert.doesNotMatch(demoNav[1], /target="_blank"/);
+  assert.match(css, /\.site-header\s*\{\s*position: sticky;/);
+  assert.match(css, /\.demo-nav a\[aria-current="page"\]/);
+});
+
 test("never renders untrusted content through innerHTML", () => {
   assert.doesNotMatch(js, /\.innerHTML|insertAdjacentHTML|document\.write/);
   assert.match(js, /textContent = byte\.fact/);
