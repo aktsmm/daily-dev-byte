@@ -15,10 +15,10 @@
 1. `.github/workflows/daily-dev-byte.md` が毎日 08:00（Asia/Tokyo）または手動実行で起動します。
 2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
 3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な7行の機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
-4. Issue #1 が追記型の永続的な正本（source of truth）です。`docs/app.js` は公開 GitHub REST API から最大100件のコメントを取得し、`github-actions[bot]`による投稿だけを対象に、gh-awの自動workflow markerまたは可視の`FORMAT: DAILY_DEV_BYTE_V1`で生成コメントを識別します。
-5. 各コメントを`END: DAILY_DEV_BYTE_V1`まで個別に検証し、有効な投稿をコメント公開時刻の新しい順に並べます。最新の1件を「最新のDev Byte」、残りを「これまでのByte」としてPagesに表示します。新しい投稿が壊れていても、過去の有効な履歴は失われません。
+4. Issue #1 が追記型の永続的な正本（source of truth）です。公開後、`publish-daily-dev-byte-archive.yml` が Issue #1 のコメントを読み、`github-actions[bot]`による投稿だけを対象に、gh-awの自動workflow markerまたは可視の`FORMAT: DAILY_DEV_BYTE_V1`で生成コメントを識別します。
+5. アーカイブ更新ジョブは各コメントを`END: DAILY_DEV_BYTE_V1`まで個別に検証し、有効な投稿をコメント公開時刻の新しい順に`docs/archive.json`へ書き出します。最新の1件を「最新のDev Byte」、残りを「これまでのByte」としてPagesに表示します。新しい投稿が壊れていても、過去の有効な履歴は失われません。
 
-ブラウザー側は依存関係やビルド工程がなく、取得した文字列を `textContent` で描画します。コメント内のHTMLをそのままDOMへ挿入しません。アーカイブは最初の6件だけを表示し、「もっと見る／閉じる」で段階的に閲覧できます。
+ブラウザー側は同一オリジンの `archive.json` だけを取得し、GitHub REST APIを呼びません。JSONは表示前に形式・URL・時系列を再検証し、取得不能または不正な場合はIssue #1への導線を含む明確なエラーを表示します。取得した文字列は `textContent` で描画し、コメント内のHTMLをそのままDOMへ挿入しません。アーカイブは最初の6件だけを表示し、「もっと見る／閉じる」で段階的に閲覧できます。
 
 ### 公開コメント形式
 
@@ -78,8 +78,8 @@ gh run list --repo aktsmm/daily-dev-byte --workflow daily-dev-byte.lock.yml --li
 
 - **情報源:** 原則として公式ドキュメント、公式ブログ、標準仕様などの一次情報を使います。主張を確認できない場合は公開せず、別の題材へ切り替えます。
 - **コスト:** Agentic Workflow は Actions 実行時間とAI creditsを消費します。ワークフローは1回 `1000` AI credits、24時間で `2000` AI creditsを上限としています。
-- **公開API:** Pages は未認証の GitHub REST API を使います。通常の未認証リクエストは1時間あたり60回が目安です。上限到達時はページにレート制限エラーを表示します。
-- **キャッシュ:** GitHub APIやPages/CDNのキャッシュにより、新しい投稿の表示まで短い遅延が生じる場合があります。
+- **公開アーカイブ:** Pagesは同一オリジンの`docs/archive.json`を使います。GitHub APIのブラウザー実行時レート制限の影響は受けません。
+- **キャッシュ:** Pages/CDNのキャッシュにより、アーカイブ更新後に新しい投稿が表示されるまで短い遅延が生じる場合があります。
 
 ## ローカル確認
 
