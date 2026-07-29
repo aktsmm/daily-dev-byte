@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "state": "ready",
+  "entries": [
+    {
+      "date": "2026-07-26",
+      "category": "コマンド/ショートカットTip",
+      "fact": "GitHubでは多くのページで?キーを押すと、そのページで使えるキーボードショートカット一覧のダイアログが開きます。マウス移動を減らして操作を覚えやすくできるので、画面遷移やレビュー作業の速度向上に役立つ小技です。",
+      "joke": "リリース前にタグを付けたら、服のタグまで気になった。",
+      "sourceUrl": "https://docs.github.com/en/get-started/accessibility/keyboard-shortcuts",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5081131954",
+      "createdAt": "2026-07-26T00:04:23Z"
+    },
+    {
+      "date": "2026-07-25",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git switch はブランチ切り替え専用のコマンドで、指定したブランチに作業ツリーとインデックスを合わせます。-c や -C で新規ブランチを作成しながら移動でき、--detach なら特定コミットへ HEAD を分離した状態で入れるため、調査や一時確認に便利です。",
+      "joke": "ポート番号を見ていたら、ぽーっとして番号を忘れた。",
+      "sourceUrl": "https://git-scm.com/docs/git-switch",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5075727373",
+      "createdAt": "2026-07-25T00:07:12Z"
+    },
+    {
+      "date": "2026-07-24",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git restore は、作業ツリーの指定パスをインデックスや別コミットの内容に戻せるコマンドです。--staged を付けるとインデックスも復元対象になり、--source で復元元のコミットやタグを選べるため、編集内容の取り消しや比較検証を安全に進めやすくなります。",
+      "joke": "PATHのパスを直したら、サッカーのパスまで通りそう。",
+      "sourceUrl": "https://git-scm.com/docs/git-restore",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5064735882",
+      "createdAt": "2026-07-24T00:04:17Z"
+    },
+    {
+      "date": "2026-07-23",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git cat-file は、Git オブジェクトの内容だけでなく型やサイズも確認できる低レベルコマンドです。-p で内容を人向けに整形表示でき、--batch 系を使えば多数のオブジェクト情報を標準入力からまとめて処理できるので、調査や自動化に役立ちます。",
+      "joke": "メモリを見ていたら、定規の目盛りまで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-cat-file",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5052870462",
+      "createdAt": "2026-07-23T00:04:37Z"
+    },
+    {
+      "date": "2026-07-22",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git show-ref は、ローカルリポジトリ内のタグ・ブランチ・リモート参照を対応するオブジェクトID付きで一覧できるコマンドです。さらに --exists を使うと、特定の ref が存在すれば終了コード 0、なければ 2 を返すため、シェルで参照確認を自動化するときに役立ちます。",
+      "joke": "サーバーを探していたら、「さあ、バーへ」と案内された。",
+      "sourceUrl": "https://git-scm.com/docs/git-show-ref",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5040293085",
+      "createdAt": "2026-07-21T23:59:43Z"
+    },
+    {
+      "date": "2026-07-21",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git describe は、あるコミットから到達可能な直近のタグを基準に、タグ名だけ、または「タグ名-追加コミット数-g短縮ハッシュ」の形で人が読みやすい識別子を出します。ビルド表示や配布物の版名を履歴に結び付けたいときに便利です。",
+      "joke": "データが見つかって、「出ーた!」と声が出た。",
+      "sourceUrl": "https://git-scm.com/docs/git-describe",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5028588648",
+      "createdAt": "2026-07-21T00:00:35Z"
+    },
+    {
+      "date": "2026-07-19",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git merge-base は、2つのコミット間で「最適な共通祖先」を求めるコマンドです。ブランチ同士がどこから分岐したかを調べたり、差分比較や三者マージの基点を明確にしたりできるため、複雑な履歴を読むときに判断の出発点として役立ちます。",
+      "joke": "コードレビューで「こうでいい?」と聞いてみた。",
+      "sourceUrl": "https://git-scm.com/docs/git-merge-base",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5013417955",
+      "createdAt": "2026-07-18T23:57:19Z"
+    },
+    {
+      "date": "2026-07-18",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git worktree は、1つのリポジトリに複数の作業ツリーをぶら下げ、別々のブランチを同時にチェックアウトできる仕組みです。レビュー対応と緊急修正を並行したいとき、追加 clone を作らずに作業ディレクトリを増やせるので切り替えの手間を減らせます。",
+      "joke": "キャッシュを消したら、現金 cash まで消えた。",
+      "sourceUrl": "https://git-scm.com/docs/git-worktree",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5008634253",
+      "createdAt": "2026-07-17T23:56:09Z"
+    },
+    {
+      "date": "2026-07-17",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git cherry-pick は、既存コミットが導入した変更を現在のブランチへ適用するコマンドです。特定の修正だけを別ブランチへ取り込みたい場面で便利で、マージせずに必要なコミットだけを選んで反映できます。競合時は解消後に --continue で続行します。",
+      "joke": "ブランチを切ったら、ランチにしよう。",
+      "sourceUrl": "https://git-scm.com/docs/git-cherry-pick",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-4997621789",
+      "createdAt": "2026-07-17T00:03:13Z"
+    },
+    {
+      "date": "2026-07-16",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git bisect は、不具合があるコミットと正常だったコミットを起点に、二分探索で原因の変更を絞り込む Git コマンドです。各段階で good と bad を指定すると候補範囲が自動で狭まり、回帰バグが混入したコミットを効率よく特定できます。",
+      "joke": "バイト列を調べていたら、アルバイトの時間になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-bisect",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-4986992116",
+      "createdAt": "2026-07-16T01:14:13Z"
+    },
+    {
+      "date": "2026-07-16",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git reflog は、ブランチ先端や HEAD がどの値へ更新されたかの履歴をローカルに記録します。たとえば HEAD@{2} のように過去の位置をたどれるため、誤って reset や checkout をした後の復旧手掛かりとして役立ちます。",
+      "joke": "Gitで道に迷っても大丈夫、reflogが“来た道”を思い出させてくれます。",
+      "sourceUrl": "https://git-scm.com/docs/git-reflog",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-4986779201",
+      "createdAt": "2026-07-16T00:42:38Z"
+    },
+    {
+      "date": "2026-07-16",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git rev-parse は、HEAD~2 や v1.2^{commit} などのリビジョン指定を Git が扱える形に解釈し、--short で短いオブジェクト名を得る用途にも使える基盤コマンドです。シェルスクリプトで参照先を確実に渡したいときに便利です。",
+      "joke": "Gitで焦るとミスが増えるので、今日はギット落ち着いていこう。",
+      "sourceUrl": "https://git-scm.com/docs/git-rev-parse",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-4986609255",
+      "createdAt": "2026-07-16T00:19:43Z"
+    }
+  ],
+  "invalidCount": 1,
+  "generatedCount": 13
+}

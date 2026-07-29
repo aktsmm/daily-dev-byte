@@ -2,13 +2,17 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 const {
+  ARCHIVE_URL,
+  ARCHIVE_VERSION,
   MARKER,
   END_MARKER,
   FORMAT_LINE,
   END_LINE,
   WORKFLOW_CALL_MARKER,
-  classifyHttpError,
+  createPublicArchive,
   getArchiveDisclosureState,
   getDemoState,
   getSafeHostname,
@@ -19,6 +23,7 @@ const {
   isGitHubCommentUrl,
   isTrustedPublisher,
   parseByte,
+  readArchive,
   readFeed,
   selectNewestMarkedComment,
   splitHeroAndArchive
@@ -228,18 +233,55 @@ test("accepts only canonical Issue #1 comment permalinks", () => {
   assert.equal(isGitHubCommentUrl("javascript:alert(1)"), false);
 });
 
-test("classifies rate limits only when GitHub reports exhausted quota", () => {
-  const headers = (remaining) => ({ get: () => remaining });
-  assert.equal(
-    classifyHttpError({ ok: false, status: 403, headers: headers("0") }),
-    "rate-limit"
+test("materializes only validated trusted comments into a deterministic public archive", () => {
+  const archive = createPublicArchive([
+    comment(body({ date: "2026-07-15" }), "2026-07-15T00:00:00Z", 1),
+    comment(body({ date: "2026-07-16" }), "2026-07-16T00:00:00Z", 2),
+    {
+      ...comment(body({ date: "2099-01-01" }), "2026-07-17T00:00:00Z", 3),
+      user: { login: "untrusted-user", type: "User" }
+    }
+  ]);
+
+  assert.equal(ARCHIVE_URL, "archive.json");
+  assert.equal(archive.version, ARCHIVE_VERSION);
+  assert.equal(archive.state, "ready");
+  assert.deepEqual(archive.entries.map((entry) => entry.date), ["2026-07-16", "2026-07-15"]);
+  assert.equal(archive.invalidCount, 0);
+  assert.equal(archive.generatedCount, 2);
+});
+
+test("validates a public archive before rendering and fails closed on malformed data", () => {
+  const archive = createPublicArchive([
+    comment(body({ date: "2026-07-16" }), "2026-07-16T00:00:00Z", 1),
+    comment(body({ date: "2026-07-15" }), "2026-07-15T00:00:00Z", 2)
+  ]);
+  const result = readArchive(archive);
+
+  assert.equal(result.state, "ready");
+  assert.equal(result.hero.date, "2026-07-16");
+  assert.throws(() =>
+    readArchive({
+      ...archive,
+      entries: [{ ...archive.entries[0], commentUrl: "https://example.com/untrusted" }]
+    })
   );
-  assert.equal(
-    classifyHttpError({ ok: false, status: 403, headers: headers("42") }),
-    "api-error"
+  assert.throws(() =>
+    readArchive({
+      ...archive,
+      entries: archive.entries.slice().reverse()
+    })
   );
-  assert.equal(classifyHttpError({ ok: false, status: 429, headers: headers(null) }), "rate-limit");
-  assert.equal(classifyHttpError({ ok: true, status: 200, headers: headers("59") }), null);
+});
+
+test("ships a public archive that satisfies the rendering contract", () => {
+  const archive = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "..", "docs", "archive.json"), "utf8")
+  );
+  const result = readArchive(archive);
+
+  assert.equal(result.state, "ready");
+  assert.ok(result.entries.length > 0);
 });
 
 test("provides timeless, distinct, actionable view models", () => {
@@ -247,13 +289,16 @@ test("provides timeless, distinct, actionable view models", () => {
   assert.equal(getStateView("empty").feed, true);
   assert.doesNotMatch(getStateView("empty").message, /認証/);
   assert.equal(getStateView("malformed").alert, true);
-  assert.equal(getStateView("network").title, "GitHubへ接続できません");
-  assert.equal(getStateView("rate-limit").label, "API利用上限");
+  assert.equal(getStateView("archive-unavailable").feed, true);
+  assert.doesNotMatch(getStateView("archive-unavailable").message, /API利用上限/);
   assert.throws(() => getStateView("unknown"));
 });
 
 test("accepts only allowlisted demo states", () => {
   assert.equal(getDemoState("?demoState=success"), "success");
-  assert.equal(getDemoState("?demoState=rate-limit&scoutTheme=dark"), "rate-limit");
+  assert.equal(
+    getDemoState("?demoState=archive-unavailable&scoutTheme=dark"),
+    "archive-unavailable"
+  );
   assert.equal(getDemoState("?demoState=%3Cscript%3E"), null);
 });

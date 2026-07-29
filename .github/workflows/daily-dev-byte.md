@@ -83,6 +83,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
      5. `サーバーを探していたら、「さあ、バーへ」と案内された。` (`サーバー` / `さあ、バー`: server / now, to the bar)
 10. Perform the final self-check below. If any check fails, repair the body before calling a safe output. Never publish a body containing `redacted`, parentheses around the source, a homepage URL, or a source you did not successfully fetch.
 11. Use the `add-comment` safe-output tool once with `item_number` set to `1` and the body in the exact format below. Do not add any text before `FORMAT` or after `END`. gh-aw appends its own workflow markers later; do not generate those markers yourself.
+12. The deterministic `Publish Daily Dev Byte archive` workflow reads Issue #1 after this workflow succeeds. It independently validates only trusted generated comments and publishes the resulting same-origin Pages archive. Issue #1 remains the append-only source of truth; do not attempt to edit repository files or the archive from this workflow.
 
 ## Exact output format
 

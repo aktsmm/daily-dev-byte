@@ -8,6 +8,12 @@ const path = require("node:path");
 const workflow = fs
   .readFileSync(path.join(__dirname, "..", ".github", "workflows", "daily-dev-byte.md"), "utf8")
   .replace(/\r\n/g, "\n");
+const archiveWorkflow = fs
+  .readFileSync(
+    path.join(__dirname, "..", ".github", "workflows", "publish-daily-dev-byte-archive.yml"),
+    "utf8"
+  )
+  .replace(/\r\n/g, "\n");
 
 test("requires an identifiable phonetic pun pair and rejects technical metaphors", () => {
   assert.match(workflow, /identical or clearly similar Japanese sounds in different meanings/);
@@ -41,4 +47,14 @@ test("preserves the exact seven-line publication contract", () => {
     "SOURCE: one direct https URL that supports the central claim",
     "END: DAILY_DEV_BYTE_V1"
   ]);
+});
+
+test("publishes a deterministic archive after the publisher completes", () => {
+  assert.match(workflow, /Issue #1 remains the append-only source of truth/);
+  assert.match(archiveWorkflow, /workflow_run:/);
+  assert.match(archiveWorkflow, /workflows: \["Daily Dev Byte Publisher"\]/);
+  assert.match(archiveWorkflow, /issues: read/);
+  assert.match(archiveWorkflow, /contents: write/);
+  assert.match(archiveWorkflow, /build-public-archive\.js/);
+  assert.match(archiveWorkflow, /docs\/archive\.json/);
 });

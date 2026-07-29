@@ -1,8 +1,8 @@
 (function (root) {
   "use strict";
 
-  const API_URL =
-    "https://api.github.com/repos/aktsmm/daily-dev-byte/issues/1/comments?per_page=100&sort=created&direction=desc";
+  const ARCHIVE_URL = "archive.json";
+  const ARCHIVE_VERSION = 1;
   const MARKER = "<!-- DAILY_DEV_BYTE_V1 -->";
   const END_MARKER = "<!-- /DAILY_DEV_BYTE_V1 -->";
   const FORMAT_LINE = "FORMAT: DAILY_DEV_BYTE_V1";
@@ -32,15 +32,13 @@
     "empty",
     "success",
     "malformed",
-    "network",
-    "rate-limit",
-    "api-error"
+    "archive-unavailable"
   ]);
   const STATE_VIEWS = Object.freeze({
     loading: {
-      label: "GitHub API",
+      label: "公開アーカイブ",
       title: "公開履歴を取得中",
-      message: "Issue #1から最新の投稿と、これまでのByteを読み込んでいます。",
+      message: "公開済みの最新Byteと、これまでの記録を読み込んでいます。",
       icon: "↻",
       retry: false,
       feed: false,
@@ -59,38 +57,20 @@
       label: "表示できる投稿なし",
       title: "有効なByteが見つかりません",
       message:
-        "生成コメントはありますが、現在の公開形式で安全に表示できる投稿がありません。Issue #1で元データを確認できます。",
+        "公開アーカイブには、現在の公開形式で安全に表示できる投稿がありません。Issue #1で元データを確認できます。",
       icon: "!",
       retry: true,
       feed: true,
       alert: true
     },
-    network: {
-      label: "接続エラー",
-      title: "GitHubへ接続できません",
-      message: "ネットワーク接続を確認してから、もう一度お試しください。",
-      icon: "×",
-      retry: true,
-      feed: false,
-      alert: true
-    },
-    "rate-limit": {
-      label: "API利用上限",
-      title: "しばらく待ってから再試行してください",
+    "archive-unavailable": {
+      label: "公開アーカイブ",
+      title: "公開アーカイブを読み込めません",
       message:
-        "未認証のGitHub API利用上限に達しました。通常は時間をおくと自動的に利用できるようになります。",
-      icon: "!",
-      retry: true,
-      feed: false,
-      alert: true
-    },
-    "api-error": {
-      label: "GitHub API",
-      title: "公開履歴を取得できません",
-      message: "GitHub APIから正常な応答がありませんでした。時間をおいて再試行してください。",
+        "公開済みのアーカイブを取得できません。時間をおいて再試行するか、Issue #1で元データを確認してください。",
       icon: "×",
       retry: true,
-      feed: false,
+      feed: true,
       alert: true
     }
   });
@@ -248,7 +228,7 @@
 
   function selectGeneratedComments(comments) {
     if (!Array.isArray(comments)) {
-      throw new TypeError("GitHub API response is not an array.");
+      throw new TypeError("Comment response is not an array.");
     }
 
     return comments
@@ -350,19 +330,95 @@
     };
   }
 
-  function classifyHttpError(response) {
-    if (response && response.ok) {
-      return null;
+  function createPublicArchive(comments) {
+    const result = readFeed(comments);
+    return {
+      version: ARCHIVE_VERSION,
+      state: result.state,
+      entries: result.entries || [],
+      invalidCount: result.invalidCount || 0,
+      generatedCount: result.generatedCount || 0
+    };
+  }
+
+  function validateArchiveEntry(entry) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+      throw new Error("Archive entry is invalid.");
     }
 
-    const remaining =
-      response && response.headers && typeof response.headers.get === "function"
-        ? response.headers.get("x-ratelimit-remaining")
-        : null;
-    if (response && (response.status === 429 || (response.status === 403 && remaining === "0"))) {
-      return "rate-limit";
+    const byte = validateByteFields(
+      entry.date,
+      entry.category,
+      entry.fact,
+      entry.joke,
+      entry.sourceUrl
+    );
+    if (!isGitHubCommentUrl(entry.commentUrl)) {
+      throw new Error("Archive comment URL is invalid.");
     }
-    return "api-error";
+    if (typeof entry.createdAt !== "string" || !Number.isFinite(Date.parse(entry.createdAt))) {
+      throw new Error("Archive comment timestamp is invalid.");
+    }
+
+    return { ...byte, commentUrl: entry.commentUrl, createdAt: entry.createdAt };
+  }
+
+  function readArchive(archive) {
+    if (!archive || typeof archive !== "object" || Array.isArray(archive)) {
+      throw new Error("Public archive is not an object.");
+    }
+    if (archive.version !== ARCHIVE_VERSION || !Array.isArray(archive.entries)) {
+      throw new Error("Public archive schema is invalid.");
+    }
+    if (!["ready", "empty", "malformed"].includes(archive.state)) {
+      throw new Error("Public archive state is invalid.");
+    }
+    if (
+      !Number.isInteger(archive.invalidCount) ||
+      archive.invalidCount < 0 ||
+      !Number.isInteger(archive.generatedCount) ||
+      archive.generatedCount < 0
+    ) {
+      throw new Error("Public archive counts are invalid.");
+    }
+
+    const entries = archive.entries.map(validateArchiveEntry);
+    for (let index = 1; index < entries.length; index += 1) {
+      if (Date.parse(entries[index - 1].createdAt) < Date.parse(entries[index].createdAt)) {
+        throw new Error("Public archive entries are not ordered newest first.");
+      }
+    }
+
+    if (
+      archive.generatedCount !== entries.length + archive.invalidCount ||
+      (archive.state === "ready" && entries.length === 0) ||
+      (archive.state === "empty" &&
+        (entries.length !== 0 || archive.invalidCount !== 0 || archive.generatedCount !== 0)) ||
+      (archive.state === "malformed" &&
+        (entries.length !== 0 ||
+          archive.generatedCount === 0 ||
+          archive.invalidCount !== archive.generatedCount))
+    ) {
+      throw new Error("Public archive data is inconsistent.");
+    }
+
+    if (archive.state === "ready") {
+      const { hero, archiveEntries } = splitHeroAndArchive(entries);
+      return {
+        state: "ready",
+        entries,
+        hero,
+        archiveEntries,
+        invalidCount: archive.invalidCount,
+        generatedCount: archive.generatedCount
+      };
+    }
+    return {
+      state: archive.state,
+      entries: [],
+      invalidCount: archive.invalidCount,
+      generatedCount: archive.generatedCount
+    };
   }
 
   function getStateView(state) {
@@ -523,50 +579,43 @@
     renderArchiveList();
   }
 
-  async function loadFeed(fetchImpl, options = {}) {
+  async function loadArchive(fetchImpl, options = {}) {
     renderState("loading");
 
     let response;
     try {
-      response = await fetchImpl(API_URL, {
-        headers: {
-          Accept: "application/vnd.github+json",
-          "X-GitHub-Api-Version": "2022-11-28"
-        }
-      });
+      response = await fetchImpl(ARCHIVE_URL, { cache: "no-store" });
     } catch {
-      renderState("network", { focus: options.focus });
+      renderState("archive-unavailable", { focus: options.focus });
       return;
     }
 
-    const httpError = classifyHttpError(response);
-    if (httpError) {
-      const message =
-        httpError === "api-error"
-          ? `GitHub APIから正常な応答がありませんでした（HTTP ${response.status}）。時間をおいて再試行してください。`
-          : undefined;
-      renderState(httpError, { focus: options.focus, message });
+    if (!response.ok) {
+      renderState("archive-unavailable", {
+        focus: options.focus,
+        message: `公開アーカイブを取得できませんでした（HTTP ${response.status}）。Issue #1で元データを確認できます。`
+      });
       return;
     }
 
-    let comments;
+    let archive;
     try {
-      comments = await response.json();
+      archive = await response.json();
     } catch {
       renderState("malformed", {
         focus: options.focus,
-        message: "GitHub APIの応答をJSONとして読み取れませんでした。"
+        message: "公開アーカイブをJSONとして読み取れませんでした。Issue #1で元データを確認できます。"
       });
       return;
     }
 
     let result;
     try {
-      result = readFeed(comments);
+      result = readArchive(archive);
     } catch {
       renderState("malformed", {
         focus: options.focus,
-        message: "GitHub APIの応答構造が期待した形式ではありません。"
+        message: "公開アーカイブの形式を安全に確認できません。Issue #1で元データを確認できます。"
       });
       return;
     }
@@ -614,7 +663,7 @@
       if (demoState) {
         renderDemoState(demoState, { focus: true });
       } else {
-        loadFeed(fetchImpl, { focus: true });
+        loadArchive(fetchImpl, { focus: true });
       }
     });
     archiveToggle.addEventListener("click", () => {
@@ -624,19 +673,20 @@
     if (demoState) {
       renderDemoState(demoState);
     } else {
-      loadFeed(fetchImpl);
+      loadArchive(fetchImpl);
     }
   }
 
   const api = {
-    API_URL,
+    ARCHIVE_URL,
+    ARCHIVE_VERSION,
     ARCHIVE_PAGE_SIZE,
     MARKER,
     END_MARKER,
     FORMAT_LINE,
     END_LINE,
     WORKFLOW_CALL_MARKER,
-    classifyHttpError,
+    createPublicArchive,
     getArchiveDisclosureState,
     getDemoState,
     getSafeHostname,
@@ -647,6 +697,7 @@
     isGitHubCommentUrl,
     isTrustedPublisher,
     parseByte,
+    readArchive,
     readFeed,
     selectNewestMarkedComment,
     splitHeroAndArchive

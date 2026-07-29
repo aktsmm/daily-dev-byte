@@ -1,0 +1,48 @@
+name: Publish Daily Dev Byte archive
+
+on:
+  workflow_run:
+    workflows: ["Daily Dev Byte Publisher"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: read
+
+concurrency:
+  group: publish-daily-dev-byte-archive
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: true
+      - name: Read Issue #1 comments
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh api --paginate --slurp
+          "repos/${GITHUB_REPOSITORY}/issues/1/comments?per_page=100"
+          > "${RUNNER_TEMP}/daily-dev-byte-comments.json"
+      - name: Materialize public archive
+        run: >-
+          node .github/scripts/build-public-archive.js
+          "${RUNNER_TEMP}/daily-dev-byte-comments.json"
+          docs/archive.json
+      - name: Commit archive when it changed
+        run: |
+          if git diff --quiet -- docs/archive.json; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/archive.json
+          git commit -m "chore: publish Daily Dev Byte archive"
+          git push

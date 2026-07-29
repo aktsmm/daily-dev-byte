@@ -123,3 +123,11 @@ test("never renders untrusted content through innerHTML", () => {
   assert.match(js, /configureExternalLink\(commentLink, byte\.commentUrl, "comment"\)/);
   assert.match(js, /aria-live", view\.alert \? "assertive" : "polite"/);
 });
+
+test("loads the same-origin public archive rather than the GitHub API", () => {
+  assert.match(js, /const ARCHIVE_URL = "archive\.json";/);
+  assert.match(js, /fetchImpl\(ARCHIVE_URL, \{ cache: "no-store" \}\)/);
+  assert.doesNotMatch(js, /api\.github\.com/);
+  assert.doesNotMatch(js, /x-ratelimit-remaining/);
+  assert.match(js, /archive-unavailable/);
+});
