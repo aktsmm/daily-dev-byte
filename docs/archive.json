@@ -3,6 +3,33 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-07-30",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git ls-files は、インデックスと作業ツリーにあるパス情報を一覧するコマンドです。--others を付けると未追跡ファイル、--exclude-standard を併用すると .gitignore など標準の除外規則を反映した結果を確認でき、整理前の棚卸しに役立ちます。",
+      "joke": "リポジトリをフォークしたあと、ランチのフォークも手に取った。",
+      "sourceUrl": "https://git-scm.com/docs/git-ls-files",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5124664522",
+      "createdAt": "2026-07-30T00:04:34Z"
+    },
+    {
+      "date": "2026-07-29",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git grep は、作業ツリー内の追跡ファイルだけでなく、--cached でインデックス登録済みの内容、引数に tree オブジェクトを渡せば履歴中のスナップショットも検索できます。手元の状態とコミット済み内容を切り分けて調べたい場面で便利です。",
+      "joke": "同期を取る動機ができた。",
+      "sourceUrl": "https://git-scm.com/docs/git-grep",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5111090850",
+      "createdAt": "2026-07-29T00:02:39Z"
+    },
+    {
+      "date": "2026-07-28",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git symbolic-ref は、HEAD などのシンボリック参照がどの ref を指すかを表示・更新・削除できる Git コマンドです。--short を付けると refs/heads/main のような値を main に短縮表示できるため、シェルスクリプトやプロンプト表示で参照名を扱いやすくできます。",
+      "joke": "コミットを急ぎすぎると、こみっともないミスが増える。",
+      "sourceUrl": "https://git-scm.com/docs/git-symbolic-ref",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5098243791",
+      "createdAt": "2026-07-28T00:05:57Z"
+    },
+    {
       "date": "2026-07-26",
       "category": "コマンド/ショートカットTip",
       "fact": "GitHubでは多くのページで?キーを押すと、そのページで使えるキーボードショートカット一覧のダイアログが開きます。マウス移動を減らして操作を覚えやすくできるので、画面遷移やレビュー作業の速度向上に役立つ小技です。",
@@ -112,5 +139,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 13
+  "generatedCount": 16
 }
