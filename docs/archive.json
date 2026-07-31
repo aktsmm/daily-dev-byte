@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-07-31",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git blame は、ファイルの各行を最後に変更したリビジョンと作者を行単位で示すコマンドです。原因調査で「この1行はいつ誰が直したか」をすぐ追えるため、挙動の変化点を履歴からたどりたいときの出発点として役立ちます。",
+      "joke": "ログを追っていたら、ログハウスに住みたくなった。",
+      "sourceUrl": "https://git-scm.com/docs/git-blame",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5137560278",
+      "createdAt": "2026-07-31T00:06:30Z"
+    },
+    {
       "date": "2026-07-30",
       "category": "コマンド/ショートカットTip",
       "fact": "git ls-files は、インデックスと作業ツリーにあるパス情報を一覧するコマンドです。--others を付けると未追跡ファイル、--exclude-standard を併用すると .gitignore など標準の除外規則を反映した結果を確認でき、整理前の棚卸しに役立ちます。",
@@ -139,5 +148,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 16
+  "generatedCount": 17
 }
