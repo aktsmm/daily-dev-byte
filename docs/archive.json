@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-02",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git ls-remote は、リモートリポジトリにある参照を対応するコミットID付きで一覧するコマンドです。パターン引数を付けると一致した ref だけを表示できるため、fetch 前に存在するブランチやタグを安全に確かめたい場面で役立ちます。",
+      "joke": "デバッグ中に『で、バグ?』と聞かれて、まさにそれですと答えた。",
+      "sourceUrl": "https://git-scm.com/docs/git-ls-remote",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5154088898",
+      "createdAt": "2026-08-02T00:00:45Z"
+    },
+    {
       "date": "2026-07-31",
       "category": "コマンド/ショートカットTip",
       "fact": "git blame は、ファイルの各行を最後に変更したリビジョンと作者を行単位で示すコマンドです。原因調査で「この1行はいつ誰が直したか」をすぐ追えるため、挙動の変化点を履歴からたどりたいときの出発点として役立ちます。",
@@ -148,5 +157,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 17
+  "generatedCount": 18
 }
