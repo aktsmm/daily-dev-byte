@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-03",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git rev-list は、指定したコミットから親をたどって到達できる履歴を新しい順に列挙し、^A や A..B で除外側の範囲も表せます。到達集合の差をそのまま扱えるので、ブランチ間で「どのコミットがまだ入っていないか」を調べる基礎コマンドとして便利です。",
+      "joke": "クラウドの請求書を見て、くらっとした。",
+      "sourceUrl": "https://git-scm.com/docs/git-rev-list",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5160982679",
+      "createdAt": "2026-08-03T00:02:37Z"
+    },
+    {
       "date": "2026-08-02",
       "category": "コマンド/ショートカットTip",
       "fact": "git ls-remote は、リモートリポジトリにある参照を対応するコミットID付きで一覧するコマンドです。パターン引数を付けると一致した ref だけを表示できるため、fetch 前に存在するブランチやタグを安全に確かめたい場面で役立ちます。",
@@ -157,5 +166,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 18
+  "generatedCount": 19
 }
