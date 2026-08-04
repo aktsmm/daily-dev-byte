@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-04",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git range-diff は、2つのコミット範囲を比較し、対応するコミット同士で何が変わったかを見やすく示す Git コマンドです。パッチシリーズを送り直した際に、前版からどの修正が加わったかを確認でき、レビューの差分整理に役立ちます。",
+      "joke": "パッチを当てたら、パチッと直った。",
+      "sourceUrl": "https://git-scm.com/docs/git-range-diff",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5173091748",
+      "createdAt": "2026-08-04T00:12:43Z"
+    },
+    {
       "date": "2026-08-03",
       "category": "コマンド/ショートカットTip",
       "fact": "git rev-list は、指定したコミットから親をたどって到達できる履歴を新しい順に列挙し、^A や A..B で除外側の範囲も表せます。到達集合の差をそのまま扱えるので、ブランチ間で「どのコミットがまだ入っていないか」を調べる基礎コマンドとして便利です。",
@@ -166,5 +175,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 19
+  "generatedCount": 20
 }
