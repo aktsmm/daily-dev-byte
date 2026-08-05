@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-05",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git notes は、既存コミットを書き換えずに補足情報を紐づけられる Git の機能です。コミットメッセージを後から補う用途が典型例で、元のコミットIDを変えないまま説明を追加できるため、履歴の意図や注意点を別管理せず残せます。",
+      "joke": "クッキーを消したら、食べるクッキーまで惜しくなった。",
+      "sourceUrl": "https://git-scm.com/docs/git-notes",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5185974308",
+      "createdAt": "2026-08-05T00:05:30Z"
+    },
+    {
       "date": "2026-08-04",
       "category": "コマンド/ショートカットTip",
       "fact": "git range-diff は、2つのコミット範囲を比較し、対応するコミット同士で何が変わったかを見やすく示す Git コマンドです。パッチシリーズを送り直した際に、前版からどの修正が加わったかを確認でき、レビューの差分整理に役立ちます。",
@@ -175,5 +184,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 20
+  "generatedCount": 21
 }
