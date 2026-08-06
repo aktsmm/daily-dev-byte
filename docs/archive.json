@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-06",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git name-rev は、コミットIDに対して、その位置に近いブランチ名やタグ名を使った人向けの名前を付けて表示するコマンドです。長いハッシュだけでは追いにくい履歴を読みやすくでき、--tags や --refs で名前解決に使う参照を絞れます。",
+      "joke": "マージの説明を書いたら、「まあ字」が読みやすいと褒められた。",
+      "sourceUrl": "https://git-scm.com/docs/git-name-rev",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5198823963",
+      "createdAt": "2026-08-06T00:03:47Z"
+    },
+    {
       "date": "2026-08-05",
       "category": "GitHub/Gitトリビア",
       "fact": "git notes は、既存コミットを書き換えずに補足情報を紐づけられる Git の機能です。コミットメッセージを後から補う用途が典型例で、元のコミットIDを変えないまま説明を追加できるため、履歴の意図や注意点を別管理せず残せます。",
@@ -184,5 +193,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 21
+  "generatedCount": 22
 }
