@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-07",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git rerere は、衝突したマージ結果と手作業で解決した内容の対応を記録し、同種の競合が再び出たときに以前の解決を再利用できる機能です。長期ブランチの rebase や backport を繰り返す場面で、毎回同じ衝突を解き直す手間を減らせます。",
+      "joke": "プッシュ前に「プシュッ」と炭酸を開けた。",
+      "sourceUrl": "https://git-scm.com/docs/git-rerere",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5211099726",
+      "createdAt": "2026-08-07T01:48:07Z"
+    },
+    {
       "date": "2026-08-06",
       "category": "コマンド/ショートカットTip",
       "fact": "git name-rev は、コミットIDに対して、その位置に近いブランチ名やタグ名を使った人向けの名前を付けて表示するコマンドです。長いハッシュだけでは追いにくい履歴を読みやすくでき、--tags や --refs で名前解決に使う参照を絞れます。",
@@ -193,5 +202,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 22
+  "generatedCount": 23
 }
