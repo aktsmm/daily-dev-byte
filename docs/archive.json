@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-08",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git for-each-ref は、条件に合う ref を走査し、--sort で並べ替え、--format で表示項目を自由に組み立てられる Git コマンドです。タグやブランチ一覧を機械処理しやすい形で取り出せるため、リリース確認や保守スクリプトの自動化に向いています。",
+      "joke": "ノード数を数えていたら、カレーの濃度まで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-for-each-ref",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5223236929",
+      "createdAt": "2026-08-07T23:37:12Z"
+    },
+    {
       "date": "2026-08-07",
       "category": "GitHub/Gitトリビア",
       "fact": "git rerere は、衝突したマージ結果と手作業で解決した内容の対応を記録し、同種の競合が再び出たときに以前の解決を再利用できる機能です。長期ブランチの rebase や backport を繰り返す場面で、毎回同じ衝突を解き直す手間を減らせます。",
@@ -202,5 +211,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 23
+  "generatedCount": 24
 }
