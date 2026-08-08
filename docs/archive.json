@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-09",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git check-ref-format は、参照名が Git の規則に合っているか確かめるコマンドです。--branch を付けると新しいブランチ名として妥当かを検査できるため、スクリプトでブランチやタグを自動生成する前の入力確認に役立ちます。",
+      "joke": "バイト列を調べていたら、アルバイトの時間になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-check-ref-format",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5228735392",
+      "createdAt": "2026-08-08T23:31:05Z"
+    },
+    {
       "date": "2026-08-08",
       "category": "コマンド/ショートカットTip",
       "fact": "git for-each-ref は、条件に合う ref を走査し、--sort で並べ替え、--format で表示項目を自由に組み立てられる Git コマンドです。タグやブランチ一覧を機械処理しやすい形で取り出せるため、リリース確認や保守スクリプトの自動化に向いています。",
@@ -211,5 +220,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 24
+  "generatedCount": 25
 }
