@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-10",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git rev-parse は、リビジョン名の解決だけでなく、--show-toplevel で作業ツリーの最上位ディレクトリ、--show-prefix で現在位置から見た相対パスを表示できます。サブディレクトリから実行するシェルスクリプトで、基準パスを安全にそろえるのに便利です。",
+      "joke": "ブランチを切ったら、ランチにしよう。",
+      "sourceUrl": "https://git-scm.com/docs/git-rev-parse",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5234423142",
+      "createdAt": "2026-08-09T23:34:17Z"
+    },
+    {
       "date": "2026-08-09",
       "category": "コマンド/ショートカットTip",
       "fact": "git check-ref-format は、参照名が Git の規則に合っているか確かめるコマンドです。--branch を付けると新しいブランチ名として妥当かを検査できるため、スクリプトでブランチやタグを自動生成する前の入力確認に役立ちます。",
@@ -220,5 +229,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 25
+  "generatedCount": 26
 }
