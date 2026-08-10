@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-11",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git update-ref は参照名に新しいオブジェクトIDを書き込む低レベルコマンドです。古いIDも渡すと、現在値が一致した場合だけ更新されるため、ブランチやタグをスクリプトから競合検知付きで安全に更新したい場面に向いています。",
+      "joke": "リポジトリをクローンしたら、ちょっと苦労んした。",
+      "sourceUrl": "https://git-scm.com/docs/git-update-ref",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5247259989",
+      "createdAt": "2026-08-10T23:38:13Z"
+    },
+    {
       "date": "2026-08-10",
       "category": "コマンド/ショートカットTip",
       "fact": "git rev-parse は、リビジョン名の解決だけでなく、--show-toplevel で作業ツリーの最上位ディレクトリ、--show-prefix で現在位置から見た相対パスを表示できます。サブディレクトリから実行するシェルスクリプトで、基準パスを安全にそろえるのに便利です。",
@@ -229,5 +238,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 26
+  "generatedCount": 27
 }
