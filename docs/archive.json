@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-12",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git merge-base は、2つのコミット間で「これ以上さかのぼっても、より良い共通祖先がない」という最良の共通祖先を求めるコマンドです。さらに --is-ancestor を使えば、あるコミットが別のコミットの祖先かどうかを終了ステータス 0/1 で判定でき、シェルの条件分岐にそのまま使えます。",
+      "joke": "ノートを残したら、「脳と」相談したみたいになった。",
+      "sourceUrl": "https://git-scm.com/docs/git-merge-base",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5260166067",
+      "createdAt": "2026-08-11T23:42:51Z"
+    },
+    {
       "date": "2026-08-11",
       "category": "コマンド/ショートカットTip",
       "fact": "git update-ref は参照名に新しいオブジェクトIDを書き込む低レベルコマンドです。古いIDも渡すと、現在値が一致した場合だけ更新されるため、ブランチやタグをスクリプトから競合検知付きで安全に更新したい場面に向いています。",
@@ -238,5 +247,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 27
+  "generatedCount": 28
 }
