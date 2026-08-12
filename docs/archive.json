@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-13",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git patch-id は、パッチ中の行番号を無視して差分内容から識別子を計算するコマンドです。同じ修正が cherry-pick や rebase で別コミットIDになっていても、内容ベースで対応付けたい調査や重複検出に役立ちます。標準入力からパッチを読めるので、ログ比較にも向きます。",
+      "joke": "トークンの期限を確認していたら、刀剣の展示会かと聞き返された。",
+      "sourceUrl": "https://git-scm.com/docs/git-patch-id",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5274100594",
+      "createdAt": "2026-08-12T23:43:46Z"
+    },
+    {
       "date": "2026-08-12",
       "category": "コマンド/ショートカットTip",
       "fact": "git merge-base は、2つのコミット間で「これ以上さかのぼっても、より良い共通祖先がない」という最良の共通祖先を求めるコマンドです。さらに --is-ancestor を使えば、あるコミットが別のコミットの祖先かどうかを終了ステータス 0/1 で判定でき、シェルの条件分岐にそのまま使えます。",
@@ -247,5 +256,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 28
+  "generatedCount": 29
 }
