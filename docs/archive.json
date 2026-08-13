@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-14",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git sparse-checkout は、作業ツリーに出す追跡ファイルを必要な一部へ絞る Git コマンドです。既定の cone モードではディレクトリ単位で対象を指定でき、巨大なモノレポジトリでも必要な部分だけを手元に展開して扱いやすくできます。",
+      "joke": "朝はブランチを切る前に、ブランチを食べた。",
+      "sourceUrl": "https://git-scm.com/docs/git-sparse-checkout",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5287653880",
+      "createdAt": "2026-08-13T23:44:03Z"
+    },
+    {
       "date": "2026-08-13",
       "category": "コマンド/ショートカットTip",
       "fact": "git patch-id は、パッチ中の行番号を無視して差分内容から識別子を計算するコマンドです。同じ修正が cherry-pick や rebase で別コミットIDになっていても、内容ベースで対応付けたい調査や重複検出に役立ちます。標準入力からパッチを読めるので、ログ比較にも向きます。",
@@ -256,5 +265,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 29
+  "generatedCount": 30
 }
