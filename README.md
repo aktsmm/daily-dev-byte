@@ -38,13 +38,32 @@ END: DAILY_DEV_BYTE_V1
 
 ### Copilot認証
 
-個人リポジトリでは、Copilot Requests の読み取り権限を持つ fine-grained PAT を Actions のリポジトリシークレット `COPILOT_GITHUB_TOKEN` に登録します。PATの Resource owner は個人アカウントを選択してください。
+このリポジトリは `permissions: copilot-requests: write` と Actions 組み込みの `GITHUB_TOKEN` で Copilot 推論を認証します。PATもシークレットも不要です。個人所有リポジトリでは利用分がリポジトリ所有者の Copilot シートに課金されます（組織所有リポジトリでは組織に直接課金）。
+
+```yaml
+permissions:
+  issues: read
+  copilot-requests: write
+```
+
+トークンは実行ごとに発行・失効するため、有効期限切れによる定期実行の停止が起こりません。
+
+参照:
+
+- <https://docs.github.com/en/copilot/concepts/agents/copilot-cli/copilot-cli-in-github-actions>
+- <https://github.github.com/gh-aw/reference/auth/>
+
+前提として、リポジトリ所有者に有効な Copilot シートが必要です。シートが無効な場合はモデル一覧の取得に失敗し、`agent` ジョブが停止します。
+
+#### フォールバック: PAT方式
+
+`copilot-requests: write` が使えない場合のみ、Copilot Requests の読み取り権限を持つ fine-grained PAT を `COPILOT_GITHUB_TOKEN` に登録します。PATの Resource owner は個人アカウントを選択してください。
 
 ```powershell
 gh aw secrets set COPILOT_GITHUB_TOKEN --value "<fine-grained PAT>"
 ```
 
-トークン値をファイル、Issue、ログへ保存しないでください。組織リポジトリで集中課金を使える場合は `copilot-requests: write` 方式もありますが、このデモは個人リポジトリ向けシークレット方式です。
+トークン値をファイル、Issue、ログへ保存しないでください。`copilot-requests: write` が設定されている間、このシークレットは推論には使われません（併用しても無視されます）。PATには有効期限があるため、期限切れで定期実行が止まる点に注意してください。
 
 ### ワークフローのコンパイル
 
