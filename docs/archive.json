@@ -5,6 +5,15 @@
     {
       "date": "2026-08-18",
       "category": "コマンド/ショートカットTip",
+      "fact": "git describe は、あるコミットから到達可能な最新のタグを見つける Git コマンドです。タグ名を手掛かりに履歴上の現在地を把握しやすくなるため、リリース後にどれだけ変更が積み上がったかを人向けに示したい場面で役立ちます。",
+      "joke": "コードレビューで「こうでいい?」と聞いてみた。",
+      "sourceUrl": "https://git-scm.com/docs/git-describe",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5321416077",
+      "createdAt": "2026-08-17T23:26:02Z"
+    },
+    {
+      "date": "2026-08-18",
+      "category": "コマンド/ショートカットTip",
       "fact": "git check-ignore は、指定したパスが .gitignore などの除外規則で無視されるかを調べるコマンドです。--verbose を付けると、どのパターンがどのファイルの何行目から効いたかまで表示されるので、「なぜ追跡されないのか」を切り分ける調査に役立ちます。",
       "joke": "配列を直したら、「はい、列!」と号令みたいになった。",
       "sourceUrl": "https://git-scm.com/docs/git-check-ignore",
@@ -274,5 +283,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 31
+  "generatedCount": 32
 }
