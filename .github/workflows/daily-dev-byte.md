@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   issues: read
+  copilot-requests: write
 engine:
   id: copilot
   copilot-sdk: true
