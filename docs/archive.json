@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-19",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git diff の --word-diff は、通常の行単位差分を基に各ハンク内の単語単位の変更を表示するオプションです。既定では空白区切りで語を判定するため、文章や設定値の細かな修正点を行全体ではなく語単位で追いたいときに役立ちます。",
+      "joke": "Gitのフックを見直したら、服のフックまで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-diff",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5335452953",
+      "createdAt": "2026-08-18T23:25:08Z"
+    },
+    {
       "date": "2026-08-18",
       "category": "コマンド/ショートカットTip",
       "fact": "git describe は、あるコミットから到達可能な最新のタグを見つける Git コマンドです。タグ名を手掛かりに履歴上の現在地を把握しやすくなるため、リリース後にどれだけ変更が積み上がったかを人向けに示したい場面で役立ちます。",
@@ -283,5 +292,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 32
+  "generatedCount": 33
 }
