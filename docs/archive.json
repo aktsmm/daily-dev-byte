@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-20",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git ls-tree は、指定した tree-ish に記録されたツリーの内容を、チェックアウトせず一覧できる Git コマンドです。コミットやタグに含まれるパス構成を後から確認したいときに便利で、--name-only を使えばファイル名だけを取り出して調査やスクリプトに回せます。",
+      "joke": "ビルドが終わったので、「ビールどう?」と聞かれた。",
+      "sourceUrl": "https://git-scm.com/docs/git-ls-tree",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5349221300",
+      "createdAt": "2026-08-19T23:26:28Z"
+    },
+    {
       "date": "2026-08-19",
       "category": "コマンド/ショートカットTip",
       "fact": "git diff の --word-diff は、通常の行単位差分を基に各ハンク内の単語単位の変更を表示するオプションです。既定では空白区切りで語を判定するため、文章や設定値の細かな修正点を行全体ではなく語単位で追いたいときに役立ちます。",
@@ -292,5 +301,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 33
+  "generatedCount": 34
 }
