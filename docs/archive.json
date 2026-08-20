@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-21",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHub は 2026年8月20日、Code scanning アラートに Mitigated という却下理由を追加しました。コード上に脆弱性が残っていても、WAF やネットワークポリシーなど外部対策でリスクを抑えているケースを、Won’t fix と分けて記録できます。",
+      "joke": "ショートカットキーを探していたら、庭の木まで気になった。",
+      "sourceUrl": "https://github.blog/changelog/2026-08-20-code-scanning-adds-a-mitigated-alert-dismissal-reason",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5363304852",
+      "createdAt": "2026-08-20T23:29:00Z"
+    },
+    {
       "date": "2026-08-20",
       "category": "GitHub/Gitトリビア",
       "fact": "git ls-tree は、指定した tree-ish に記録されたツリーの内容を、チェックアウトせず一覧できる Git コマンドです。コミットやタグに含まれるパス構成を後から確認したいときに便利で、--name-only を使えばファイル名だけを取り出して調査やスクリプトに回せます。",
@@ -301,5 +310,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 34
+  "generatedCount": 35
 }
