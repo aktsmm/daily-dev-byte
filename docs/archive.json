@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-22",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git hash-object は、ファイル内容から Git オブジェクトIDを計算するコマンドです。通常はIDを標準出力へ表示するだけですが、-w を付けると実際にオブジェクトデータベースへ書き込みます。--stdin により標準入力から内容を渡せるので、スクリプト処理にも向きます。",
+      "joke": "キャッシュを消したら、現金(cash)まで消えた。",
+      "sourceUrl": "https://git-scm.com/docs/git-hash-object",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5376435757",
+      "createdAt": "2026-08-21T23:27:34Z"
+    },
+    {
       "date": "2026-08-21",
       "category": "最近のGitHubアップデート",
       "fact": "GitHub は 2026年8月20日、Code scanning アラートに Mitigated という却下理由を追加しました。コード上に脆弱性が残っていても、WAF やネットワークポリシーなど外部対策でリスクを抑えているケースを、Won’t fix と分けて記録できます。",
@@ -310,5 +319,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 35
+  "generatedCount": 36
 }
