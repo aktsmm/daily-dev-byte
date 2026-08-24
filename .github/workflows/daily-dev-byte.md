@@ -24,7 +24,7 @@ network:
     - "learn.microsoft.com"
 tools:
   github:
-    mode: gh-proxy
+    mode: local
     toolsets: [issues]
   web-fetch:
   bash: ["curl"]
@@ -45,7 +45,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
 
 ## Required process
 
-1. Use the GitHub issue tools to read the issue title, labels, and recent comments on issue #1. Do not probe tools or dates with shell commands; use the run context for the current date and invoke the declared tools directly.
+1. Use the GitHub issue MCP tools directly to read the issue title, labels, and recent comments on issue #1. Do not use `gh`, shell tools, Python, or local files for this step; use the run context for the current date and invoke the declared tools directly.
 2. Confirm that issue #1 has the `daily-byte-feed` label. If it does not, stop without requesting any safe output.
 3. From recent comments containing both `FORMAT: DAILY_DEV_BYTE_V1` and the automatic `workflow_id: daily-dev-byte` marker, extract both the fact subjects and the `JOKE` fields. Internally identify each recent joke's pun pair when possible. Do not repeat or lightly rephrase a recent fact subject, and do not reuse the same pun pair from a recent joke.
 4. Select exactly one category:
