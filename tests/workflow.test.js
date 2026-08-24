@@ -58,3 +58,10 @@ test("publishes a deterministic archive after the publisher completes", () => {
   assert.match(archiveWorkflow, /build-public-archive\.js/);
   assert.match(archiveWorkflow, /docs\/archive\.json/);
 });
+
+test("reads the feed through GitHub MCP rather than restricted local files", () => {
+  assert.match(workflow, /github:\n    mode: local\n    toolsets: \[issues\]/);
+  assert.doesNotMatch(workflow, /mode: gh-proxy/);
+  assert.match(workflow, /Use the GitHub issue MCP tools directly/);
+  assert.match(workflow, /Do not use `gh`, shell tools, Python, or local files/);
+});
