@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-24",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git stripspace は、各行末の空白を削除し、連続する空行を1つに畳み、先頭と末尾の空行も取り除く Git コマンドです。さらに --strip-comments を使えばコメント行も除去できるため、コミットメッセージの整形や前処理を自動化するときに便利です。",
+      "joke": "コードを書いたら、ギターのコードまで弾きたくなった。",
+      "sourceUrl": "https://git-scm.com/docs/git-stripspace",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5389522237",
+      "createdAt": "2026-08-24T00:58:07Z"
+    },
+    {
       "date": "2026-08-22",
       "category": "コマンド/ショートカットTip",
       "fact": "git hash-object は、ファイル内容から Git オブジェクトIDを計算するコマンドです。通常はIDを標準出力へ表示するだけですが、-w を付けると実際にオブジェクトデータベースへ書き込みます。--stdin により標準入力から内容を渡せるので、スクリプト処理にも向きます。",
@@ -319,5 +328,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 36
+  "generatedCount": 37
 }
