@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-26",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git count-objects は、未パックのオブジェクト数とそのディスク使用量を数え、再パックの判断材料をくれる Git コマンドです。さらに -v を付けると、pack 内オブジェクト数、pack ファイル数、garbage の数と容量まで確認でき、オブジェクトデータベースの状態把握に役立ちます。",
+      "joke": "スレッドの整理をしていたら、すれっと雑談まで混ざった。",
+      "sourceUrl": "https://git-scm.com/docs/git-count-objects",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5418363504",
+      "createdAt": "2026-08-25T23:29:00Z"
+    },
+    {
       "date": "2026-08-25",
       "category": "コマンド/ショートカットTip",
       "fact": "git interpret-trailers は、コミットメッセージ末尾の Signed-off-by や Reviewed-by のようなトレーラーを追加・整理するコマンドです。--in-place で既存ファイルを直接更新でき、配置や重複時の扱いもオプションや設定で制御できるため、メッセージ整形の自動化に向いています。",
@@ -337,5 +346,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 38
+  "generatedCount": 39
 }
