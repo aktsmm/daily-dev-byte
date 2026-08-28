@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-28",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git merge-tree は、作業ツリーやインデックスを一切触らずに、実際の git merge と同等の機能でマージ結果を計算できる低レベルコマンドです。--write-tree で結果のトップレベル tree オブジェクトを得られるため、自動処理や事前検証に向いています。",
+      "joke": "サーバーを探していたら、「さあ、バーへ」と案内された。",
+      "sourceUrl": "https://git-scm.com/docs/git-merge-tree",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5449395333",
+      "createdAt": "2026-08-28T06:50:21Z"
+    },
+    {
       "date": "2026-08-27",
       "category": "GitHub/Gitトリビア",
       "fact": "git replace は、refs/replace/ 名前空間に置いた参照で既存オブジェクトを別オブジェクトへ差し替えて扱う Git コマンドです。置換先 ref の名前は元オブジェクトのSHA-1、内容は置換オブジェクトのSHA-1で、通常は同じ型同士だけを置き換えます。",
@@ -355,5 +364,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 40
+  "generatedCount": 41
 }
