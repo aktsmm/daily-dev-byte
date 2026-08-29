@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-29",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git verify-tag は、コマンドラインで指定したタグオブジェクトに対し、git tag で作成された GPG 署名を検証するコマンドです。-v か --verbose を付けると検証前にタグ内容も表示され、配布タグの真正性確認や調査に役立ちます。",
+      "joke": "仕様を決めたら、「しよう!」と会議が前向きになった。",
+      "sourceUrl": "https://git-scm.com/docs/git-verify-tag",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5460233427",
+      "createdAt": "2026-08-29T04:05:59Z"
+    },
+    {
       "date": "2026-08-28",
       "category": "コマンド/ショートカットTip",
       "fact": "git merge-tree は、作業ツリーやインデックスを一切触らずに、実際の git merge と同等の機能でマージ結果を計算できる低レベルコマンドです。--write-tree で結果のトップレベル tree オブジェクトを得られるため、自動処理や事前検証に向いています。",
@@ -364,5 +373,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 41
+  "generatedCount": 42
 }
