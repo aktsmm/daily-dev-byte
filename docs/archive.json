@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-30",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git show-branch は複数のブランチやコミットの祖先関係を半視覚的に一覧するコマンドです。特に --topics を付けると、最初に指定したブランチには入っていない各トピック側のコミットだけを表示できるため、取り込み漏れ確認やレビュー前の整理に役立ちます。",
+      "joke": "バイナリの説明をしたら、「倍なり?」と聞き返された。",
+      "sourceUrl": "https://git-scm.com/docs/git-show-branch",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5465912502",
+      "createdAt": "2026-08-30T01:08:02Z"
+    },
+    {
       "date": "2026-08-29",
       "category": "コマンド/ショートカットTip",
       "fact": "git verify-tag は、コマンドラインで指定したタグオブジェクトに対し、git tag で作成された GPG 署名を検証するコマンドです。-v か --verbose を付けると検証前にタグ内容も表示され、配布タグの真正性確認や調査に役立ちます。",
@@ -373,5 +382,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 42
+  "generatedCount": 43
 }
