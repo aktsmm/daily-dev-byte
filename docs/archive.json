@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-08-31",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git name-rev は、コミットIDに対して到達可能な参照名から人が読みやすい名前を付けるコマンドです。たとえばタグやブランチ名に加えて ~N の形で距離も示せるため、長いSHA-1だけでは分かりにくい履歴位置を説明したいときに役立ちます。",
+      "joke": "キューを整理していたら、「急に片付いたね」と言われた。",
+      "sourceUrl": "https://git-scm.com/docs/git-name-rev",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5472476444",
+      "createdAt": "2026-08-31T01:10:27Z"
+    },
+    {
       "date": "2026-08-30",
       "category": "コマンド/ショートカットTip",
       "fact": "git show-branch は複数のブランチやコミットの祖先関係を半視覚的に一覧するコマンドです。特に --topics を付けると、最初に指定したブランチには入っていない各トピック側のコミットだけを表示できるため、取り込み漏れ確認やレビュー前の整理に役立ちます。",
@@ -382,5 +391,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 43
+  "generatedCount": 44
 }
