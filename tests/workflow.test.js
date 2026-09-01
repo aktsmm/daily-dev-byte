@@ -29,14 +29,19 @@ test("requires an identifiable phonetic pun pair and rejects technical metaphors
   assert.match(workflow, /only a technical metaphor; it has no phonetic pun pair/);
 });
 
-test("checks recent JOKE fields and provides an ordered deterministic fallback pool", () => {
-  assert.match(workflow, /extract both the fact subjects and the `JOKE` fields/);
-  assert.match(workflow, /do not reuse the same pun pair from a recent joke/i);
+test("uses bounded deterministic context and ordered fallback pools", () => {
+  assert.match(workflow, /cat \/tmp\/gh-aw\/agent\/feed-context\.json` exactly once/);
+  assert.match(workflow, /at most the 12 most recent valid entries/);
+  assert.match(workflow, /available_fallback_jokes/);
+  assert.match(workflow, /available_fallback_sources/);
   assert.match(workflow, /This ordered fallback pool is deterministic/);
 
   const fallbackEntries =
     workflow.match(/^\s+\d+\. `[^`\n]+` \(`[^`\n]+`[^\n]*\)$/gm) || [];
   assert.equal(fallbackEntries.length, 5);
+  const fallbackSources =
+    workflow.match(/^\s+\d+\. `https:\/\/git-scm\.com\/docs\/[^`\n]+`$/gm) || [];
+  assert.equal(fallbackSources.length, 5);
 });
 
 test("preserves the exact seven-line publication contract", () => {
@@ -63,11 +68,23 @@ test("publishes a deterministic archive after the publisher completes", () => {
   assert.match(archiveWorkflow, /docs\/archive\.json/);
 });
 
-test("reads the feed through the authenticated GitHub proxy without local parsing", () => {
-  assert.match(workflow, /github:\n    mode: gh-proxy\n    toolsets: \[issues\]/);
-  assert.match(workflow, /Use the pre-authenticated `gh` CLI only for GitHub reads/);
-  assert.match(workflow, /issues\/1" --jq/);
-  assert.match(workflow, /comments\?per_page=100/);
-  assert.match(workflow, /Do not write API responses to local files or use `read`, Python/);
-  assert.match(compiledWorkflow, /shell\(gh:\*\)/);
+test("prepares feed history outside the model and publishes through a gated safe output", () => {
+  assert.doesNotMatch(workflow, /mode: gh-proxy/);
+  assert.match(workflow, /checkout: false/);
+  assert.match(workflow, /github: false/);
+  assert.match(workflow, /edit: false/);
+  assert.match(workflow, /jobs:\n  prepare_feed_context:/);
+  assert.match(workflow, /context: \$\{\{ steps\.context\.outputs\.context \}\}/);
+  assert.match(workflow, /should_publish: \$\{\{ steps\.context\.outputs\.should_publish \}\}/);
+  assert.match(workflow, /agent:\n    if: needs\.prepare_feed_context\.outputs\.should_publish == 'true'/);
+  assert.match(workflow, /name: Prepare bounded feed context/);
+  assert.match(workflow, /daily-dev-byte-feed\.js context/);
+  assert.match(workflow, /FEED_CONTEXT: \$\{\{ needs\.prepare_feed_context\.outputs\.context \}\}/);
+  assert.match(workflow, /name: Materialize bounded feed context/);
+  assert.match(workflow, /test "\$\(wc -c < \/tmp\/gh-aw\/agent\/feed-context\.json\)" -le 16384/);
+  assert.match(workflow, /jobs:\n    publish-daily-dev-byte:/);
+  assert.match(workflow, /if: needs\.detection\.outputs\.detection_success == 'true'/);
+  assert.match(workflow, /daily-dev-byte-feed\.js publish/);
+  assert.match(compiledWorkflow, /shell\(cat\)/);
+  assert.doesNotMatch(compiledWorkflow, /shell\(gh:\*\)/);
 });
