@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-02",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git branch --show-current は、現在いるブランチ名だけを1行で表示するオプションです。detached HEAD 状態では何も出力されないので、一覧表示の印や余計な整形を避けつつ、シェルスクリプトで今の作業位置を安全に扱いたいときに便利です。",
+      "joke": "シェルを開いたら、貝のシェルまで集めたくなった。",
+      "sourceUrl": "https://git-scm.com/docs/git-branch",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5502692647",
+      "createdAt": "2026-09-02T00:54:11Z"
+    },
+    {
       "date": "2026-09-01",
       "category": "コマンド/ショートカットTip",
       "fact": "git shortlog はコミット履歴を作者ごとに要約するコマンドです。-s で件数だけ、-n で件数順に並べ替えられ、--group=trailer:co-authored-by を使うと Co-authored-by トレーラー単位でも集計できます。リリース前の貢献者確認に便利です。",
@@ -400,5 +409,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 45
+  "generatedCount": 46
 }
