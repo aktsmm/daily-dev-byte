@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-03",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git cherry は、topic 側のコミットが upstream に同等パッチとして取り込まれたかを調べるコマンドです。出力では、upstream に同等コミットがあれば -、まだ無ければ + で示されるため、送った修正が採用済みかを手早く確認できます。",
+      "joke": "キャリアの相談をしたら、通信キャリアの比較会になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-cherry",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5518713787",
+      "createdAt": "2026-09-03T01:02:31Z"
+    },
+    {
       "date": "2026-09-02",
       "category": "コマンド/ショートカットTip",
       "fact": "git branch --show-current は、現在いるブランチ名だけを1行で表示するオプションです。detached HEAD 状態では何も出力されないので、一覧表示の印や余計な整形を避けつつ、シェルスクリプトで今の作業位置を安全に扱いたいときに便利です。",
@@ -409,5 +418,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 46
+  "generatedCount": 47
 }
