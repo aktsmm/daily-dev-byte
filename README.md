@@ -13,8 +13,8 @@
 ## アーキテクチャ
 
 1. `.github/workflows/daily-dev-byte.md` が毎日 08:00（Asia/Tokyo）または手動実行で起動します。
-2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
-3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な7行の機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
+2. 決定論的な前処理が Issue #1 の全コメントから有効な投稿だけを抽出し、直近12件と、全履歴を基に算出した未使用fallback一覧を16 KiB以下のJSONへ圧縮します。CopilotにはこのJSONだけを渡し、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
+3. 当日分が既にある再実行はagent起動前に成功no-opとします。それ以外はカスタムsafe-outputジョブが `daily-byte-feed` ラベル、厳格な7行形式、Asia/Tokyoの日付を再検証し、新規候補の日付とFACT/JOKE/SOURCEが既存の有効な全投稿と衝突しない場合だけ Issue #1 に投稿します。エージェント本体には書き込み権限を与えません。
 4. Issue #1 が追記型の永続的な正本（source of truth）です。公開後、`publish-daily-dev-byte-archive.yml` が Issue #1 のコメントを読み、`github-actions[bot]`による投稿だけを対象に、gh-awの自動workflow markerまたは可視の`FORMAT: DAILY_DEV_BYTE_V1`で生成コメントを識別します。
 5. アーカイブ更新ジョブは各コメントを`END: DAILY_DEV_BYTE_V1`まで個別に検証し、有効な投稿をコメント公開時刻の新しい順に`docs/archive.json`へ書き出します。最新の1件を「最新のDev Byte」、残りを「これまでのByte」としてPagesに表示します。新しい投稿が壊れていても、過去の有効な履歴は失われません。
 
@@ -32,7 +32,7 @@ SOURCE: 許可された公式ドメインの直接HTTPS URL
 END: DAILY_DEV_BYTE_V1
 ```
 
-この後ろにgh-awが監査用workflow markerを自動付与します。旧HTML comment marker形式も読み取り互換性のため解析できます。
+旧投稿に付与されたgh-aw workflow markerと旧HTML comment marker形式も、読み取り互換性のため解析できます。
 
 ## セットアップ
 
