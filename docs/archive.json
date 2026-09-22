@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-22",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git update-index --refresh は、ファイル内容を再計算せず、stat 情報を見直してインデックスとの対応を更新するオプションです。内容は変えていないのにタイムスタンプ差で状態確認がずれた場面で、再追加せず整合を取り直す用途に向きます。",
+      "joke": "クラス設計をしていたら、将来どう暮らすかまで考えた。",
+      "sourceUrl": "https://git-scm.com/docs/git-update-index",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5770071926",
+      "createdAt": "2026-09-22T01:46:48Z"
+    },
+    {
       "date": "2026-09-03",
       "category": "コマンド/ショートカットTip",
       "fact": "git cherry は、topic 側のコミットが upstream に同等パッチとして取り込まれたかを調べるコマンドです。出力では、upstream に同等コミットがあれば -、まだ無ければ + で示されるため、送った修正が採用済みかを手早く確認できます。",
@@ -418,5 +427,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 47
+  "generatedCount": 48
 }
