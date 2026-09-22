@@ -74,6 +74,23 @@ gh aw compile daily-dev-byte --strict --validate
 
 編集対象は `.github/workflows/daily-dev-byte.md` です。生成された `.github/workflows/daily-dev-byte.lock.yml` もコミットします。
 
+#### `Blocked compile-agentic version` で起動できない場合
+
+2026-09-22 の実行では、生成済みワークフローのコンパイラー `v0.82.9` が公式の実行禁止リストに入り、`activation` の `Check compile-agentic version` で停止しました。記事生成・投稿処理は実行されていません。復旧用の生成バージョンは `v0.88.8` です。
+
+既にインストール済みの場合は、CLI を更新してから再コンパイルします。CLI だけの更新や、生成ファイル内のバージョン番号だけの書き換えでは復旧しません。
+
+```powershell
+gh extension upgrade gh-aw
+gh aw version
+gh aw compile daily-dev-byte --strict --validate
+node --test tests/workflow.test.js
+```
+
+生成された `.github/workflows/daily-dev-byte.lock.yml`、`.github/aw/actions-lock.json`、コンパイラーが更新した `.gitattributes` を確認してコミットし、`main` に反映してください。その後、下記の手動実行で新しい実行を開始します。失敗した古い実行の再実行では、古いコミットの生成ファイルが使われます。バージョンチェックは削除・無効化しないでください。
+
+禁止リストは更新されるため、将来の互換性まで固定バージョンで保証されるわけではありません。再発時も[公式の互換性設定](https://github.com/github/gh-aw-actions/blob/main/.github/aw/compat.json)と[リリース](https://github.com/github/gh-aw/releases/latest)を確認して更新・再生成します。
+
 ### GitHub Pages
 
 Pages の公開元を `main` ブランチの `/docs` に設定します。
