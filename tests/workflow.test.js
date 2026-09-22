@@ -19,6 +19,54 @@ const compiledWorkflow = fs
   .readFileSync(path.join(root, ".github", "workflows", "daily-dev-byte.lock.yml"), "utf8")
   .replace(/\r\n/g, "\n");
 
+test("uses the recovery compiler baseline with matching runtime and action pins", () => {
+  const metadata = JSON.parse(compiledWorkflow.match(/^# gh-aw-metadata: (.+)$/m)[1]);
+  const version = metadata.compiler_version;
+  assert.match(version, /^v\d+\.\d+\.\d+$/);
+  const [major, minor, patch] = version.slice(1).split(".").map(Number);
+  assert.ok(
+    major > 0 || minor > 88 || (minor === 88 && patch >= 8),
+    "Recompile with gh-aw v0.88.8 or newer; do not restore the blocked v0.82.9 lock file"
+  );
+  assert.equal(metadata.strict, true);
+
+  const actionLock = JSON.parse(
+    fs.readFileSync(path.join(root, ".github", "aw", "actions-lock.json"), "utf8")
+  );
+  const setupPin = actionLock.entries[`github/gh-aw-actions/setup@${version}`];
+  assert.ok(setupPin);
+  assert.equal(setupPin.version, version);
+  assert.match(setupPin.sha, /^[a-f0-9]{40}$/);
+
+  const setupUses = [...compiledWorkflow.matchAll(/uses: github\/gh-aw-actions\/setup@(\S+)/g)];
+  assert.ok(setupUses.length > 0);
+  for (const [, sha] of setupUses) assert.equal(sha, setupPin.sha);
+
+  const runtimeVersions = [
+    ...compiledWorkflow.matchAll(/GH_AW_COMPILED_VERSION: "?([^"\n]+)"?/g)
+  ];
+  assert.ok(runtimeVersions.length > 0);
+  for (const [, runtimeVersion] of runtimeVersions) assert.equal(runtimeVersion, version);
+  assert.match(compiledWorkflow, /name: Check compile-agentic version/);
+  assert.match(compiledWorkflow, /check_version_updates\.cjs/);
+});
+
+test("preserves publication limits and authentication after recompilation", () => {
+  assert.match(compiledWorkflow, /cron: "0 23 \* \* \*"/);
+  assert.match(compiledWorkflow, /copilot-requests: write/);
+  assert.match(compiledWorkflow, /GH_AW_MAX_DAILY_AI_CREDITS: "2000"/);
+
+  const configLine = compiledWorkflow.match(/GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: (.+)/);
+  assert.ok(configLine);
+  const config = JSON.parse(JSON.parse(configLine[1]));
+  assert.deepEqual(config.add_comment, {
+    footer: false,
+    max: 1,
+    required_labels: ["daily-byte-feed"],
+    target: "1"
+  });
+});
+
 test("requires an identifiable phonetic pun pair and rejects technical metaphors", () => {
   assert.match(workflow, /identical or clearly similar Japanese sounds in different meanings/);
   assert.match(workflow, /internally name the exact two expressions and their different meanings/);
