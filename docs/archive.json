@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-23",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git cat-file は、Git オブジェクトの型・サイズ・内容を直接調べられるコマンドです。-t で型、-s でサイズ、-p で整形表示ができ、--batch 系では標準入力から複数オブジェクトをまとめて扱えるため、調査やスクリプト自動化に便利です。",
+      "joke": "タグを付けたら、服のタグまで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-cat-file",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5787330078",
+      "createdAt": "2026-09-23T01:20:47Z"
+    },
+    {
       "date": "2026-09-22",
       "category": "コマンド/ショートカットTip",
       "fact": "git update-index --refresh は、ファイル内容を再計算せず、stat 情報を見直してインデックスとの対応を更新するオプションです。内容は変えていないのにタイムスタンプ差で状態確認がずれた場面で、再追加せず整合を取り直す用途に向きます。",
@@ -427,5 +436,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 48
+  "generatedCount": 49
 }
