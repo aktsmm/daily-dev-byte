@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-24",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git fsck は、オブジェクトデータベース内のオブジェクトについて到達可能性と妥当性を検査するコマンドです。--connectivity-only を使うと、参照されたオブジェクトの存在確認に絞って blob 内容の読み込みを省けるため、高速に整合性を点検したい場面で役立ちます。",
+      "joke": "ルート権限の話をしたら、地図のルート案内が始まった。",
+      "sourceUrl": "https://git-scm.com/docs/git-fsck",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5805620102",
+      "createdAt": "2026-09-24T01:07:54Z"
+    },
+    {
       "date": "2026-09-23",
       "category": "コマンド/ショートカットTip",
       "fact": "git cat-file は、Git オブジェクトの型・サイズ・内容を直接調べられるコマンドです。-t で型、-s でサイズ、-p で整形表示ができ、--batch 系では標準入力から複数オブジェクトをまとめて扱えるため、調査やスクリプト自動化に便利です。",
@@ -436,5 +445,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 49
+  "generatedCount": 50
 }
