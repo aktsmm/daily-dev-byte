@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-25",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git commit-tree は、既存の tree オブジェクトと親コミットを指定して新しい commit オブジェクトを作り、そのコミットIDを標準出力へ出す低レベルコマンドです。作業ツリーを直接触らず履歴オブジェクトを組み立てたい自動処理や Git の内部理解に役立ちます。",
+      "joke": "プル前に確認しようと言ったら、「プール前に集合?」と聞き返された。",
+      "sourceUrl": "https://git-scm.com/docs/git-commit-tree",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5825027402",
+      "createdAt": "2026-09-25T01:15:29Z"
+    },
+    {
       "date": "2026-09-24",
       "category": "コマンド/ショートカットTip",
       "fact": "git fsck は、オブジェクトデータベース内のオブジェクトについて到達可能性と妥当性を検査するコマンドです。--connectivity-only を使うと、参照されたオブジェクトの存在確認に絞って blob 内容の読み込みを省けるため、高速に整合性を点検したい場面で役立ちます。",
@@ -445,5 +454,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 50
+  "generatedCount": 51
 }
