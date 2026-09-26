@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-26",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git show は、コミットだけでなく blob・tree・tag も表示できるコマンドです。コミットならログメッセージと差分、tree ならファイル名一覧、tag ならタグメッセージと参照先を確認できるので、1つのオブジェクトを手早く調べたいときに便利です。",
+      "joke": "ネットマスクの話をしたら、予防用のマスクを渡された。",
+      "sourceUrl": "https://git-scm.com/docs/git-show",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5841859445",
+      "createdAt": "2026-09-26T01:15:36Z"
+    },
+    {
       "date": "2026-09-25",
       "category": "コマンド/ショートカットTip",
       "fact": "git commit-tree は、既存の tree オブジェクトと親コミットを指定して新しい commit オブジェクトを作り、そのコミットIDを標準出力へ出す低レベルコマンドです。作業ツリーを直接触らず履歴オブジェクトを組み立てたい自動処理や Git の内部理解に役立ちます。",
@@ -454,5 +463,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 51
+  "generatedCount": 52
 }
