@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-27",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git write-tree は、現在のインデックスから tree オブジェクトを作成し、その新しいオブジェクト名を標準出力へ出す低レベル Git コマンドです。インデックスが完全にマージ済みであることが前提で、--prefix を使うと特定サブディレクトリだけの tree も書き出せます。",
+      "joke": "スイッチの交換を頼んだら、会議室の電気のスイッチまで交換されそうになった。",
+      "sourceUrl": "https://git-scm.com/docs/git-write-tree",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5851513061",
+      "createdAt": "2026-09-27T01:09:26Z"
+    },
+    {
       "date": "2026-09-26",
       "category": "コマンド/ショートカットTip",
       "fact": "git show は、コミットだけでなく blob・tree・tag も表示できるコマンドです。コミットならログメッセージと差分、tree ならファイル名一覧、tag ならタグメッセージと参照先を確認できるので、1つのオブジェクトを手早く調べたいときに便利です。",
@@ -463,5 +472,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 52
+  "generatedCount": 53
 }
