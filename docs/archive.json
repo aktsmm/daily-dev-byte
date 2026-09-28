@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-28",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git bundle は、リポジトリのオブジェクトと参照を1つのバンドルファイルにまとめて持ち運べる Git 機能です。オフライン環境でも clone や fetch の入力として使え、サーバー接続なしで履歴を受け渡したいときのバックアップや移送に役立ちます。",
+      "joke": "マージの予定を伝えたら、「マジ?」と二度聞きされた。",
+      "sourceUrl": "https://git-scm.com/docs/git-bundle",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5861716657",
+      "createdAt": "2026-09-28T01:28:15Z"
+    },
+    {
       "date": "2026-09-27",
       "category": "コマンド/ショートカットTip",
       "fact": "git write-tree は、現在のインデックスから tree オブジェクトを作成し、その新しいオブジェクト名を標準出力へ出す低レベル Git コマンドです。インデックスが完全にマージ済みであることが前提で、--prefix を使うと特定サブディレクトリだけの tree も書き出せます。",
@@ -472,5 +481,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 53
+  "generatedCount": 54
 }
