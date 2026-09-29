@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-29",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git check-mailmap は、Name (user@host) や user@host を .mailmap の対応に照らして正規の名前・メールアドレスへ引き直し、見つからなければ入力をそのまま表示するコマンドです。履歴を書き換えずに表記ゆれを確認したいときに役立ちます。",
+      "joke": "ポインタを追っていたら、ポインター犬まで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-check-mailmap",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5882541241",
+      "createdAt": "2026-09-29T02:33:27Z"
+    },
+    {
       "date": "2026-09-28",
       "category": "コマンド/ショートカットTip",
       "fact": "git bundle は、リポジトリのオブジェクトと参照を1つのバンドルファイルにまとめて持ち運べる Git 機能です。オフライン環境でも clone や fetch の入力として使え、サーバー接続なしで履歴を受け渡したいときのバックアップや移送に役立ちます。",
@@ -481,5 +490,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 54
+  "generatedCount": 55
 }
