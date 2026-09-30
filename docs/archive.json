@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-09-30",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git read-tree は、指定した tree の情報をインデックスへ読み込む低レベルコマンドで、通常は作業ツリーのファイルを直接更新しません。-m でマージ、-u を併用すると結果を作業ツリーにも反映できるため、内部動作の理解や自動処理の基礎として役立ちます。",
+      "joke": "バッチ処理が終わって、ばっちり片付いた。",
+      "sourceUrl": "https://git-scm.com/docs/git-read-tree",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5902524686",
+      "createdAt": "2026-09-30T01:54:29Z"
+    },
+    {
       "date": "2026-09-29",
       "category": "コマンド/ショートカットTip",
       "fact": "git check-mailmap は、Name (user@host) や user@host を .mailmap の対応に照らして正規の名前・メールアドレスへ引き直し、見つからなければ入力をそのまま表示するコマンドです。履歴を書き換えずに表記ゆれを確認したいときに役立ちます。",
@@ -490,5 +499,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 55
+  "generatedCount": 56
 }
