@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-01",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git config は、既定では system・global・local の設定を読み、書き込み先は通常リポジトリの .git/config です。--global や --system を付ければ対象を明示できるので、設定の保存場所を切り分けながら安全に調整したいときに役立ちます。",
+      "joke": "新しいマウスに替えたら、台所のマウスまで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-config",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5923131368",
+      "createdAt": "2026-10-01T01:52:34Z"
+    },
+    {
       "date": "2026-09-30",
       "category": "コマンド/ショートカットTip",
       "fact": "git read-tree は、指定した tree の情報をインデックスへ読み込む低レベルコマンドで、通常は作業ツリーのファイルを直接更新しません。-m でマージ、-u を併用すると結果を作業ツリーにも反映できるため、内部動作の理解や自動処理の基礎として役立ちます。",
@@ -499,5 +508,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 56
+  "generatedCount": 57
 }
