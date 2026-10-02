@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-02",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git archive は、指定した tree やコミットの内容から tar や zip の配布用アーカイブを作れる Git コマンドです。--prefix で展開先の先頭ディレクトリ名を付けられ、export-ignore 属性を使えば公開物に含めたくないファイルも除外できます。",
+      "joke": "アドレスを聞かれて、「あ、ドレス?」と服売り場に向かいそうになった。",
+      "sourceUrl": "https://git-scm.com/docs/git-archive",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5944237770",
+      "createdAt": "2026-10-02T02:04:09Z"
+    },
+    {
       "date": "2026-10-01",
       "category": "コマンド/ショートカットTip",
       "fact": "git config は、既定では system・global・local の設定を読み、書き込み先は通常リポジトリの .git/config です。--global や --system を付ければ対象を明示できるので、設定の保存場所を切り分けながら安全に調整したいときに役立ちます。",
@@ -508,5 +517,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 57
+  "generatedCount": 58
 }
