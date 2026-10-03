@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-03",
+      "category": "コマンド/ショートカットTip",
+      "fact": "GitHubでファイルを表示中に y キーを押すと、URLがブランチ名ではなく特定コミットを指す恒久リンクに変わります。後でデフォルトブランチ先端が更新されても同じ版を共有できるため、レビューコメントや設計メモで「その時点の内容」を正確に参照したいときに便利です。",
+      "joke": "ショートカットキーを覚えたら、庭の木まで気になった。",
+      "sourceUrl": "https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5964248052",
+      "createdAt": "2026-10-03T01:47:10Z"
+    },
+    {
       "date": "2026-10-02",
       "category": "コマンド/ショートカットTip",
       "fact": "git archive は、指定した tree やコミットの内容から tar や zip の配布用アーカイブを作れる Git コマンドです。--prefix で展開先の先頭ディレクトリ名を付けられ、export-ignore 属性を使えば公開物に含めたくないファイルも除外できます。",
@@ -517,5 +526,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 58
+  "generatedCount": 59
 }
