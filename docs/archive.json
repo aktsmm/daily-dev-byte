@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-04",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git prune は、参照されていない到達不能オブジェクトをオブジェクトデータベースから整理するコマンドです。通常は git gc から呼ばれる想定で、単独実行が必要な場面は多くありません。まず --dry-run で削除対象を確認すると安全です。",
+      "joke": "スタックを見ていたら、書類のスタックまで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-prune",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5975785585",
+      "createdAt": "2026-10-04T02:28:46Z"
+    },
+    {
       "date": "2026-10-03",
       "category": "コマンド/ショートカットTip",
       "fact": "GitHubでファイルを表示中に y キーを押すと、URLがブランチ名ではなく特定コミットを指す恒久リンクに変わります。後でデフォルトブランチ先端が更新されても同じ版を共有できるため、レビューコメントや設計メモで「その時点の内容」を正確に参照したいときに便利です。",
@@ -526,5 +535,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 59
+  "generatedCount": 60
 }
