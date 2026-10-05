@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-05",
+      "category": "コマンド/ショートカットTip",
+      "fact": "GitHubのリポジトリでコードを見ているときに t キーを押すと、ファイルファインダーが開いて目的のファイルへすばやく移動できます。巨大なリポジトリでも一覧を長くスクロールせず、ファイル名から直接たどれるので、場所が分かっているコードを開く近道として便利です。",
+      "joke": "バグを探していたら、バッグ売り場まで歩いていた。",
+      "sourceUrl": "https://docs.github.com/en/get-started/accessibility/keyboard-shortcuts",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-5986659877",
+      "createdAt": "2026-10-05T01:40:06Z"
+    },
+    {
       "date": "2026-10-04",
       "category": "コマンド/ショートカットTip",
       "fact": "git prune は、参照されていない到達不能オブジェクトをオブジェクトデータベースから整理するコマンドです。通常は git gc から呼ばれる想定で、単独実行が必要な場面は多くありません。まず --dry-run で削除対象を確認すると安全です。",
@@ -535,5 +544,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 60
+  "generatedCount": 61
 }
