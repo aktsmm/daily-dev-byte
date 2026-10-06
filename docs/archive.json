@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-06",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git format-patch は、コミットを UNIX mbox 形式に近いパッチメールへ整形するコマンドです。各非マージコミットを1通ずつ出力でき、生成物はメール送付だけでなく git am での適用にも使えるため、レビューや外部受け渡しに便利です。",
+      "joke": "データが見つかって、「出ーた!」と声が出た。",
+      "sourceUrl": "https://git-scm.com/docs/git-format-patch",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6008276163",
+      "createdAt": "2026-10-06T02:45:34Z"
+    },
+    {
       "date": "2026-10-05",
       "category": "コマンド/ショートカットTip",
       "fact": "GitHubのリポジトリでコードを見ているときに t キーを押すと、ファイルファインダーが開いて目的のファイルへすばやく移動できます。巨大なリポジトリでも一覧を長くスクロールせず、ファイル名から直接たどれるので、場所が分かっているコードを開く近道として便利です。",
@@ -544,5 +553,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 61
+  "generatedCount": 62
 }
