@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-07",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git verify-pack は、指定した pack の .idx と対応する pack ファイルを検証する低レベルコマンドです。-v で格納オブジェクト一覧と delta chain 長のヒストグラムを表示でき、-s なら内容検証を省いて統計だけ確認できます。",
+      "joke": "パケットを追っていたら、バケツを持ってこられた。",
+      "sourceUrl": "https://git-scm.com/docs/git-verify-pack",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6029389108",
+      "createdAt": "2026-10-07T02:09:12Z"
+    },
+    {
       "date": "2026-10-06",
       "category": "コマンド/ショートカットTip",
       "fact": "git format-patch は、コミットを UNIX mbox 形式に近いパッチメールへ整形するコマンドです。各非マージコミットを1通ずつ出力でき、生成物はメール送付だけでなく git am での適用にも使えるため、レビューや外部受け渡しに便利です。",
@@ -553,5 +562,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 62
+  "generatedCount": 63
 }
