@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-08",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git clean は、追跡されていないファイルやディレクトリを作業ツリーから取り除くコマンドです。-n なら削除せず対象確認だけ行え、-x は無視設定済みも含めて削除、-X は無視対象だけを削除できるため、掃除前の安全確認に向きます。",
+      "joke": "モデルを見直していたら、ファッションモデルの歩き方まで気になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-clean",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6051002661",
+      "createdAt": "2026-10-08T02:34:51Z"
+    },
+    {
       "date": "2026-10-07",
       "category": "コマンド/ショートカットTip",
       "fact": "git verify-pack は、指定した pack の .idx と対応する pack ファイルを検証する低レベルコマンドです。-v で格納オブジェクト一覧と delta chain 長のヒストグラムを表示でき、-s なら内容検証を省いて統計だけ確認できます。",
@@ -562,5 +571,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 63
+  "generatedCount": 64
 }
