@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-09",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubでは2026年10月6日に stacked pull requests が一般提供になりました。大きな変更を小さな依存PRへ分けて個別レビューしつつまとめて扱え、今回のGAでは Rebase stack 後も未変更コードの承認保持や Shift+J/Shift+K によるスタック移動が追加されています。",
+      "joke": "キャッシュを消したら、現金(cash)まで消えた。",
+      "sourceUrl": "https://github.blog/changelog/2026-10-06-stacked-pull-requests-generally-available/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6073257427",
+      "createdAt": "2026-10-09T02:51:10Z"
+    },
+    {
       "date": "2026-10-08",
       "category": "コマンド/ショートカットTip",
       "fact": "git clean は、追跡されていないファイルやディレクトリを作業ツリーから取り除くコマンドです。-n なら削除せず対象確認だけ行え、-x は無視設定済みも含めて削除、-X は無視対象だけを削除できるため、掃除前の安全確認に向きます。",
@@ -571,5 +580,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 64
+  "generatedCount": 65
 }
