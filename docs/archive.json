@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-10",
+      "category": "GitHub/Gitトリビア",
+      "fact": "GitHubでは、既定ブランチ向けのプルリク本文やコミットメッセージに「Closes #10」「Fixes owner/repo#123」などのキーワードを書くと、マージ時に対応するIssueを自動で閉じられます。修正と課題の結び付けを明確にしやすい仕組みです。",
+      "joke": "フェッチしようとしたら、犬のフェッチかと思われた。",
+      "sourceUrl": "https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6092546405",
+      "createdAt": "2026-10-10T02:08:50Z"
+    },
+    {
       "date": "2026-10-09",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubでは2026年10月6日に stacked pull requests が一般提供になりました。大きな変更を小さな依存PRへ分けて個別レビューしつつまとめて扱え、今回のGAでは Rebase stack 後も未変更コードの承認保持や Shift+J/Shift+K によるスタック移動が追加されています。",
@@ -580,5 +589,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 65
+  "generatedCount": 66
 }
