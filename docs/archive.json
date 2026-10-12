@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-12",
+      "category": "コマンド/ショートカットTip",
+      "fact": "GitHubのリポジトリやプルリク画面では、. キーで github.dev エディタを同じタブに、> キーで新しいタブに開けます。ローカル環境を立ち上げる前にブラウザ上ですぐ軽い編集や確認へ移れるため、素早い調査や小修正の入口として便利です。",
+      "joke": "ホストが落ちたと聞いて、飲み会のホストまで心配になった。",
+      "sourceUrl": "https://docs.github.com/en/get-started/accessibility/keyboard-shortcuts",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6116475776",
+      "createdAt": "2026-10-12T02:07:16Z"
+    },
+    {
       "date": "2026-10-11",
       "category": "GitHub/Gitトリビア",
       "fact": "git tag で -a や -s を使って作る注釈付きタグは、作成日時・作成者・メッセージ・任意の署名を持つタグオブジェクトです。軽量タグは単なる別名なので、リリース記録には注釈付きタグが向き、git describe も既定では軽量タグを無視します。",
@@ -598,5 +607,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 67
+  "generatedCount": 68
 }
