@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-13",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git help -g は、Gitの概念ガイド一覧を標準出力に表示するオプションです。コマンド名ではなく「Everyday Git」「Glossary」などの文書から入口を探せるため、何を読むべきか迷う場面で、学習や調査の出発点として役立ちます。",
+      "joke": "パスが通らなくて、入館パスまで疑った。",
+      "sourceUrl": "https://git-scm.com/docs/git-help",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6137521930",
+      "createdAt": "2026-10-13T03:26:35Z"
+    },
+    {
       "date": "2026-10-12",
       "category": "コマンド/ショートカットTip",
       "fact": "GitHubのリポジトリやプルリク画面では、. キーで github.dev エディタを同じタブに、> キーで新しいタブに開けます。ローカル環境を立ち上げる前にブラウザ上ですぐ軽い編集や確認へ移れるため、素早い調査や小修正の入口として便利です。",
@@ -607,5 +616,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 68
+  "generatedCount": 69
 }
