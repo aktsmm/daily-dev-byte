@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-14",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git check-attr は、指定したパスに対して gitattributes の属性が set・unset・unspecified・値のどれで効いているか確認できるコマンドです。--all で適用中の属性一覧、--stdin と -z で機械処理向けの確認もしやすくなります。",
+      "joke": "コードレビューで「こうでいい?」と聞いてみた。",
+      "sourceUrl": "https://git-scm.com/docs/git-check-attr",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6158965918",
+      "createdAt": "2026-10-14T01:39:52Z"
+    },
+    {
       "date": "2026-10-13",
       "category": "コマンド/ショートカットTip",
       "fact": "git help -g は、Gitの概念ガイド一覧を標準出力に表示するオプションです。コマンド名ではなく「Everyday Git」「Glossary」などの文書から入口を探せるため、何を読むべきか迷う場面で、学習や調査の出発点として役立ちます。",
@@ -616,5 +625,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 69
+  "generatedCount": 70
 }
