@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-15",
+      "category": "GitHub/Gitトリビア",
+      "fact": "GitHubのCODEOWNERSは、.github/・リポジトリ直下・docs/ に置けます。複数ある場合はこの順で最初の1つだけが使われ、プルリクで自動レビュー依頼を出すには、そのPRのベースブランチ上に置かれている必要があります。",
+      "joke": "バイト列を調べていたら、アルバイトの時間になった。",
+      "sourceUrl": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6182117996",
+      "createdAt": "2026-10-15T01:15:49Z"
+    },
+    {
       "date": "2026-10-14",
       "category": "コマンド/ショートカットTip",
       "fact": "git check-attr は、指定したパスに対して gitattributes の属性が set・unset・unspecified・値のどれで効いているか確認できるコマンドです。--all で適用中の属性一覧、--stdin と -z で機械処理向けの確認もしやすくなります。",
@@ -625,5 +634,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 70
+  "generatedCount": 71
 }
