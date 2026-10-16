@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-16",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git maintenance start は、そのリポジトリをバックグラウンド保守へ登録し、git maintenance run --scheduled を毎時実行する設定を行います。既定の incremental 戦略では commit-graph と prefetch が毎時、loose-objects と incremental-repack が毎日走ります。",
+      "joke": "バス幅の相談をしたら、時刻表を渡された。",
+      "sourceUrl": "https://git-scm.com/docs/git-maintenance",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6205653959",
+      "createdAt": "2026-10-16T01:04:49Z"
+    },
+    {
       "date": "2026-10-15",
       "category": "GitHub/Gitトリビア",
       "fact": "GitHubのCODEOWNERSは、.github/・リポジトリ直下・docs/ に置けます。複数ある場合はこの順で最初の1つだけが使われ、プルリクで自動レビュー依頼を出すには、そのPRのベースブランチ上に置かれている必要があります。",
@@ -634,5 +643,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 71
+  "generatedCount": 72
 }
