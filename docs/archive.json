@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-17",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git status の --porcelain は、スクリプト向けの安定した出力形式です。通常表示と違って Git の版やユーザー設定の影響を受けにくく、-z を併用すればパス名を NUL 区切りで安全に扱えるため、自動処理や判定の入力に向いています。",
+      "joke": "Issueを整理していたら、会議が一周してまたイシューに戻った。",
+      "sourceUrl": "https://git-scm.com/docs/git-status",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6227754822",
+      "createdAt": "2026-10-17T01:07:27Z"
+    },
+    {
       "date": "2026-10-16",
       "category": "コマンド/ショートカットTip",
       "fact": "git maintenance start は、そのリポジトリをバックグラウンド保守へ登録し、git maintenance run --scheduled を毎時実行する設定を行います。既定の incremental 戦略では commit-graph と prefetch が毎時、loose-objects と incremental-repack が毎日走ります。",
@@ -643,5 +652,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 72
+  "generatedCount": 73
 }
