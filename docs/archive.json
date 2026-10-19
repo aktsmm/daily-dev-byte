@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-19",
+      "category": "コマンド/ショートカットTip",
+      "fact": "git var は、Gitが使う論理変数の値を表示するコマンドです。たとえば GIT_EDITOR なら、$GIT_EDITOR、core.editor、$VISUAL、$EDITOR、既定値の順で使われる編集器を確認でき、環境差の切り分けに役立ちます。",
+      "joke": "ドラフトPRを書いていたら、ドラフトビールを頼みたくなった。",
+      "sourceUrl": "https://git-scm.com/docs/git-var",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6257337986",
+      "createdAt": "2026-10-19T00:52:25Z"
+    },
+    {
       "date": "2026-10-18",
       "category": "コマンド/ショートカットTip",
       "fact": "GitHubでリポジトリ内のコードを見ているとき、w キーでブランチやタグ切り替えのメニューを開けます。履歴比較や別版確認をマウス移動なしで始められるため、同じファイルを別ブランチで見比べたいときの移動が速くなります。",
@@ -661,5 +670,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 74
+  "generatedCount": 75
 }
