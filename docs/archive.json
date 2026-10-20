@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-20",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "RFC 6520のTLS/DTLSハートビート拡張では、受信したHeartbeatMessageのpayload_lengthが大きすぎる場合は黙って破棄します。正常時は受け取ったペイロードの正確なコピーを返し、パディングは16バイト以上のランダムな内容にすると定められています。",
+      "joke": "パディングの話をしていたら、パディントンが来た。",
+      "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6520",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6284375508",
+      "createdAt": "2026-10-20T05:50:22Z"
+    },
+    {
       "date": "2026-10-19",
       "category": "コマンド/ショートカットTip",
       "fact": "git var は、Gitが使う論理変数の値を表示するコマンドです。たとえば GIT_EDITOR なら、$GIT_EDITOR、core.editor、$VISUAL、$EDITOR、既定値の順で使われる編集器を確認でき、環境差の切り分けに役立ちます。",
@@ -670,5 +679,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 75
+  "generatedCount": 76
 }
