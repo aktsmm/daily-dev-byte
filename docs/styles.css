@@ -531,6 +531,19 @@ h1 span {
   font-weight: 700;
 }
 
+.fresh {
+  padding: 0.2rem 0.65rem;
+  color: var(--cp-success);
+  background: var(--cp-surface-soft);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.fresh.is-stale {
+  color: var(--cp-warning);
+}
+
 .fact {
   padding: clamp(2rem, 6vw, 4rem) 0;
   font-size: clamp(1.45rem, 4vw, 2.25rem);
