@@ -78,8 +78,8 @@ test("requires an identifiable phonetic pun pair and rejects technical metaphors
 });
 
 test("checks recent JOKE fields and provides an ordered deterministic fallback pool", () => {
-  assert.match(workflow, /extract both the fact subjects and the `JOKE` fields/);
-  assert.match(workflow, /do not reuse the same pun pair from a recent joke/i);
+  assert.match(workflow, /extract every fact subject and every `JOKE` field/);
+  assert.match(workflow, /never reuse any pun pair/i);
   assert.match(workflow, /This ordered fallback pool is deterministic/);
 
   const fallbackEntries =

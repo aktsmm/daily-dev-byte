@@ -88,6 +88,7 @@
 
   let currentArchiveEntries = [];
   let archiveExpanded = false;
+  let archiveFilter = { category: "", query: "" };
 
   function characterCount(value) {
     return Array.from(value).length;
@@ -505,14 +506,15 @@
     }
   }
 
-  function createArchiveCard(byte) {
+  function createArchiveCard(byte, number) {
     const article = createElement("article", "archive-card");
     const header = createElement("header", "archive-card-header");
     const titleWrap = createElement("div", "archive-title");
+    const no = createElement("span", "archive-no", `#${number}`);
     const date = createElement("time", "archive-date", byte.date);
     date.dateTime = byte.date;
     const category = createElement("p", "archive-category", byte.category);
-    titleWrap.append(date, category);
+    titleWrap.append(no, date, category);
 
     const commentLink = createElement("a", "archive-comment-link", "GitHubコメント ↗");
     configureExternalLink(commentLink, byte.commentUrl, "comment");
@@ -531,26 +533,64 @@
     return article;
   }
 
+  function matchesArchiveFilter(entry, filter) {
+    if (filter.category && entry.category !== filter.category) {
+      return false;
+    }
+    const query = filter.query.trim().toLowerCase();
+    return !query || `${entry.fact} ${entry.joke} ${entry.category} ${entry.date}`.toLowerCase().includes(query);
+  }
+
+  function renderCategoryChips() {
+    const wrap = document.getElementById("archive-chips");
+    const counts = new Map();
+    currentArchiveEntries.forEach((entry) => counts.set(entry.category, (counts.get(entry.category) || 0) + 1));
+    const make = (value, label) => {
+      const chip = createElement("button", "chip", label);
+      chip.type = "button";
+      chip.setAttribute("aria-pressed", String(archiveFilter.category === value));
+      chip.addEventListener("click", () => {
+        archiveFilter.category = value;
+        archiveExpanded = false;
+        renderCategoryChips();
+        renderArchiveList();
+      });
+      return chip;
+    };
+    wrap.replaceChildren(
+      make("", `すべて ${currentArchiveEntries.length}`),
+      ...Array.from(counts, ([category, count]) => make(category, `${category} ${count}`))
+    );
+  }
+
   function renderArchiveList() {
     const list = document.getElementById("archive-list");
     const empty = document.getElementById("archive-empty");
     const summary = document.getElementById("archive-summary");
     const disclosure = document.getElementById("archive-toggle");
-    const visibleEntries = getVisibleArchiveEntries(currentArchiveEntries, archiveExpanded);
-    const disclosureState = getArchiveDisclosureState(
-      currentArchiveEntries.length,
-      archiveExpanded
-    );
+    const filtered = currentArchiveEntries.filter((entry) => matchesArchiveFilter(entry, archiveFilter));
+    const isFiltering = Boolean(archiveFilter.category || archiveFilter.query.trim());
+    const visibleEntries = getVisibleArchiveEntries(filtered, archiveExpanded);
+    const disclosureState = getArchiveDisclosureState(filtered.length, archiveExpanded);
 
-    list.replaceChildren(...visibleEntries.map(createArchiveCard));
-    empty.hidden = currentArchiveEntries.length !== 0;
-    list.hidden = currentArchiveEntries.length === 0;
+    list.replaceChildren(
+      ...visibleEntries.map((entry) =>
+        createArchiveCard(entry, currentArchiveEntries.length - currentArchiveEntries.indexOf(entry))
+      )
+    );
+    empty.hidden = filtered.length !== 0;
+    empty.textContent = isFiltering
+      ? "条件に合うByteはありません。"
+      : "過去の有効なByteはまだありません。";
+    list.hidden = filtered.length === 0;
     disclosure.hidden = disclosureState.hidden;
     disclosure.setAttribute("aria-expanded", String(disclosureState.expanded));
     disclosure.textContent = disclosureState.label;
 
     if (currentArchiveEntries.length === 0) {
       summary.textContent = "過去の有効なByteはまだありません。";
+    } else if (isFiltering) {
+      summary.textContent = `${filtered.length}件が一致（全${currentArchiveEntries.length}件）`;
     } else if (disclosureState.expanded) {
       summary.textContent = `これまでのByte 全${currentArchiveEntries.length}件を表示しています。`;
     } else {
@@ -566,7 +606,11 @@
   function renderFeed(result, options = {}) {
     renderHero(result.hero, options);
     currentArchiveEntries = result.archiveEntries.slice();
+    document.getElementById("byte-no").textContent = `#${currentArchiveEntries.length + 1}`;
     archiveExpanded = false;
+    archiveFilter = { category: "", query: "" };
+    document.getElementById("archive-search").value = "";
+    renderCategoryChips();
 
     const archiveSection = document.getElementById("archive-section");
     const qualityNote = document.getElementById("data-quality-note");
@@ -668,6 +712,41 @@
     });
     archiveToggle.addEventListener("click", () => {
       setArchiveExpanded(!archiveExpanded);
+    });
+    document.getElementById("archive-search").addEventListener("input", (event) => {
+      archiveFilter.query = event.target.value;
+      archiveExpanded = false;
+      renderArchiveList();
+    });
+
+    const themeToggle = document.getElementById("theme-toggle");
+    const syncThemeLabel = () => {
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      themeToggle.textContent = dark ? "ライト" : "ダーク";
+      themeToggle.setAttribute("aria-pressed", String(dark));
+    };
+    themeToggle.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("ddb-theme", next);
+      } catch {}
+      syncThemeLabel();
+    });
+    syncThemeLabel();
+
+    const copyButton = document.getElementById("copy-joke");
+    copyButton.addEventListener("click", async () => {
+      const text = document.getElementById("byte-joke").textContent;
+      try {
+        await root.navigator.clipboard.writeText(text);
+        copyButton.textContent = "コピーしました";
+      } catch {
+        copyButton.textContent = "コピーできません";
+      }
+      root.setTimeout(() => {
+        copyButton.textContent = "コピー";
+      }, 1800);
     });
 
     if (demoState) {

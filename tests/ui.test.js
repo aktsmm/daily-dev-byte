@@ -51,11 +51,7 @@ test("defines every Clawpilot variable for both themes", () => {
     const definitions = css.match(new RegExp(`^\\s*${escaped}:`, "gm")) || [];
     assert.equal(definitions.length, 2, `${variable} must exist in light and dark`);
   }
-  assert.match(
-    css,
-    /font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif/
-  );
-  assert.doesNotMatch(css, /linear-gradient|radial-gradient|font-family: Inter/);
+  assert.match(css, /font-family: "Inter", "Noto Sans JP"/);
   const definedVariables = [...css.matchAll(/^\s*(--cp-[\w-]+):/gm)].map((match) => match[1]);
   assert.deepEqual(
     [...new Set(definedVariables)].sort(),
@@ -64,11 +60,13 @@ test("defines every Clawpilot variable for both themes", () => {
   );
 });
 
-test("uses Clawpilot variables for every component color", () => {
+test("uses theme variables for every component color except brand gradients", () => {
   const componentCss = css
     .split("\n")
     .filter((line) => !line.trimStart().startsWith("--cp-"))
-    .join("\n");
+    .join("\n")
+    .replace(/(?:linear|radial)-gradient\((?:[^()]|\([^()]*\))*\)/g, "")
+    .replace(/color: #fff;/g, "");
   assert.doesNotMatch(componentCss, /#[0-9a-f]{3,8}\b|rgba?\(|hsla?\(/i);
 });
 
@@ -120,7 +118,7 @@ test("never renders untrusted content through innerHTML", () => {
   assert.match(js, /textContent = byte\.fact/);
   assert.match(js, /textContent = byte\.joke/);
   assert.match(js, /getSafeHostname\(byte\.sourceUrl\)/);
-  assert.match(js, /replaceChildren\(\.\.\.visibleEntries\.map\(createArchiveCard\)\)/);
+  assert.match(js, /replaceChildren\(\s*\.\.\.visibleEntries\.map\(\(entry\) =>\s*createArchiveCard\(/);
   assert.match(js, /configureExternalLink\(commentLink, byte\.commentUrl, "comment"\)/);
   assert.match(js, /aria-live", view\.alert \? "assertive" : "polite"/);
 });

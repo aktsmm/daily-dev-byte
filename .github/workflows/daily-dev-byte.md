@@ -10,7 +10,7 @@ permissions:
 engine:
   id: copilot
   copilot-sdk: true
-  model: gpt-5.4
+runs-on: ubuntu-24.04
 checkout: false
 network:
   allowed:
@@ -45,10 +45,10 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
 
 ## Required process
 
-1. Use the pre-authenticated `gh` CLI only for GitHub reads. Run `gh api "repos/${GITHUB_REPOSITORY}/issues/1" --jq '{title, labels: [.labels[].name]}'` to read the title and labels, then run `gh api "repos/${GITHUB_REPOSITORY}/issues/1/comments?per_page=100" --jq '[.[] | select((.body | contains("FORMAT: DAILY_DEV_BYTE_V1")) and (.body | contains("workflow_id: daily-dev-byte"))) | {body, created_at}]'` to read recent generated comments. Do not write API responses to local files or use `read`, Python, or other parsing commands for GitHub reads; use the run context for the current date and invoke the declared tools directly.
+1. Use the pre-authenticated `gh` CLI only for GitHub reads. Run `gh api "repos/${GITHUB_REPOSITORY}/issues/1" --jq '{title, labels: [.labels[].name]}'` to read the title and labels, then run `gh api --paginate "repos/${GITHUB_REPOSITORY}/issues/1/comments?per_page=100" --jq '.[] | select((.body | contains("FORMAT: DAILY_DEV_BYTE_V1")) and (.body | contains("workflow_id: daily-dev-byte"))) | {created_at, lines: [.body | split("\n")[] | select(startswith("DATE: ") or startswith("CATEGORY: ") or startswith("FACT: ") or startswith("JOKE: "))]}'` to read the entire generated history (all pages, not just recent comments). Do not write API responses to local files or use `read`, Python, or other parsing commands for GitHub reads; use the run context for the current date and invoke the declared tools directly.
 2. Confirm that issue #1 has the `daily-byte-feed` label. If it does not, stop without requesting any safe output.
-3. From recent comments containing both `FORMAT: DAILY_DEV_BYTE_V1` and the automatic `workflow_id: daily-dev-byte` marker, extract both the fact subjects and the `JOKE` fields. Internally identify each recent joke's pun pair when possible. Do not repeat or lightly rephrase a recent fact subject, and do not reuse the same pun pair from a recent joke.
-4. Select exactly one category:
+3. Read the entire history from step 1 carefully, every entry, and extract every fact subject and every `JOKE` field. Internally list each past joke's pun pair and its structure (for example `X / 似た音の別語`). Do not repeat or lightly rephrase any past fact subject, and never reuse any pun pair or the same punchline structure from the full history. Study which past jokes were weak (forced, unrelated to the fact, or technical-metaphor only) and avoid those patterns.
+4. Select exactly one category. Count the categories used in the full history and prefer the least-used category (history is heavily skewed toward `コマンド/ショートカットTip`, so avoid it unless every other category is impossible today); never pick the same category as yesterday's entry:
    - `GitHub/Gitトリビア`
    - `今日にまつわるIT史`
    - `最近のGitHubアップデート`
@@ -75,7 +75,12 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - Negative examples:
      - `Gitで道に迷っても大丈夫、reflogが“来た道”を思い出させてくれます。` is only a technical metaphor; it has no phonetic pun pair.
      - `デプロイ成功で気分も上々です。` is only an observation; it has no phonetic pun pair.
-   - Before publishing, internally name the exact two expressions and their different meanings. Do not add that reasoning or the pair to the seven-line output. If the pair cannot be named, reject the joke and regenerate it.
+   - Joke quality process (rubber-duck review). Do not take the first idea:
+     1. Draft at least five candidate jokes. Prefer puns built on today's fact or on words from its topic so the joke feels connected; use a generic IT word only when no topical pun exists.
+     2. Act as a harsh critic and score each candidate 1-5 on: (a) the two sounds are truly identical or very close when read aloud, (b) it reads naturally in Japanese as one short sentence, (c) the punchline lands at the end, (d) it is connected to the fact or to IT, (e) it differs from every past joke in pun pair and structure. Reject any candidate with a score of 3 or lower on (a) or (b), or one that sounds like an explanation of a pun.
+     3. Rubber-duck the best candidate: explain the pun out loud in one internal sentence ("`A` と `B` が同じ音で、意味は〜と〜"). If the explanation feels awkward or needs a stretch, discard it and take the next candidate.
+     4. Keep it to one line, at most about 40 Japanese characters.
+   - Before publishing, internally name the exact two expressions and their different meanings. Do not add that reasoning, the candidates, or the pair to the seven-line output. If the pair cannot be named, reject the joke and regenerate it.
    - If generation still fails this gate, use the first entry below whose stated pun pair was not used in the recent valid workflow comments. This ordered fallback pool is deterministic; do not rewrite its selected entry:
      1. `バイト列を調べていたら、アルバイトの時間になった。` (`バイト`: byte / part-time job)
      2. `キャッシュを消したら、現金（cash）まで消えた。` (`キャッシュ` / `cash`: cache / cash)
@@ -111,7 +116,7 @@ Before `add-comment`, verify all of the following:
 - `CATEGORY` exactly matches one allowed category.
 - `FACT` is 100-200 Unicode characters.
 - `JOKE` is present on one separate line.
-- The internal `JOKE` pun pair can be named as two identical or clearly similar Japanese sounds with different meanings, and that pair does not repeat a pair from recent valid workflow comments. If it cannot be named, reject and regenerate the joke; if generation still fails, select from the deterministic fallback pool in order.
+- The internal `JOKE` pun pair can be named as two identical or clearly similar Japanese sounds with different meanings, and that pair does not repeat a pair from any valid workflow comment in the full history, and the joke passed the critic review above. If it cannot be named, reject and regenerate the joke; if generation still fails, select from the deterministic fallback pool in order.
 - `SOURCE` is byte-for-byte the exact URL passed to the successful `web_fetch` or `curl` call, starts with one allowed HTTPS prefix above, has a path after the host, and contains neither `redacted` nor parentheses.
 - The subject is not duplicated in recent valid workflow comments.
 
