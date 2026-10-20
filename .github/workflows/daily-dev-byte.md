@@ -11,6 +11,7 @@ engine:
   id: copilot
   copilot-sdk: true
   model: gpt-5.4
+runs-on: ubuntu-24.04
 checkout: false
 network:
   allowed:
