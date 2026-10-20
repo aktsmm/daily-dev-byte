@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <script>
       (() => {
-        const param = new URLSearchParams(window.location.search).get("scoutTheme");
+        let saved = null;
+        try {
+          saved = localStorage.getItem("ddb-theme");
+        } catch {}
+        const param = new URLSearchParams(window.location.search).get("scoutTheme") || saved;
         const theme =
           param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
         document.documentElement.setAttribute("data-theme", theme);
@@ -13,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="GitHub Agentic Workflowsが毎日生成する、出典付きのIT小ネタとおやじギャグの公開アーカイブ。">
     <title>Daily Dev Byte</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff9a3c'/%3E%3Cstop offset='1' stop-color='%23c2185b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'%3ED%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
   </head>
@@ -22,13 +27,14 @@
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href="https://github.com/aktsmm/daily-dev-byte" aria-label="Daily Dev Byte GitHubリポジトリ">
-          <span class="brand-mark" aria-hidden="true">&gt;_</span>
+          <span class="brand-mark" aria-hidden="true">D</span>
           <span>Daily Dev Byte</span>
         </a>
         <nav class="header-nav" aria-label="主要リンク">
           <a href="#archive-section">アーカイブ</a>
           <a href="#how-it-works">仕組み</a>
           <a href="https://github.com/aktsmm/daily-dev-byte">GitHub</a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">ダーク</button>
         </nav>
       </div>
       <nav class="demo-nav" aria-label="関連デモ">
@@ -85,7 +91,7 @@
         <article id="byte-card" class="byte-card" tabindex="-1" hidden>
           <header class="card-header">
             <div>
-              <p class="card-kicker">LATEST VERIFIED FACT</p>
+              <p class="card-kicker">LATEST VERIFIED FACT · <span id="byte-no"></span></p>
               <h3>最新のIT小ネタ</h3>
             </div>
             <div class="card-meta" aria-label="公開情報">
@@ -109,6 +115,7 @@
             <div>
               <h3 id="joke-title">今回のおやじギャグ</h3>
               <p id="byte-joke" class="joke"></p>
+              <button id="copy-joke" class="chip" type="button">コピー</button>
             </div>
           </aside>
 
@@ -128,6 +135,11 @@
           <p id="archive-summary" class="archive-summary" role="status" aria-live="polite"></p>
         </div>
         <p class="archive-intro">Issue #1に積み重なる有効な投稿を、新しい順に掲載しています。</p>
+        <div class="archive-tools">
+          <label class="visually-hidden" for="archive-search">アーカイブを検索</label>
+          <input id="archive-search" class="archive-search" type="search" placeholder="キーワードで検索（例: git, ダジャレ）" autocomplete="off">
+          <div id="archive-chips" class="chips" role="group" aria-label="カテゴリで絞り込み"></div>
+        </div>
         <p id="data-quality-note" class="quality-note" hidden></p>
         <p id="archive-empty" class="archive-empty" hidden>過去の有効なByteはまだありません。</p>
         <div id="archive-list" class="archive-list"></div>
