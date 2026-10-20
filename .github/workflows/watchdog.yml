@@ -1,0 +1,47 @@
+name: Watchdog
+
+# No AI. GitHub sometimes delays or drops scheduled runs, so this starts the
+# daily publisher when it has not succeeded for ~25 h and nothing is running,
+# and cancels a publisher run that hangs.
+on:
+  schedule:
+    - cron: "30 2,14 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: watchdog
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      WF: daily-dev-byte.lock.yml
+    steps:
+      - name: Cancel a hung publisher run
+        run: |
+          limit=$(date -u -d '30 minutes ago' +%Y-%m-%dT%H:%M:%SZ)
+          for id in $(gh run list --workflow "$WF" --status in_progress --limit 10 --json databaseId,startedAt \
+              -q ".[] | select(.startedAt < \"$limit\") | .databaseId"); do
+            echo "cancel #$id (running > 30 min)"
+            gh run cancel "$id" || true
+          done
+      - name: Start the publisher if it is overdue
+        run: |
+          last=$(gh run list --workflow "$WF" --limit 20 --json createdAt,conclusion \
+            -q '[.[] | select(.conclusion == "success")] | .[0].createdAt // "1970-01-01T00:00:00Z"')
+          busy=$(gh run list --workflow "$WF" --limit 10 --json status \
+            -q '[.[] | select(.status != "completed")] | length')
+          age=$(( $(date +%s) - $(date -d "$last" +%s) ))
+          echo "last success: $last (${age}s ago), active=$busy"
+          if [ "$age" -gt 90000 ] && [ "${busy:-0}" = "0" ]; then
+            echo "publisher is overdue; starting it"
+            gh workflow run "$WF"
+          fi

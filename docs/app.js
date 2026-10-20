@@ -483,6 +483,12 @@
     }
   }
 
+  function getAgeInDays(dateText, now = new Date()) {
+    const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tokyo" }).format(now);
+    const days = Math.round((Date.parse(today) - Date.parse(dateText)) / 86400000);
+    return Number.isFinite(days) ? Math.max(days, 0) : 0;
+  }
+
   function renderHero(byte, options = {}) {
     const panel = document.getElementById("state-panel");
     const card = document.getElementById("byte-card");
@@ -492,6 +498,11 @@
 
     date.dateTime = byte.date;
     date.textContent = byte.date;
+    const fresh = document.getElementById("byte-fresh");
+    const ageDays = getAgeInDays(byte.date);
+    fresh.textContent = ageDays === 0 ? "今日の更新" : `${ageDays}日前`;
+    fresh.classList.toggle("is-stale", ageDays >= 2);
+    fresh.title = ageDays >= 2 ? "更新が止まっている可能性があります" : "";
     document.getElementById("byte-category").textContent = byte.category;
     document.getElementById("byte-fact").textContent = byte.fact;
     document.getElementById("byte-joke").textContent = byte.joke;
@@ -767,6 +778,7 @@
     WORKFLOW_CALL_MARKER,
     createPublicArchive,
     getArchiveDisclosureState,
+    getAgeInDays,
     getDemoState,
     getSafeHostname,
     getStateView,

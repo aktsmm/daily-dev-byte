@@ -302,3 +302,11 @@ test("accepts only allowlisted demo states", () => {
   );
   assert.equal(getDemoState("?demoState=%3Cscript%3E"), null);
 });
+
+test("computes freshness in Asia/Tokyo days", () => {
+  const { getAgeInDays } = require("../docs/app.js");
+  const now = new Date("2026-10-20T20:00:00Z"); // 2026-10-21 05:00 JST
+  assert.equal(getAgeInDays("2026-10-21", now), 0);
+  assert.equal(getAgeInDays("2026-10-18", now), 3);
+  assert.equal(getAgeInDays("2026-10-25", now), 0);
+});

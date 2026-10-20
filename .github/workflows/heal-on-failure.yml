@@ -1,0 +1,47 @@
+name: Heal on failure
+
+# No AI. Re-runs a failed publisher once (transient runner/model errors are
+# common); if the retry also fails, opens a single alert issue instead of
+# failing silently.
+on:
+  workflow_run:
+    workflows: ["Daily Dev Byte Publisher"]
+    types: [completed]
+
+permissions:
+  actions: write
+  issues: write
+  contents: read
+
+concurrency:
+  group: heal-on-failure
+  cancel-in-progress: false
+
+jobs:
+  heal:
+    if: github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_ID: ${{ github.event.workflow_run.id }}
+      ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+      RUN_URL: ${{ github.event.workflow_run.html_url }}
+    steps:
+      - name: Retry once
+        if: env.ATTEMPT == '1'
+        run: |
+          echo "re-running failed jobs of #$RUN_ID"
+          gh run rerun "$RUN_ID" --failed
+      - name: Open an alert issue after the retry failed
+        if: env.ATTEMPT != '1'
+        run: |
+          title="Daily Dev Byte publisher is failing"
+          open=$(gh issue list --state open --search "\"$title\" in:title" --json number -q 'length')
+          if [ "${open:-0}" = "0" ]; then
+            gh issue create --title "$title" \
+              --body "The publisher failed again after an automatic retry: $RUN_URL"
+          else
+            echo "alert issue already open"
+          fi
