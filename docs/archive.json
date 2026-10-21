@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-21",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年10月20日、Dependabot alerts REST APIの dependency オブジェクトに version_requirement フィールドを追加しました。ロックファイルでは解決済みバージョン、ロックなしではマニフェストの指定が入り、値がなければ null になります。",
+      "joke": "Dependabotのアラートを見て、あら、と声が出た。",
+      "sourceUrl": "https://github.blog/changelog/2026-10-20-dependabot-alerts-rest-api-now-includes-dependency-versions",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6305636179",
+      "createdAt": "2026-10-21T01:20:21Z"
+    },
+    {
       "date": "2026-10-20",
       "category": "有名なバグ/障害/失敗談",
       "fact": "RFC 6520のTLS/DTLSハートビート拡張では、受信したHeartbeatMessageのpayload_lengthが大きすぎる場合は黙って破棄します。正常時は受け取ったペイロードの正確なコピーを返し、パディングは16バイト以上のランダムな内容にすると定められています。",
@@ -679,5 +688,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 76
+  "generatedCount": 77
 }
