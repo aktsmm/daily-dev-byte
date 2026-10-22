@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-22",
+      "category": "今日にまつわるIT史",
+      "fact": "Microsoftのライフサイクル情報によると、Windows 7の提供開始日は2009年10月22日です。延長サポートは2020年1月に終了し、その後は一部のエディションに限り、最大3年間の延長セキュリティ更新が提供されました。",
+      "joke": "アップデートが遅れて、アップアップになった。",
+      "sourceUrl": "https://learn.microsoft.com/en-us/lifecycle/products/windows-7",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6330301192",
+      "createdAt": "2026-10-22T01:16:33Z"
+    },
+    {
       "date": "2026-10-21",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年10月20日、Dependabot alerts REST APIの dependency オブジェクトに version_requirement フィールドを追加しました。ロックファイルでは解決済みバージョン、ロックなしではマニフェストの指定が入り、値がなければ null になります。",
@@ -688,5 +697,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 77
+  "generatedCount": 78
 }
