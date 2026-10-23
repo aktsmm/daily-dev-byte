@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-23",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "RFC 1135によると、1988年11月2日夜に広がったインターネットワームは、sendmailのdebugコマンドとfingerdのgets由来のバッファあふれという既知の弱点を突き、VAXとSun-3上のBerkeley UNIXで拡散しました。",
+      "joke": "ワームの駆除手順を見て、「わー、無理」と叫んだ。",
+      "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1135",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6355038946",
+      "createdAt": "2026-10-23T01:17:13Z"
+    },
+    {
       "date": "2026-10-22",
       "category": "今日にまつわるIT史",
       "fact": "Microsoftのライフサイクル情報によると、Windows 7の提供開始日は2009年10月22日です。延長サポートは2020年1月に終了し、その後は一部のエディションに限り、最大3年間の延長セキュリティ更新が提供されました。",
@@ -697,5 +706,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 78
+  "generatedCount": 79
 }
