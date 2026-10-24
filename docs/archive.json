@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-24",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年10月22日、プルリクエストのFiles changedページを改善しました。分割表示では新規ファイルと削除ファイルが両方の列にまたがって表示され、空白の表示設定もプルリクエストをまたいで保存できるようになりました。",
+      "joke": "プルリクの返事を待って、プルプル震えた。",
+      "sourceUrl": "https://github.blog/changelog/2026-10-22-pull-requests-saved-whitespace-preferences-and-improved-split-view",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6378127852",
+      "createdAt": "2026-10-24T01:24:25Z"
+    },
+    {
       "date": "2026-10-23",
       "category": "有名なバグ/障害/失敗談",
       "fact": "RFC 1135によると、1988年11月2日夜に広がったインターネットワームは、sendmailのdebugコマンドとfingerdのgets由来のバッファあふれという既知の弱点を突き、VAXとSun-3上のBerkeley UNIXで拡散しました。",
@@ -706,5 +715,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 79
+  "generatedCount": 80
 }
