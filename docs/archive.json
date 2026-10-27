@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-27",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git rev-parse --show-toplevel は、作業ツリーの最上位ディレクトリの絶対パスを既定で表示し、作業ツリーがなければエラーになります。--is-inside-work-tree は、現在位置が作業ツリー内なら true を表示するため、スクリプトの基準位置の確認に便利です。",
+      "joke": "トップレベルを探していたら、日がとっぷり暮れた。",
+      "sourceUrl": "https://git-scm.com/docs/git-rev-parse",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6431761284",
+      "createdAt": "2026-10-27T01:51:59Z"
+    },
+    {
       "date": "2026-10-24",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年10月22日、プルリクエストのFiles changedページを改善しました。分割表示では新規ファイルと削除ファイルが両方の列にまたがって表示され、空白の表示設定もプルリクエストをまたいで保存できるようになりました。",
@@ -715,5 +724,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 80
+  "generatedCount": 81
 }
