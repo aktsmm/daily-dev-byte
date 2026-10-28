@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-28",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、テッド・ホフ氏は1937年10月28日にニューヨーク州ロチェスターで生まれました。1968年にIntelへ入社し、1980年には同社初のIntel Fellowに任命されています。",
+      "joke": "インテルの歴史を聞いて、頭がインテリになった。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/october/28/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6458683088",
+      "createdAt": "2026-10-28T02:04:33Z"
+    },
+    {
       "date": "2026-10-27",
       "category": "GitHub/Gitトリビア",
       "fact": "git rev-parse --show-toplevel は、作業ツリーの最上位ディレクトリの絶対パスを既定で表示し、作業ツリーがなければエラーになります。--is-inside-work-tree は、現在位置が作業ツリー内なら true を表示するため、スクリプトの基準位置の確認に便利です。",
@@ -724,5 +733,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 81
+  "generatedCount": 82
 }
