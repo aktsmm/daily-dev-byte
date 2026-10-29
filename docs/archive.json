@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-29",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年10月28日、Issues向けの新しいModerateロールを一般提供しました。コードへのアクセス権を与えずに、他人が作成したIssueのタイトル・本文・コメントの編集、コメントの非表示、会話のロック、ラベルやマイルストーンの作成と編集ができます。",
+      "joke": "モデレートのロールを任されたら、ロールパンを渡された。",
+      "sourceUrl": "https://github.blog/changelog/2026-10-28-moderate-role-for-github-issues-generally-available",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6485926773",
+      "createdAt": "2026-10-29T02:08:45Z"
+    },
+    {
       "date": "2026-10-28",
       "category": "今日にまつわるIT史",
       "fact": "コンピュータ歴史博物館の記録によると、テッド・ホフ氏は1937年10月28日にニューヨーク州ロチェスターで生まれました。1968年にIntelへ入社し、1980年には同社初のIntel Fellowに任命されています。",
@@ -733,5 +742,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 82
+  "generatedCount": 83
 }
