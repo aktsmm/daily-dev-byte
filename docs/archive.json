@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-10-30",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git rev-parse --verify は、引数がちょうど1つで、オブジェクトデータベースに使える値へ解決できるかを検証し、成功時だけその名前を出力します。--abbrev-ref を使うと、曖昧さのない短い参照名で表示できます。",
+      "joke": "検証ばかりしていたら、腱鞘炎になった。",
+      "sourceUrl": "https://git-scm.com/docs/git-rev-parse",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6513465615",
+      "createdAt": "2026-10-30T02:28:22Z"
+    },
+    {
       "date": "2026-10-29",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年10月28日、Issues向けの新しいModerateロールを一般提供しました。コードへのアクセス権を与えずに、他人が作成したIssueのタイトル・本文・コメントの編集、コメントの非表示、会話のロック、ラベルやマイルストーンの作成と編集ができます。",
@@ -742,5 +751,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 83
+  "generatedCount": 84
 }
