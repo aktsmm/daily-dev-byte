@@ -3,6 +3,24 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-01",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git rev-parse --absolute-git-dir は、--git-dir と同様に .git ディレクトリの場所を表示しますが、出力は常に正規化された絶対パスになります。--show-cdup はサブディレクトリから実行したとき、最上位ディレクトリへの相対パスを示すため、スクリプトの位置合わせに役立ちます。",
+      "joke": "ディレクトリを勝手に移動したら、ディレクターに怒られた。",
+      "sourceUrl": "https://git-scm.com/docs/git-rev-parse",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6552048471",
+      "createdAt": "2026-11-01T01:57:39Z"
+    },
+    {
+      "date": "2026-10-31",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年10月29日、github.com上のWebhook配信元IPアドレスの範囲を追加し、Meta APIのhooksフィールドに反映しました。静的な許可リストでWebhookを受けている場合は、新しいCIDR範囲を追加しないと配信が拒否される恐れがあります。",
+      "joke": "フックの許可を見直したら、ふっくらした気分になった。",
+      "sourceUrl": "https://github.blog/changelog/2026-10-29-webhook-ip-ranges-added-to-the-meta-api",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6541285777",
+      "createdAt": "2026-10-31T08:43:36Z"
+    },
+    {
       "date": "2026-10-30",
       "category": "GitHub/Gitトリビア",
       "fact": "git rev-parse --verify は、引数がちょうど1つで、オブジェクトデータベースに使える値へ解決できるかを検証し、成功時だけその名前を出力します。--abbrev-ref を使うと、曖昧さのない短い参照名で表示できます。",
@@ -751,5 +769,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 84
+  "generatedCount": 86
 }
