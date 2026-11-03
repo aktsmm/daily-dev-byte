@@ -3,6 +3,24 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-03",
+      "category": "GitHub/Gitトリビア",
+      "fact": "Gitのgitignoreでは、パターン先頭に ! を付けると、以前の除外規則で無視されたファイルを再び対象に戻せます。ただし親ディレクトリ自体が除外されている場合、その中のファイルだけを再び含めることはできません。",
+      "joke": "否定の「!」を打ったら、びっくりした。",
+      "sourceUrl": "https://git-scm.com/docs/gitignore",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6595021630",
+      "createdAt": "2026-11-03T03:54:10Z"
+    },
+    {
+      "date": "2026-11-03",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月2日、公開リポジトリで pull_request_target イベントを既定でブロックする措置を、2026年12月2日から恒久適用すると案内しました。Actionsのイベントポリシーで明示的に許可されていない限り、該当ワークフローは動かなくなります。",
+      "joke": "ブロックされたと聞いて、ブロッコリーを食べて落ち着いた。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6590583586",
+      "createdAt": "2026-11-02T22:56:08Z"
+    },
+    {
       "date": "2026-11-01",
       "category": "GitHub/Gitトリビア",
       "fact": "git rev-parse --absolute-git-dir は、--git-dir と同様に .git ディレクトリの場所を表示しますが、出力は常に正規化された絶対パスになります。--show-cdup はサブディレクトリから実行したとき、最上位ディレクトリへの相対パスを示すため、スクリプトの位置合わせに役立ちます。",
@@ -769,5 +787,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 86
+  "generatedCount": 88
 }
