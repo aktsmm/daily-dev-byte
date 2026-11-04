@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-04",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "2018年10月21日、GitHubでは約43秒のネットワーク接続断をきっかけにデータベースクラスタの構成が乱れ、データの不整合が発生しました。復旧には整合性の確認が必要となり、サービス低下は合計24時間11分に及んだと公式の事後分析で説明されています。",
+      "joke": "障害が起きたが、しょうがないでは済まなかった。",
+      "sourceUrl": "https://github.blog/news-insights/company-news/oct21-post-incident-analysis/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6621310576",
+      "createdAt": "2026-11-04T02:58:05Z"
+    },
+    {
       "date": "2026-11-03",
       "category": "GitHub/Gitトリビア",
       "fact": "Gitのgitignoreでは、パターン先頭に ! を付けると、以前の除外規則で無視されたファイルを再び対象に戻せます。ただし親ディレクトリ自体が除外されている場合、その中のファイルだけを再び含めることはできません。",
@@ -787,5 +796,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 88
+  "generatedCount": 89
 }
