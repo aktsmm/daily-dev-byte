@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-05",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、2006年11月5日にNetcraftの調査でインターネット上のWebサイトが1億を超えました。2006年だけで約2740万サイト増え、2004年5月の5000万からは約2年半で倍増しています。",
+      "joke": "サイトが1億もあるなんて、奥が深い。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/november/5/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6654839358",
+      "createdAt": "2026-11-05T09:47:19Z"
+    },
+    {
       "date": "2026-11-04",
       "category": "有名なバグ/障害/失敗談",
       "fact": "2018年10月21日、GitHubでは約43秒のネットワーク接続断をきっかけにデータベースクラスタの構成が乱れ、データの不整合が発生しました。復旧には整合性の確認が必要となり、サービス低下は合計24時間11分に及んだと公式の事後分析で説明されています。",
@@ -796,5 +805,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 89
+  "generatedCount": 90
 }
