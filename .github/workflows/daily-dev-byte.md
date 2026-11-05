@@ -55,7 +55,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - `コマンド/ショートカットTip`
    - `有名なバグ/障害/失敗談`
    When using `今日にまつわるIT史`, the event must share today's month and day in Asia/Tokyo. When using `最近のGitHubアップデート`, confirm that the source identifies a concrete recent release or changelog entry.
-5. Verify the central factual claim from the main agent with the direct source URL. Prefer the built-in tool whose exact name is `web_fetch` when it is available. If `web_fetch` is not listed in the active toolset, use the allowed `curl` shell command directly from the main agent instead: `curl --fail --silent --show-error --location --max-time 30 --proto '=https' "DIRECT_URL"`. Do not delegate retrieval to a task/research subagent, and do not use wget, Python, model memory, web search, a third-party search API, or an unlisted domain as a substitute for a successful direct fetch.
+5. Verify the central factual claim from the main agent with the direct source URL. Prefer the built-in tool whose exact name is `web_fetch` when it is available. If `web_fetch` is not listed in the active toolset, use the allowed `curl` shell command directly from the main agent instead: `curl --fail --silent --show-error --location --max-time 30 --proto '=https' "DIRECT_URL"`. Do not delegate retrieval to a task/research subagent, and do not use wget, Python for fetching, model memory, web search, a third-party search API, or an unlisted domain as a substitute for a successful direct fetch.
 6. The `SOURCE` value must begin with exactly one of these prefixes and must include a direct page path after the host:
    - `https://docs.github.com/`
    - `https://github.blog/`
@@ -66,7 +66,7 @@ Issue #1 is the append-only publication feed for this repository. Publish exactl
    - `https://nvd.nist.gov/`
    - `https://learn.microsoft.com/`
 7. If the first idea cannot be retrieved and verified, discard it and choose another topic. The mandatory timeless fallback is Git revision parsing, using the known direct page `https://git-scm.com/docs/git-rev-parse`. Fetch that exact URL with `web_fetch`, or with the exact allowed `curl` command from step 5 when `web_fetch` is absent, before writing the fallback fact. If neither direct main-agent method can retrieve the fallback page, call `noop` with the reason and do not call `add-comment`.
-8. Write the fact in natural Japanese using 100-200 Unicode characters, including punctuation. It must be accurate, useful, self-contained, and must not include Markdown links.
+8. Local text processing is limited to the allowlisted shell commands `grep`, `sed`, `head`, `wc`, and `python3` (for example to count characters of the draft with `python3 -c`); any other command is denied and five denials abort the run, so never try another one. Write the fact in natural Japanese using 100-200 Unicode characters, including punctuation. It must be accurate, useful, self-contained, and must not include Markdown links.
 9. Write a separate one-line Japanese dad joke that is a genuine phonetic dajare. It must use two words or phrases with identical or clearly similar Japanese sounds in different meanings. Merely mentioning a technical term in a metaphor, encouragement, rhyme-free sentence, or technical observation is invalid. It must be workplace-safe, non-discriminatory, non-sexual, and must not target or insult any person or group.
    - Positive examples that illustrate the quality bar only; vary the joke rather than copying an example by default:
      - `コミットを忘れるなんて、こみっともない！` (`コミット` / `こみっともない`)
