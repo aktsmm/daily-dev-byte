@@ -27,7 +27,7 @@ tools:
     mode: gh-proxy
     toolsets: [issues]
   web-fetch:
-  bash: ["curl"]
+  bash: ["curl", "grep", "sed", "head", "wc", "python3"]
 safe-outputs:
   add-comment:
     target: "1"
