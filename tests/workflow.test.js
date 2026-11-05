@@ -119,3 +119,19 @@ test("reads the feed through the authenticated GitHub proxy without local parsin
   assert.match(workflow, /Do not write API responses to local files or use `read`, Python/);
   assert.match(compiledWorkflow, /shell\(gh:\*\)/);
 });
+
+test("archive publish has a schedule backstop", () => {
+  assert.match(archiveWorkflow, /schedule:\s*\n(?:\s*#.*\n)?\s*- cron:/);
+});
+
+test("shell commands named in the prompt are allowlisted", () => {
+  const allowed = (workflow.match(/bash: \[([^\]]*)\]/) || [, ""])[1]
+    .split(",")
+    .map((item) => item.trim().replace(/"/g, ""))
+    .filter(Boolean);
+  assert.ok(allowed.includes("curl"));
+  for (const cmd of ["python3", "sed", "grep", "wc"]) {
+    assert.ok(allowed.includes(cmd), `${cmd} must be allowlisted (denials abort the run)`);
+  }
+  assert.match(workflow, /never try another one/);
+});

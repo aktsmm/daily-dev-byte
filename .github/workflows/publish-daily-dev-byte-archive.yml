@@ -4,6 +4,9 @@ on:
   workflow_run:
     workflows: ["Daily Dev Byte Publisher"]
     types: [completed]
+  schedule:
+    # backstop: re-sync the archive if the workflow_run trigger was skipped or dropped
+    - cron: "20 1,4,10 * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,7 +20,7 @@ concurrency:
 jobs:
   publish:
     if: >-
-      github.event_name == 'workflow_dispatch' ||
+      github.event_name != 'workflow_run' ||
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
