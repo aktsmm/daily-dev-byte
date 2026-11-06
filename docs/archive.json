@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-06",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "GitHubは、github.comのRSA SSHホスト秘密鍵が公開リポジトリに一時的に露出したと公表し、鍵を交換しました。GitHub自体の侵害ではなく、影響はRSAを使うSSHのGit操作のみで、ECDSAとEd25519の利用者は対応不要でした。",
+      "joke": "秘密鍵をうっかり公開して、後悔した。",
+      "sourceUrl": "https://github.blog/news-insights/company-news/we-updated-our-rsa-ssh-host-key/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6675868724",
+      "createdAt": "2026-11-06T03:14:14Z"
+    },
+    {
       "date": "2026-11-05",
       "category": "今日にまつわるIT史",
       "fact": "コンピュータ歴史博物館の記録によると、2006年11月5日にNetcraftの調査でインターネット上のWebサイトが1億を超えました。2006年だけで約2740万サイト増え、2004年5月の5000万からは約2年半で倍増しています。",
@@ -805,5 +814,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 90
+  "generatedCount": 91
 }
