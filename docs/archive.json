@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-07",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月3日、DependabotがPython 3.15に対応したことを発表しました。github.comの全ユーザーが利用でき、GitHub Enterprise Server 3.24にも含まれる予定です。Python 3.15へ上げても更新提案を受け取れます。",
+      "joke": "Pythonのヘビの話をしていたら、ヘビーな更新の話になった。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-03-dependabot-now-supports-python-3-15",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6701094144",
+      "createdAt": "2026-11-07T02:34:58Z"
+    },
+    {
       "date": "2026-11-06",
       "category": "有名なバグ/障害/失敗談",
       "fact": "GitHubは、github.comのRSA SSHホスト秘密鍵が公開リポジトリに一時的に露出したと公表し、鍵を交換しました。GitHub自体の侵害ではなく、影響はRSAを使うSSHのGit操作のみで、ECDSAとEd25519の利用者は対応不要でした。",
@@ -814,5 +823,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 91
+  "generatedCount": 92
 }
