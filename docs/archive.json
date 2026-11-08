@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-08",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、ジャック・キルビーは1923年11月8日にミズーリ州で生まれ、1958年にテキサス・インスツルメンツで集積回路を発明しました。最初のICはゲルマニウム片に5個の部品を配線したものでした。",
+      "joke": "ICの話を聞いて、「アイシー」と相づちを打った。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/november/8/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6715969823",
+      "createdAt": "2026-11-08T02:06:02Z"
+    },
+    {
       "date": "2026-11-07",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年11月3日、DependabotがPython 3.15に対応したことを発表しました。github.comの全ユーザーが利用でき、GitHub Enterprise Server 3.24にも含まれる予定です。Python 3.15へ上げても更新提案を受け取れます。",
@@ -823,5 +832,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 92
+  "generatedCount": 93
 }
