@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-09",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "2018年2月28日、GitHubはmemcachedのUDP応答を悪用した増幅型DDoS攻撃を受けました。攻撃は最大1.35Tbpsに達し、増幅率は最大51,000倍とされています。GitHubは17:21から17:30(UTC)にかけて検知し、緩和したと説明しています。",
+      "joke": "サーバーがダウンしたら、ダウンジャケットが欲しくなった。",
+      "sourceUrl": "https://github.blog/news-insights/company-news/ddos-incident-report/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6730755784",
+      "createdAt": "2026-11-09T02:25:16Z"
+    },
+    {
       "date": "2026-11-08",
       "category": "今日にまつわるIT史",
       "fact": "コンピュータ歴史博物館の記録によると、ジャック・キルビーは1923年11月8日にミズーリ州で生まれ、1958年にテキサス・インスツルメンツで集積回路を発明しました。最初のICはゲルマニウム片に5個の部品を配線したものでした。",
@@ -832,5 +841,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 93
+  "generatedCount": 94
 }
