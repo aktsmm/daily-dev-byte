@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-10",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、マイクロソフトは1983年11月10日に新製品Windowsを発表しました。Apple Lisaなどのグラフィカル環境に対抗する製品で、何度かの延期を経て、Windows 1.0の一般提供は1985年になりました。",
+      "joke": "Windowsの発売が延びて、みんな「まど」わされた。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/november/10/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6759049575",
+      "createdAt": "2026-11-10T04:32:26Z"
+    },
+    {
       "date": "2026-11-09",
       "category": "有名なバグ/障害/失敗談",
       "fact": "2018年2月28日、GitHubはmemcachedのUDP応答を悪用した増幅型DDoS攻撃を受けました。攻撃は最大1.35Tbpsに達し、増幅率は最大51,000倍とされています。GitHubは17:21から17:30(UTC)にかけて検知し、緩和したと説明しています。",
@@ -841,5 +850,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 94
+  "generatedCount": 95
 }
