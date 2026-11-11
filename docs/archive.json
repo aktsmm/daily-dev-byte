@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-11",
+      "category": "GitHub/Gitトリビア",
+      "fact": "Gitは、Linuxカーネルの開発で使われていた商用DVCSのBitKeeperが2005年に無償提供を取り消されたことを受け、リーナス・トーバルズ氏ら開発コミュニティが自前の分散型ツールとして作り始めたものです。",
+      "joke": "無償提供が取り消されて、むしょうに悲しい。",
+      "sourceUrl": "https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6785312062",
+      "createdAt": "2026-11-11T02:35:15Z"
+    },
+    {
       "date": "2026-11-10",
       "category": "今日にまつわるIT史",
       "fact": "コンピュータ歴史博物館の記録によると、マイクロソフトは1983年11月10日に新製品Windowsを発表しました。Apple Lisaなどのグラフィカル環境に対抗する製品で、何度かの延期を経て、Windows 1.0の一般提供は1985年になりました。",
@@ -850,5 +859,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 95
+  "generatedCount": 96
 }
