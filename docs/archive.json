@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-12",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月5日、プルリクエストの新しいOverviewページをオプトインのパブリックプレビューとして公開しました。マージ可否の状況と次に取れる操作を、ページ上部のコンパクトな準備状況サマリーにまとめて表示します。",
+      "joke": "プルリクのサマリーを読んだら、なぜかサマー気分になった。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-05-new-pull-request-overview-page-in-public-preview",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6813674192",
+      "createdAt": "2026-11-12T03:39:09Z"
+    },
+    {
       "date": "2026-11-11",
       "category": "GitHub/Gitトリビア",
       "fact": "Gitは、Linuxカーネルの開発で使われていた商用DVCSのBitKeeperが2005年に無償提供を取り消されたことを受け、リーナス・トーバルズ氏ら開発コミュニティが自前の分散型ツールとして作り始めたものです。",
@@ -859,5 +868,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 96
+  "generatedCount": 97
 }
