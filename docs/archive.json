@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-13",
+      "category": "GitHub/Gitトリビア",
+      "fact": "Gitのハッシュ関数移行の設計文書によると、GitはオブジェクトIDにSHA-1を使ってきましたが、実用的なSHA-1衝突が示されました。Git 2.13以降は強化版SHA-1で攻撃を検出しつつ、より強いハッシュ関数への移行が検討されています。",
+      "joke": "ハッシュの話をしていたら、ハッシュドビーフが食べたくなった。",
+      "sourceUrl": "https://git-scm.com/docs/hash-function-transition",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6842680088",
+      "createdAt": "2026-11-13T03:12:39Z"
+    },
+    {
       "date": "2026-11-12",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年11月5日、プルリクエストの新しいOverviewページをオプトインのパブリックプレビューとして公開しました。マージ可否の状況と次に取れる操作を、ページ上部のコンパクトな準備状況サマリーにまとめて表示します。",
@@ -868,5 +877,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 97
+  "generatedCount": 98
 }
