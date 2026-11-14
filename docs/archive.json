@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-14",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、ピーター・ノートンは1943年11月14日にワシントン州アバディーンで生まれました。DOSディスクの消去データを復元するツールで知られ、後にNorton Utilitiesにまとまり、1990年にシマンテックへ会社を売却しました。",
+      "joke": "ノートンのおかげで、ノーとんでもない事態にならなかった。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/november/14/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6870591265",
+      "createdAt": "2026-11-14T02:58:08Z"
+    },
+    {
       "date": "2026-11-13",
       "category": "GitHub/Gitトリビア",
       "fact": "Gitのハッシュ関数移行の設計文書によると、GitはオブジェクトIDにSHA-1を使ってきましたが、実用的なSHA-1衝突が示されました。Git 2.13以降は強化版SHA-1で攻撃を検出しつつ、より強いハッシュ関数への移行が検討されています。",
@@ -877,5 +886,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 98
+  "generatedCount": 99
 }
