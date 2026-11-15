@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-15",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "GitHubは2012年3月4日、公開鍵の更新フォームの脆弱性を突かれ、ある利用者がrails組織に自分の公開鍵を追加しました。原因は入力パラメータの検査不足によるマスアサインメント脆弱性で、約1時間後に修正されました。",
+      "joke": "公開鍵への不正を、かぎつけて素早く直した。",
+      "sourceUrl": "https://github.blog/news-insights/company-news/public-key-security-vulnerability-and-mitigation/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6887928042",
+      "createdAt": "2026-11-15T02:26:46Z"
+    },
+    {
       "date": "2026-11-14",
       "category": "今日にまつわるIT史",
       "fact": "コンピュータ歴史博物館の記録によると、ピーター・ノートンは1943年11月14日にワシントン州アバディーンで生まれました。DOSディスクの消去データを復元するツールで知られ、後にNorton Utilitiesにまとまり、1990年にシマンテックへ会社を売却しました。",
@@ -886,5 +895,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 99
+  "generatedCount": 100
 }
