@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-16",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git describe は、到達可能な最新のタグを探し、タグ名に追加コミット数と短縮オブジェクト名を付けて表示します。v1.0.4-14-g2414721 の g は git の頭文字で、他の SCM と区別するための接頭辞です。",
+      "joke": "最新のタグを探すには、細心の注意が必要だ。",
+      "sourceUrl": "https://git-scm.com/docs/git-describe",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6905744986",
+      "createdAt": "2026-11-16T02:37:17Z"
+    },
+    {
       "date": "2026-11-15",
       "category": "有名なバグ/障害/失敗談",
       "fact": "GitHubは2012年3月4日、公開鍵の更新フォームの脆弱性を突かれ、ある利用者がrails組織に自分の公開鍵を追加しました。原因は入力パラメータの検査不足によるマスアサインメント脆弱性で、約1時間後に修正されました。",
@@ -895,5 +904,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 100
+  "generatedCount": 101
 }
