@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 23 * * *" # 08:00 Asia/Tokyo (JST, UTC+9)
   workflow_dispatch:
+    inputs:
+      safe_mode:
+        description: Retry mode that avoids shell commands (set by the heal workflow after a tool-denial failure)
+        type: boolean
+        default: false
 permissions:
   issues: read
   copilot-requests: write
@@ -42,6 +47,10 @@ timeout-minutes: 10
 # Daily Dev Byte Publisher
 
 Issue #1 is the append-only publication feed for this repository. Publish exactly one verified Japanese IT fact and one separate Japanese dad joke.
+
+## Safe mode
+
+Safe mode requested: ${{ github.event.inputs.safe_mode }}. When this value is `true`, a previous run was aborted by tool denials. In that case do not use any shell command except the single `curl` fetch in step 5 (only if `web_fetch` is unavailable); read GitHub data only with the simple `gh api` commands in step 1 without further piping, count FACT characters by careful reasoning instead of a script, and never retry a denied command.
 
 ## Required process
 
