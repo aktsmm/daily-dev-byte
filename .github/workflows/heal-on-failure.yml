@@ -1,8 +1,8 @@
 name: Heal on failure
 
-# No AI. Re-runs a failed publisher once (transient runner/model errors are
-# common); if the retry also fails, opens a single alert issue instead of
-# failing silently.
+# No AI. Tool-denial failures are re-dispatched in safe mode (no shell use);
+# other failures are re-run once. If no retry is left, a single alert issue is
+# opened instead of failing silently.
 on:
   workflow_run:
     workflows: ["Daily Dev Byte Publisher"]
@@ -28,14 +28,28 @@ jobs:
       RUN_ID: ${{ github.event.workflow_run.id }}
       ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
       RUN_URL: ${{ github.event.workflow_run.html_url }}
+      RUN_EVENT: ${{ github.event.workflow_run.event }}
     steps:
-      - name: Retry once
-        if: env.ATTEMPT == '1'
+      - name: Classify and retry
+        id: retry
         run: |
-          echo "re-running failed jobs of #$RUN_ID"
-          gh run rerun "$RUN_ID" --failed
-      - name: Open an alert issue after the retry failed
-        if: env.ATTEMPT != '1'
+          denied=$(gh run view "$RUN_ID" --log 2>/dev/null | grep -c 'tool denial' || true)
+          echo "tool denials in log: $denied (event=$RUN_EVENT attempt=$ATTEMPT)"
+          # Tool denials: re-dispatch in safe mode (no shell use) so the day still ships.
+          # A failed dispatch run (safe mode already tried) is not retried again.
+          if [ "$RUN_EVENT" = "workflow_dispatch" ] && [ "${denied:-0}" -gt 0 ]; then
+            echo "retry=none" >> "$GITHUB_OUTPUT"
+          elif [ "${denied:-0}" -gt 0 ]; then
+            gh workflow run daily-dev-byte.lock.yml -f safe_mode=true
+            echo "retry=safe" >> "$GITHUB_OUTPUT"
+          elif [ "$ATTEMPT" = "1" ]; then
+            gh run rerun "$RUN_ID" --failed
+            echo "retry=rerun" >> "$GITHUB_OUTPUT"
+          else
+            echo "retry=none" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Open an alert issue when no retry is left
+        if: steps.retry.outputs.retry == 'none'
         run: |
           title="Daily Dev Byte publisher is failing"
           open=$(gh issue list --state open --search "\"$title\" in:title" --json number -q 'length')

@@ -143,3 +143,11 @@ test("history read is compact and shell guidance forbids unsupported shell const
     assert.match(workflow, new RegExp(`bash: \\[[^\\]]*"${cmd}"`));
   }
 });
+
+test("heal workflow retries tool-denial failures in safe mode", () => {
+  const heal = fs.readFileSync(path.join(root, ".github", "workflows", "heal-on-failure.yml"), "utf8");
+  assert.match(heal, /safe_mode=true/);
+  assert.match(heal, /grep -c 'tool denial'/);
+  assert.match(workflow, /safe_mode:/);
+  assert.match(workflow, /Safe mode requested/);
+});
