@@ -135,3 +135,11 @@ test("shell commands named in the prompt are allowlisted", () => {
   }
   assert.match(workflow, /never try another one/);
 });
+
+test("history read is compact and shell guidance forbids unsupported shell constructs", () => {
+  assert.match(workflow, /\.\[0:60\]/);
+  assert.match(workflow, /never use `cd`, variable assignment/);
+  for (const cmd of ["cut", "sort", "uniq", "tr", "tail"]) {
+    assert.match(workflow, new RegExp(`bash: \\[[^\\]]*"${cmd}"`));
+  }
+});
