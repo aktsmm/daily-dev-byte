@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-17",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月16日、GitHub Enterprise Cloudのアカウントごとに作成できる予算の上限を、従来の1万件から4万件へ引き上げました。多数のコストセンターや組織、個人ユーザー向けに予算を設定していても追加でき、github.comとGHE.comに自動適用されます。",
+      "joke": "予算の上限が4万件、よんまんぞくです。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-16-budget-limit-increased-to-40000-budgets-per-account",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6941656521",
+      "createdAt": "2026-11-17T07:27:23Z"
+    },
+    {
       "date": "2026-11-16",
       "category": "GitHub/Gitトリビア",
       "fact": "git describe は、到達可能な最新のタグを探し、タグ名に追加コミット数と短縮オブジェクト名を付けて表示します。v1.0.4-14-g2414721 の g は git の頭文字で、他の SCM と区別するための接頭辞です。",
@@ -904,5 +913,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 101
+  "generatedCount": 102
 }
