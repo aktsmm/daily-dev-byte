@@ -117,7 +117,7 @@ AI を使わない補助ワークフローが、配信の停止と重複を検�
 | 仕組み | ファイル | 動作 |
 | --- | --- | --- |
 | watchdog | `.github/workflows/watchdog.yml` | 1日2回、約25時間成功がなければ配信を起動。30分以上止まった実行はキャンセル |
-| heal-on-failure | `.github/workflows/heal-on-failure.yml` | 失敗ログに `tool denial` があれば**セーフモード**（`safe_mode=true`、シェル不使用）で再実行。それ以外は1回だけ再実行。再実行も尽きたらアラート Issue を1件作成 |
+| heal-on-failure | `.github/workflows/heal-on-failure.yml`（判定は `.github/scripts/classify-failure.js`） | 失敗ログに実際の拒否行（`tool denial N/5`）があれば**セーフモード**（`safe_mode=true`、シェル不使用）で再実行。それ以外は1回だけ再実行。再実行も尽きたらアラート Issue を1件作成 |
 | アーカイブ保険 | `publish-daily-dev-byte-archive.yml` | 配信完了後に加え、1日3回の定期実行でも `archive.json` を再同期 |
 | 重複検知 | `.github/scripts/check-duplicates.js` | 公開後に最新の投稿を過去の全件と比較し、事実の文章またはダジャレが近ければ Issue を作成（事後通知。投稿自体は止めない） |
 | CI | `.github/workflows/ci.yml` | PR / main への push でテストを実行（配色の WCAG AA コントラスト、許可シェルコマンドとプロンプトの整合も検査） |
