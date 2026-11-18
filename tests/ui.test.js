@@ -172,3 +172,8 @@ test("meets WCAG AA contrast for text and accent colors in both themes", () => {
     }
   }
 });
+
+test("clips the decorative hero glow so mobile never scrolls sideways", () => {
+  const masthead = css.match(/\.masthead \{[^}]*\}/)[0];
+  assert.match(masthead, /overflow-x: clip/);
+});
