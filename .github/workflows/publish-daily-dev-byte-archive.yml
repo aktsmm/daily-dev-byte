@@ -11,7 +11,7 @@ on:
 
 permissions:
   contents: write
-  issues: read
+  issues: write
 
 concurrency:
   group: publish-daily-dev-byte-archive
@@ -49,3 +49,23 @@ jobs:
           git add docs/archive.json
           git commit -m "chore: publish Daily Dev Byte archive"
           git push
+      - name: Flag repeated subject or joke
+        if: always() && github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          out=$(node .github/scripts/check-duplicates.js "${RUNNER_TEMP}/daily-dev-byte-comments.json")
+          code=$?
+          echo "$out"
+          if [ "$code" != "0" ]; then
+            title="Daily Dev Byte repeated a subject or joke"
+            open=$(gh issue list --state open --search "\"$title\" in:title" --json number -q 'length')
+            if [ "${open:-0}" = "0" ]; then
+              gh issue create --title "$title" --body "The newest entry looks like a repeat of an earlier one:
+
+          $out
+
+          Check that the publisher read the full history (all pages)."
+            fi
+          fi

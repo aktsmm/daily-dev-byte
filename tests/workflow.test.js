@@ -105,7 +105,7 @@ test("publishes a deterministic archive after the publisher completes", () => {
   assert.match(workflow, /Issue #1 remains the append-only source of truth/);
   assert.match(archiveWorkflow, /workflow_run:/);
   assert.match(archiveWorkflow, /workflows: \["Daily Dev Byte Publisher"\]/);
-  assert.match(archiveWorkflow, /issues: read/);
+  assert.match(archiveWorkflow, /issues: write/);
   assert.match(archiveWorkflow, /contents: write/);
   assert.match(archiveWorkflow, /build-public-archive\.js/);
   assert.match(archiveWorkflow, /docs\/archive\.json/);
@@ -150,4 +150,14 @@ test("heal workflow retries tool-denial failures in safe mode", () => {
   assert.match(heal, /grep -c 'tool denial'/);
   assert.match(workflow, /safe_mode:/);
   assert.match(workflow, /Safe mode requested/);
+});
+
+test("duplicate guard: detector flags repeats and prompt requires complete history", () => {
+  const { findRepeats } = require("../.github/scripts/check-duplicates.js");
+  const base = { date: "2026-11-15", joke: "公開鍵を、かぎつけた。", fact: "GitHubは2012年3月4日、公開鍵の更新フォームの脆弱性を突かれ、利用者がrailsのリポジトリへ不正にコミットした。" };
+  const dup = { date: "2026-11-18", joke: "別のジョーク", fact: "2012年3月4日、GitHubの公開鍵更新フォームの検証不備を突かれ、利用者がrailsのリポジトリへ不正にコミットした。" };
+  const other = { date: "2026-11-19", joke: "全く違う話", fact: "git describe は到達可能な最新のタグを探し、追加コミット数と短縮オブジェクト名を付けて表示します。" };
+  assert.equal(findRepeats([dup, base]).length > 0, true);
+  assert.equal(findRepeats([other, base]).length, 0);
+  assert.match(workflow, /call `noop` instead of publishing, because duplicates cannot be ruled out/);
 });
