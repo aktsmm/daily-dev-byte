@@ -147,7 +147,7 @@ test("history read is compact and shell guidance forbids unsupported shell const
 test("heal workflow retries tool-denial failures in safe mode", () => {
   const heal = fs.readFileSync(path.join(root, ".github", "workflows", "heal-on-failure.yml"), "utf8");
   assert.match(heal, /safe_mode=true/);
-  assert.match(heal, /grep -c 'tool denial'/);
+  assert.match(heal, /classify-failure\.js/);
   assert.match(workflow, /safe_mode:/);
   assert.match(workflow, /Safe mode requested/);
 });
@@ -170,4 +170,15 @@ test("README documents the recovery workflows that exist", () => {
     assert.ok(fs.existsSync(path.join(root, dir, file)), `${file} must exist`);
   }
   assert.match(readme, /safe_mode=true/);
+});
+
+test("classifyFailure picks the right recovery for each failure type", () => {
+  const { classifyFailure } = require("../.github/scripts/classify-failure.js");
+  const denial = "x [sdk-driver] tool denial 3/5: permission denied: shell(cd /tmp)";
+  const promptText = "Safe mode requested: true. a previous run was aborted by tool denials.";
+  assert.equal(classifyFailure({ event: "schedule", attempt: 1, log: denial }), "safe");
+  assert.equal(classifyFailure({ event: "workflow_dispatch", attempt: 1, log: denial }), "none");
+  assert.equal(classifyFailure({ event: "schedule", attempt: 1, log: "network error" }), "rerun");
+  assert.equal(classifyFailure({ event: "schedule", attempt: 2, log: "network error" }), "none");
+  assert.equal(classifyFailure({ event: "schedule", attempt: 1, log: promptText }), "rerun");
 });
