@@ -250,6 +250,7 @@ main {
 .masthead {
   position: relative;
   isolation: isolate;
+  overflow-x: clip;
   display: grid;
   min-height: min(760px, calc(100vh - 64px));
   padding: clamp(5rem, 12vw, 9rem) 0;
