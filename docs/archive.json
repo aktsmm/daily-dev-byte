@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-18",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "2012年3月4日、GitHubの公開鍵更新フォームでフォーム入力の検証不備(マスアサインメント脆弱性)が悪用され、ユーザーがRailsのOrganizationに自分の公開鍵を追加しました。GitHubは約1時間後に修正を展開しました。",
+      "joke": "鍵の管理が甘いと、すぐ誰かにカギつけられる。",
+      "sourceUrl": "https://github.blog/news-insights/the-library/public-key-security-vulnerability-and-mitigation/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6968683726",
+      "createdAt": "2026-11-18T04:04:41Z"
+    },
+    {
       "date": "2026-11-17",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年11月16日、GitHub Enterprise Cloudのアカウントごとに作成できる予算の上限を、従来の1万件から4万件へ引き上げました。多数のコストセンターや組織、個人ユーザー向けに予算を設定していても追加でき、github.comとGHE.comに自動適用されます。",
@@ -913,5 +922,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 102
+  "generatedCount": 103
 }
