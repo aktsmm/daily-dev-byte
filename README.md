@@ -13,7 +13,7 @@
 ## アーキテクチャ
 
 1. `.github/workflows/daily-dev-byte.md` が毎日 08:00（Asia/Tokyo）または手動実行で起動します。
-2. Copilot が Issue #1 の最近のコメントを確認して重複を避け、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
+2. Copilot が Issue #1 の全履歴（全ページ）を読んで重複を避け（取得が不完全なら配信せず `noop`）、一次・公式情報を `web-fetch` で検証します。実行環境に組み込み `web_fetch` が公開されない場合だけ、同じ許可ドメイン内で `curl` にフォールバックします。
 3. `safe-outputs.add-comment` が `daily-byte-feed` ラベル付きの Issue #1 に、厳格な7行の機械可読形式で最大1件だけ投稿します。エージェント本体には書き込み権限を与えません。
 4. Issue #1 が追記型の永続的な正本（source of truth）です。公開後、`publish-daily-dev-byte-archive.yml` が Issue #1 のコメントを読み、`github-actions[bot]`による投稿だけを対象に、gh-awの自動workflow markerまたは可視の`FORMAT: DAILY_DEV_BYTE_V1`で生成コメントを識別します。
 5. アーカイブ更新ジョブは各コメントを`END: DAILY_DEV_BYTE_V1`まで個別に検証し、有効な投稿をコメント公開時刻の新しい順に`docs/archive.json`へ書き出します。最新の1件を「最新のDev Byte」、残りを「これまでのByte」としてPagesに表示します。新しい投稿が壊れていても、過去の有効な履歴は失われません。
@@ -110,6 +110,24 @@ gh run list --repo aktsmm/daily-dev-byte --workflow daily-dev-byte.lock.yml --li
 
 実行完了後、Issue #1 に新しいコメントが追加され、Pages の最新カードと永続アーカイブへ反映されることを確認します。GitHub Actions のスケジュール実行は高負荷時に遅延することがあり、指定時刻ちょうどの開始は保証されません。
 
+## 自動復旧と再発防止
+
+AI を使わない補助ワークフローが、配信の停止と重複を検知・復旧します。
+
+| 仕組み | ファイル | 動作 |
+| --- | --- | --- |
+| watchdog | `.github/workflows/watchdog.yml` | 1日2回、約25時間成功がなければ配信を起動。30分以上止まった実行はキャンセル |
+| heal-on-failure | `.github/workflows/heal-on-failure.yml` | 失敗ログに `tool denial` があれば**セーフモード**（`safe_mode=true`、シェル不使用）で再実行。それ以外は1回だけ再実行。再実行も尽きたらアラート Issue を1件作成 |
+| アーカイブ保険 | `publish-daily-dev-byte-archive.yml` | 配信完了後に加え、1日3回の定期実行でも `archive.json` を再同期 |
+| 重複検知 | `.github/scripts/check-duplicates.js` | 公開後に最新の投稿を過去の全件と比較し、事実の文章またはダジャレが近ければ Issue を作成（事後通知。投稿自体は止めない） |
+| CI | `.github/workflows/ci.yml` | PR / main への push でテストを実行（配色の WCAG AA コントラスト、許可シェルコマンドとプロンプトの整合も検査） |
+
+### 障害時の確認手順
+
+1. `gh run list --workflow daily-dev-byte.lock.yml --limit 5` で状態を確認します。
+2. 「tool denial」で失敗した場合は、セーフモードで再実行されます。手動なら `gh workflow run daily-dev-byte.lock.yml -f safe_mode=true` です。恒久的に直すには、拒否されたコマンドを `daily-dev-byte.md` の `bash:` 許可リストへ追加し、`gh aw compile daily-dev-byte` で lock を再生成し、`tests/workflow.test.js` を更新します。
+3. 配信は成功したのにアーカイブが古い場合は、`gh workflow run publish-daily-dev-byte-archive.yml` を実行します。
+4. 「repeated a subject or joke」の Issue が出たら、履歴取得が不完全でなかったか確認し、必要なら該当コメントを調査します。確認後に Issue を閉じます。
 ## 運用上の注意
 
 - **情報源:** 原則として公式ドキュメント、公式ブログ、標準仕様などの一次情報を使います。主張を確認できない場合は公開せず、別の題材へ切り替えます。

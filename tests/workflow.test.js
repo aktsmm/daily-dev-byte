@@ -161,3 +161,13 @@ test("duplicate guard: detector flags repeats and prompt requires complete histo
   assert.equal(findRepeats([other, base]).length, 0);
   assert.match(workflow, /call `noop` instead of publishing, because duplicates cannot be ruled out/);
 });
+
+test("README documents the recovery workflows that exist", () => {
+  const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
+  for (const file of ["watchdog.yml", "heal-on-failure.yml", "ci.yml", "check-duplicates.js"]) {
+    assert.ok(readme.includes(file), `README must mention ${file}`);
+    const dir = file.endsWith(".js") ? ".github/scripts" : ".github/workflows";
+    assert.ok(fs.existsSync(path.join(root, dir, file)), `${file} must exist`);
+  }
+  assert.match(readme, /safe_mode=true/);
+});
