@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-19",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、セガは1992年11月19日、看板シリーズ第2作『ソニック・ザ・ヘッジホッグ2』をセガ・ジェネシス向けに発売しました。当時ジェネシスはスーパーファミコンに次ぐ2位で、ソニックは1990年代のセガ機を代表するキャラクターになりました。",
+      "joke": "ハリネズミは、針を立ててハリきって走る。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/november/19/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-6999293289",
+      "createdAt": "2026-11-19T04:02:07Z"
+    },
+    {
       "date": "2026-11-18",
       "category": "有名なバグ/障害/失敗談",
       "fact": "2012年3月4日、GitHubの公開鍵更新フォームでフォーム入力の検証不備(マスアサインメント脆弱性)が悪用され、ユーザーがRailsのOrganizationに自分の公開鍵を追加しました。GitHubは約1時間後に修正を展開しました。",
@@ -922,5 +931,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 103
+  "generatedCount": 104
 }
