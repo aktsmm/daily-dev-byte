@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-20",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "RFC 7457は、TLSに対する既知の攻撃をまとめた文書です。SSL 3.0に対するPOODLE攻撃(CVE-2014-3566)は、タイミング情報を使わないパディングオラクル攻撃の一種で、既知の緩和策がないと説明されています。",
+      "joke": "POODLE対策が済んで、ワンダフルな一日になった。",
+      "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7457.txt",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7029917667",
+      "createdAt": "2026-11-20T03:55:09Z"
+    },
+    {
       "date": "2026-11-19",
       "category": "今日にまつわるIT史",
       "fact": "コンピュータ歴史博物館の記録によると、セガは1992年11月19日、看板シリーズ第2作『ソニック・ザ・ヘッジホッグ2』をセガ・ジェネシス向けに発売しました。当時ジェネシスはスーパーファミコンに次ぐ2位で、ソニックは1990年代のセガ機を代表するキャラクターになりました。",
@@ -931,5 +940,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 104
+  "generatedCount": 105
 }
