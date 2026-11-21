@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-21",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git stash は、作業ツリーとインデックスの変更を一時退避し、作業ディレクトリをクリーンな状態へ戻すコマンドです。-u を付けると未追跡ファイルも退避でき、-a なら無視されたファイルも対象に含められます。",
+      "joke": "作業をスタッシュしたら、スタッと席を立てた。",
+      "sourceUrl": "https://git-scm.com/docs/git-stash",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7056837225",
+      "createdAt": "2026-11-21T03:47:40Z"
+    },
+    {
       "date": "2026-11-20",
       "category": "有名なバグ/障害/失敗談",
       "fact": "RFC 7457は、TLSに対する既知の攻撃をまとめた文書です。SSL 3.0に対するPOODLE攻撃(CVE-2014-3566)は、タイミング情報を使わないパディングオラクル攻撃の一種で、既知の緩和策がないと説明されています。",
@@ -940,5 +949,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 105
+  "generatedCount": 106
 }
