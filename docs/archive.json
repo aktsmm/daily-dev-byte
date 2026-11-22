@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-22",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月19日、GitHub Desktop 3.7.0で同一ホストに複数アカウントを追加できるようになったと発表しました。リポジトリごとにアカウントを関連付けでき、クローンや公開などのGit操作で正しい認証情報が自動的に使われます。",
+      "joke": "アカウントが増えすぎて、ア、カウントできない。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-19-github-desktop-now-supports-multiple-accounts-per-host",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7073180474",
+      "createdAt": "2026-11-22T02:52:09Z"
+    },
+    {
       "date": "2026-11-21",
       "category": "GitHub/Gitトリビア",
       "fact": "git stash は、作業ツリーとインデックスの変更を一時退避し、作業ディレクトリをクリーンな状態へ戻すコマンドです。-u を付けると未追跡ファイルも退避でき、-a なら無視されたファイルも対象に含められます。",
@@ -949,5 +958,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 106
+  "generatedCount": 107
 }
