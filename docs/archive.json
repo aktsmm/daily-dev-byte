@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-23",
+      "category": "有名なバグ/障害/失敗談",
+      "fact": "RFC 4987は、TCP SYNフラッド攻撃を、サーバーがSYN受信後に接続状態を保持する仕組みを悪用するサービス拒否攻撃と説明しています。偽のハーフオープン接続で資源を使い切らせ、正規の接続を妨げます。",
+      "joke": "返事を待たされ続けて、SYNから疲れた。",
+      "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4987.txt",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7090846853",
+      "createdAt": "2026-11-23T03:34:05Z"
+    },
+    {
       "date": "2026-11-22",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年11月19日、GitHub Desktop 3.7.0で同一ホストに複数アカウントを追加できるようになったと発表しました。リポジトリごとにアカウントを関連付けでき、クローンや公開などのGit操作で正しい認証情報が自動的に使われます。",
@@ -958,5 +967,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 107
+  "generatedCount": 108
 }
