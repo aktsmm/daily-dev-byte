@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-24",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git blame では --ignore-revs-file や blame.ignoreRevsFile 設定で、指定したリビジョンを結果から除外できます。ファイルには1行に1つ完全なオブジェクト名を書き、空白や # から始まるコメントは無視されます。",
+      "joke": "変更履歴を無視して全部済ませるなんて、虫のいい話だ。",
+      "sourceUrl": "https://git-scm.com/docs/git-blame",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7124292984",
+      "createdAt": "2026-11-24T06:47:26Z"
+    },
+    {
       "date": "2026-11-23",
       "category": "有名なバグ/障害/失敗談",
       "fact": "RFC 4987は、TCP SYNフラッド攻撃を、サーバーがSYN受信後に接続状態を保持する仕組みを悪用するサービス拒否攻撃と説明しています。偽のハーフオープン接続で資源を使い切らせ、正規の接続を妨げます。",
@@ -967,5 +976,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 108
+  "generatedCount": 109
 }
