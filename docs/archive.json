@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-25",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月20日、ダッシュボードに新しいFavorite repositoriesセクションを追加し、表示するリポジトリを自分で選べるようにしました。お気に入りはGitHub Mobileのピン留めと同期され、両方を合わせて最大25件まで登録できます。",
+      "joke": "ダッシュボードを開いたら、ダッシュで確認しに行った。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-20-pin-your-favorite-repositories-to-your-dashboard",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7153617595",
+      "createdAt": "2026-11-25T05:16:46Z"
+    },
+    {
       "date": "2026-11-24",
       "category": "GitHub/Gitトリビア",
       "fact": "git blame では --ignore-revs-file や blame.ignoreRevsFile 設定で、指定したリビジョンを結果から除外できます。ファイルには1行に1つ完全なオブジェクト名を書き、空白や # から始まるコメントは無視されます。",
@@ -976,5 +985,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 109
+  "generatedCount": 110
 }
