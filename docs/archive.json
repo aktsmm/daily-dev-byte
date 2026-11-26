@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-26",
+      "category": "GitHub/Gitトリビア",
+      "fact": "git merge --ff-only は、早送りでマージできる場合だけ成功し、できない場合は新しいマージコミットを作らずエラーで終了します。履歴を一直線に保ちたいときや、意図しないマージコミットを避けたいときに便利です。",
+      "joke": "ファストフォワードで進めたら、ファストフードより早く着いた。",
+      "sourceUrl": "https://git-scm.com/docs/git-merge",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7182879097",
+      "createdAt": "2026-11-26T04:45:41Z"
+    },
+    {
       "date": "2026-11-25",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年11月20日、ダッシュボードに新しいFavorite repositoriesセクションを追加し、表示するリポジトリを自分で選べるようにしました。お気に入りはGitHub Mobileのピン留めと同期され、両方を合わせて最大25件まで登録できます。",
@@ -985,5 +994,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 110
+  "generatedCount": 111
 }
