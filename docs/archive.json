@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-27",
+      "category": "最近のGitHubアップデート",
+      "fact": "GitHubは2026年11月2日、GitHub Actionsが公開リポジトリでpull_request_targetイベントを既定でブロックする開始日を12月2日と案内しました。当初の予定は11月2日で、依存するワークフローはActionsイベントポリシーで明示的に許可できます。",
+      "joke": "ブロックされたので、ブロッコリーでも食べて落ち着こう。",
+      "sourceUrl": "https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7210143275",
+      "createdAt": "2026-11-27T04:50:54Z"
+    },
+    {
       "date": "2026-11-26",
       "category": "GitHub/Gitトリビア",
       "fact": "git merge --ff-only は、早送りでマージできる場合だけ成功し、できない場合は新しいマージコミットを作らずエラーで終了します。履歴を一直線に保ちたいときや、意図しないマージコミットを避けたいときに便利です。",
@@ -994,5 +1003,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 111
+  "generatedCount": 112
 }
