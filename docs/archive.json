@@ -3,6 +3,15 @@
   "state": "ready",
   "entries": [
     {
+      "date": "2026-11-28",
+      "category": "今日にまつわるIT史",
+      "fact": "コンピュータ歴史博物館の記録によると、1954年11月28日に、初期のFORTRANユーザープログラムの開発者の一人ハーバート・ブライト氏が67歳で亡くなりました。同氏は暗号によるデータ保護を推進し、AT&T研究所の研究技術者やACMの役員も務めました。",
+      "joke": "最初のエラーメッセージを生んだ人は、エラい人だ。",
+      "sourceUrl": "https://www.computerhistory.org/tdih/november/28/",
+      "commentUrl": "https://github.com/aktsmm/daily-dev-byte/issues/1#issuecomment-7234125109",
+      "createdAt": "2026-11-28T04:34:26Z"
+    },
+    {
       "date": "2026-11-27",
       "category": "最近のGitHubアップデート",
       "fact": "GitHubは2026年11月2日、GitHub Actionsが公開リポジトリでpull_request_targetイベントを既定でブロックする開始日を12月2日と案内しました。当初の予定は11月2日で、依存するワークフローはActionsイベントポリシーで明示的に許可できます。",
@@ -1003,5 +1012,5 @@
     }
   ],
   "invalidCount": 1,
-  "generatedCount": 112
+  "generatedCount": 113
 }
